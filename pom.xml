@@ -76,7 +76,7 @@
                 <configuration>
                     <programs>
                         <program>
-                            <mainClass>de.dc.display.DisplayServer</mainClass>
+                            <mainClass>de.dc.display.DisplayView</mainClass>
                             <id>display-server</id>
                             <platforms>
                                 <platform>unix</platform>
@@ -99,7 +99,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>de.dc.display.DisplayServer</mainClass>
+                            <mainClass>de.dc.display.DisplayView</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
