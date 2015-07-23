@@ -29,6 +29,20 @@
     <version>0.1.0-SNAPSHOT</version>
     <name>GenericDisplay</name>
 
+    <organization>
+        <name>DC</name>
+        <url>https://www.cit-ec.de/de/users/mpohling</url>
+    </organization>
+
+    <scm> 
+        <developerConnection>scm:git:https://github.com/DivineThreepwood/generic-display.git</developerConnection>
+        <url>https://github.com/DivineThreepwood/generic-display/</url>
+    </scm>
+    
+    <description>A generic display server and remote service based on java fx and rsb.</description>
+    
+    <packaging>jar</packaging>
+
     <licenses>
         <license>
             <name>GPLv3</name>
@@ -64,6 +78,13 @@
                         <program>
                             <mainClass>de.dc.display.DisplayServer</mainClass>
                             <id>display-server</id>
+                            <platforms>
+                                <platform>unix</platform>
+                            </platforms>
+                        </program>
+                        <program>
+                            <mainClass>de.dc.display.DisplayRemoteExample</mainClass>
+                            <id>display-test</id>
                             <platforms>
                                 <platform>unix</platform>
                             </platforms>
@@ -125,6 +146,32 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.4</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.10.3</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
 
@@ -143,9 +190,9 @@
 
     <developers>
         <developer>
-            <id>divine</id>
+            <id>Divine Threepwood</id>
             <name>Marian Pohling</name>
-            <email>mpohling@techfak.uni-bielefeld.de</email>
+            <email>DivineThreepwood@gmail.com</email>
             <url />
             <roles>
                 <role>architect</role>
@@ -154,20 +201,6 @@
             <timezone>+1</timezone>
         </developer>
     </developers>
-
-    <organization>
-        <name>DC</name>
-        <url>https://www.cit-ec.de/de/users/mpohling</url>
-    </organization>
-
-    <scm> 
-        <developerConnection>scm:git:https://github.com/DivineThreepwood/generic-display.git</developerConnection>
-        <url>https://github.com/DivineThreepwood/generic-display/</url>
-    </scm>
-    
-    <description>A generic display server and remote service based on java fx and rsb.</description>
-    
-    <packaging>jar</packaging>
     
     <dependencies>
         <dependency>

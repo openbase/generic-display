@@ -14,73 +14,104 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
+/**
+ * This file is part of GenericDisplay.
+ *
+ * GenericDisplay is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * GenericDisplay is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
+ */
 package de.dc.display;
 
 import de.citec.jps.core.JPService;
-import de.citec.jps.preset.JPVerbose;
-import de.citec.jul.exception.CouldNotPerformException;
-import de.citec.jul.extension.rsb.scope.jp.JPScope;
-import java.util.concurrent.ExecutionException;
-import rsb.Scope;
 
 /**
- *
+ * This is a example class which shows how to use the generic display remote. 
+ * 
  * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
  */
 public class DisplayRemoteExample {
 
+    public static final long DELAY = 3000;
+
     /**
      * @param args the command line arguments
+     * @throws java.lang.Exception
      */
-    public static void main(String[] args) throws CouldNotPerformException, InterruptedException, ExecutionException {
+    public static void main(String[] args) throws Exception {
+        
+        // Configure and parse command line properties
         JPService.setApplicationName("display-remote");
-        JPService.registerProperty(JPScope.class, new Scope("/home/display"));
-        JPService.registerProperty(JPVerbose.class, true);
+        JPService.registerProperty(JPGenericDisplayScope.class);
         JPService.parseAndExitOnError(args);
-
+        
+        // Init remote instance
         DisplayRemote remote = new DisplayRemote();
-        remote.init(JPService.getProperty(JPScope.class).getValue());
+        remote.init();
         remote.activate();
-
+        
+        // Some example calls in a loop.
         while (!Thread.interrupted()) {
+            
+            // Display URL example
             remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
-            Thread.sleep(10000);
-            remote.showHTMLContent("<html lang=\"de\">\n"
-                    + "    <head>\n"
-                    + "        <title>Datum und Zeit</title>\n"
-                    + "        <style>\n"
-                    + "        html, body {\n"
-                    + "            height: 100%;\n"
-                    + "            margin: 0;\n"
-                    + "            padding: 0;\n"
-                    + "            width: 100%;\n"
-                    + "            font-size: 300%;\n"
-                    + "            font-family: Helvetica, Arial, sans-serif;\n"
+            Thread.sleep(DELAY);
+            
+            // Display HTML content example
+            remote.showHTMLContent("<html lang=\"de\">"
+                    + "    <head>"
+                    + "        <title>Datum und Zeit</title>"
+                    + "        <style>"
+                    + "        html, body {"
+                    + "            height: 100%;"
+                    + "            margin: 0;"
+                    + "            padding: 0;"
+                    + "            width: 100%;"
+                    + "            font-size: 300%;"
+                    + "            font-family: Helvetica, Arial, sans-serif;"
                     + "            line-height: 150%;"
-                    + "        }\n"
-                    + "        body {\n"
-                    + "            display: table;\n"
-                    + "        }\n"
-                    + "        .block {\n"
-                    + "            text-align: center;\n"
-                    + "            display: table-cell;\n"
-                    + "            vertical-align: middle;\n"
-                    + "        }\n"
-                    + "        </style>\n"
-                    + "    </head>\n"
-                    + "    <body>\n"
-                    + "    <div class=\"block\">\n"
+                    + "        }"
+                    + "        body {"
+                    + "            display: table;"
+                    + "        }"
+                    + "        .block {"
+                    + "            text-align: center;"
+                    + "            display: table-cell;"
+                    + "            vertical-align: middle;"
+                    + "        }"
+                    + "        </style>"
+                    + "    </head>"
+                    + "    <body>"
+                    + "    <div class=\"block\">"
                     + "       <p id=\"dateAndTime\"></p>"
-                    + "    </div>\n"
+                    + "    </div>"
                     + "        <script type=\"text/javascript\">"
                     + "            var now = new Date();"
                     + "            document.getElementById('dateAndTime').innerHTML = now;"
                     + "        </script>"
-                    + "    </body>\n"
+                    + "    </body>"
                     + "</html>");
-            Thread.sleep(10000);
-            remote.showURL("http://www.postmedien.ch/wp-content/uploads/2014/08/Roboter-der-Zukunft-900x1600.jpg");
-            Thread.sleep(10000);
+            Thread.sleep(DELAY);
+            
+            // Display text example
+            remote.showText("Text");
+            Thread.sleep(DELAY);
+            
+            // Display warn text example
+            remote.showWarnText("Warn");
+            Thread.sleep(DELAY);
+            
+            // Display eroor text example
+            remote.showErrorText("Error");
+            Thread.sleep(DELAY);
+            
+            // Display info text example
+            remote.showInfoText("Info");
+            Thread.sleep(DELAY);
         }
     }
 }
