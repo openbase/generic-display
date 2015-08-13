@@ -27,6 +27,7 @@
  */
 package de.dc.display;
 
+import de.dc.jp.JPGenericDisplayScope;
 import de.citec.jps.core.JPService;
 import de.citec.jul.exception.CouldNotPerformException;
 import de.citec.jul.exception.InitializationException;
