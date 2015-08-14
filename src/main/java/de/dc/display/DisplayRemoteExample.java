@@ -46,7 +46,7 @@ public class DisplayRemoteExample {
     public static void main(String[] args) throws Exception {
         
         // Configure and parse command line properties
-        JPService.setApplicationName("display-remote");
+        JPService.setApplicationName("generic-display-test");
         JPService.registerProperty(JPGenericDisplayScope.class);
         JPService.parseAndExitOnError(args);
         

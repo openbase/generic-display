@@ -77,14 +77,21 @@
                     <programs>
                         <program>
                             <mainClass>de.dc.display.DisplayView</mainClass>
-                            <id>display-server</id>
+                            <id>generic-display-server</id>
+                            <platforms>
+                                <platform>unix</platform>
+                            </platforms>
+                        </program>
+                        <program>
+                            <mainClass>de.dc.display.DisplayRemoteSend</mainClass>
+                            <id>generic-display-send</id>
                             <platforms>
                                 <platform>unix</platform>
                             </platforms>
                         </program>
                         <program>
                             <mainClass>de.dc.display.DisplayRemoteExample</mainClass>
-                            <id>display-test</id>
+                            <id>generic-display-test</id>
                             <platforms>
                                 <platform>unix</platform>
                             </platforms>
