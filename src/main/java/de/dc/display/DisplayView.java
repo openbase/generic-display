@@ -19,7 +19,7 @@ package de.dc.display;
 import de.dc.jp.JPGenericDisplayScope;
 import de.citec.jps.core.JPService;
 import de.citec.jul.exception.CouldNotPerformException;
-import de.citec.jul.exception.ExceptionPrinter;
+import de.citec.jul.exception.printer.ExceptionPrinter;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -66,7 +66,7 @@ public class DisplayView extends Application implements DisplayInterface {
             server.init(JPService.getProperty(JPGenericDisplayScope.class).getValue());
             server.activate();
         } catch (CouldNotPerformException ex) {
-            ExceptionPrinter.printHistory(logger, ex);
+            ExceptionPrinter.printHistory(ex, logger);
         }
 
         try {
