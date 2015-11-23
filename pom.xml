@@ -190,7 +190,7 @@
     <properties>
         <skipTests>false</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <global.jul.version>0.4-SNAPSHOT</global.jul.version>
+        <global.jul.version>[0.4,0.5-SNAPSHOT)</global.jul.version>
     </properties>
 
     <developers>
