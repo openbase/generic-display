@@ -1,18 +1,13 @@
 /**
  * This file is part of GenericDisplay.
  *
- * GenericDisplay is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * GenericDisplay is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * GenericDisplay is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GenericDisplay is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
  */
 /**
  * This file is part of GenericDisplay.
@@ -27,12 +22,13 @@
  */
 package de.dc.display;
 
-import de.dc.jp.JPGenericDisplayScope;
 import de.citec.jps.core.JPService;
+import de.citec.jps.exception.JPServiceException;
 import de.citec.jul.exception.CouldNotPerformException;
 import de.citec.jul.exception.InitializationException;
-import de.citec.jul.extension.rsb.com.RSBRemoteService;
 import de.citec.jul.extension.rsb.com.RPCHelper;
+import de.citec.jul.extension.rsb.com.RSBRemoteService;
+import de.dc.jp.JPGenericDisplayScope;
 import java.util.concurrent.Future;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
@@ -56,10 +52,15 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
 
     /**
      * Init the remote with the default default scope.
-     * @throws InitializationException 
+     *
+     * @throws InitializationException
      */
     public void init() throws InitializationException {
-        super.init(JPService.getProperty(JPGenericDisplayScope.class).getValue());
+        try {
+            super.init(JPService.getProperty(JPGenericDisplayScope.class).getValue());
+        } catch (JPServiceException ex) {
+            throw new InitializationException(this, ex);
+        }
     }
 
     /**

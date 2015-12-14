@@ -1,25 +1,22 @@
 /**
  * This file is part of GenericDisplay.
  *
- * GenericDisplay is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * GenericDisplay is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
  *
- * GenericDisplay is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ * GenericDisplay is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU General Public License
- * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
+ * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
  */
 package de.dc.display;
 
-import de.dc.jp.JPGenericDisplayScope;
 import de.citec.jps.core.JPService;
+import de.citec.jps.exception.JPServiceException;
 import de.citec.jul.exception.CouldNotPerformException;
+import de.citec.jul.exception.InitializationException;
 import de.citec.jul.exception.printer.ExceptionPrinter;
+import de.dc.jp.JPGenericDisplayScope;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -28,9 +25,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
-import javafx.stage.Stage;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import javafx.stage.Stage;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -46,40 +43,42 @@ public class DisplayView extends Application implements DisplayInterface {
     private DisplayServer server;
     private WebEngine webEngine;
 
-    private void init(Stage primaryStage) throws InterruptedException {
-
-        WebView webView = new WebView();
-        primaryStage.setScene(new Scene(webView));
-        primaryStage.setFullScreen(true);
-        primaryStage.setAlwaysOnTop(true);
-
-        webEngine = webView.getEngine();
+    private void init(Stage primaryStage) throws InterruptedException, InitializationException {
 
         try {
-            showText("Starting server instance...");
-        } catch (CouldNotPerformException ex) {
-            Logger.getLogger(DisplayView.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            WebView webView = new WebView();
+            primaryStage.setScene(new Scene(webView));
+            primaryStage.setFullScreen(true);
+            primaryStage.setAlwaysOnTop(true);
 
-        try {
-            this.server = new DisplayServer(this);
-            server.init(JPService.getProperty(JPGenericDisplayScope.class).getValue());
-            server.activate();
-        } catch (CouldNotPerformException ex) {
-            ExceptionPrinter.printHistory(ex, logger);
-        }
+            webEngine = webView.getEngine();
 
-        try {
-            showText("Welcome");
+            try {
+                showText("Starting server instance...");
+            } catch (CouldNotPerformException ex) {
+                Logger.getLogger(DisplayView.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+            try {
+                this.server = new DisplayServer(this);
+                server.init(JPService.getProperty(JPGenericDisplayScope.class).getValue());
+                server.activate();
+            } catch (JPServiceException | CouldNotPerformException ex) {
+                throw new CouldNotPerformException("Could not load display server!", ex);
+            }
         } catch (CouldNotPerformException ex) {
-            Logger.getLogger(DisplayView.class.getName()).log(Level.SEVERE, null, ex);
+            throw new InitializationException(this, ex);
         }
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        init(primaryStage);
-        primaryStage.show();
+        try {
+            init(primaryStage);
+            primaryStage.show();
+        } catch (CouldNotPerformException ex) {
+            throw ExceptionPrinter.printHistoryAndReturnThrowable(new CouldNotPerformException("Could not start gui!", ex), logger);
+        }
     }
 
     private Future<Void> displayHTML(final String html) {
@@ -122,6 +121,7 @@ public class DisplayView extends Application implements DisplayInterface {
 
     /**
      * {@inheritDoc}
+     *
      * @param presetId
      * @throws de.citec.jul.exception.CouldNotPerformException
      */
@@ -132,6 +132,7 @@ public class DisplayView extends Application implements DisplayInterface {
 
     /**
      * {@inheritDoc}
+     *
      * @param presetId
      * @throws de.citec.jul.exception.CouldNotPerformException
      */
@@ -142,6 +143,7 @@ public class DisplayView extends Application implements DisplayInterface {
 
     /**
      * {@inheritDoc}
+     *
      * @param presetId
      * @throws de.citec.jul.exception.CouldNotPerformException
      */
@@ -152,6 +154,7 @@ public class DisplayView extends Application implements DisplayInterface {
 
     /**
      * {@inheritDoc}
+     *
      * @param presetId
      * @throws de.citec.jul.exception.CouldNotPerformException
      */
