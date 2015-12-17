@@ -14,21 +14,10 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-/**
- * This file is part of GenericDisplay.
- *
- * GenericDisplay is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * GenericDisplay is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
- */
 package de.dc.display;
 
 import de.dc.jp.JPGenericDisplayScope;
-import de.citec.jps.core.JPService;
+import org.dc.jps.core.JPService;
 
 /**
  * This is a example class which shows how to use the generic display remote. 

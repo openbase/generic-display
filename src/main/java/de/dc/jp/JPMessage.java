@@ -16,7 +16,7 @@
  */
 package de.dc.jp;
 
-import de.citec.jps.preset.AbstractJPString;
+import org.dc.jps.preset.AbstractJPString;
 
 /**
  *

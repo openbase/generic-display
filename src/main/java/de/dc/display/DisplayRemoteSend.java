@@ -17,7 +17,7 @@
 package de.dc.display;
 
 import de.dc.jp.JPGenericDisplayScope;
-import de.citec.jps.core.JPService;
+import org.dc.jps.core.JPService;
 import de.dc.jp.JPMessage;
 import de.dc.jp.JPMessageType;
 

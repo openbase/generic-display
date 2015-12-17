@@ -16,7 +16,7 @@
  */
 package de.dc.jp;
 
-import de.citec.jps.preset.AbstractJPEnum;
+import org.dc.jps.preset.AbstractJPEnum;
 import de.dc.jp.JPMessageType.MessageType;
 
 /**
