@@ -14,9 +14,9 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.display;
+package org.dc.display;
 
-import de.dc.jp.JPGenericDisplayScope;
+import org.dc.display.jp.JPGenericDisplayScope;
 import org.dc.jps.core.JPService;
 
 /**

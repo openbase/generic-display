@@ -25,9 +25,9 @@
  *
  * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.display;
+package org.dc.display;
 
-import de.citec.jul.exception.CouldNotPerformException;
+import org.dc.jul.exception.CouldNotPerformException;
 import java.util.concurrent.Future;
 
 /**

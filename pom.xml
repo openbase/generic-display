@@ -6,22 +6,38 @@
         <maven>3.1.1</maven>
     </prerequisites>
     
-    <groupId>de.dc</groupId>
+    <groupId>org.dc</groupId>
     <artifactId>generic-display</artifactId>
     <version>0.2-SNAPSHOT</version>
     <name>GenericDisplay</name>
 
     <organization>
-        <name>DC</name>
-        <url>https://ekvv.uni-bielefeld.de/pers_publ/publ/PersonDetail.jsp?personId=43957426</url>
+        <name>DivineCooperation</name>
+        <url>https://github.com/divinecooperation</url>
     </organization>
+    <developers>
+        <developer>
+            <id>DivineThreepwood</id>
+            <name>Marian Pohling</name>
+
+            <email>divinethreepwood@gmail.com</email>
+            <url>https://github.com/DivineThreepwood</url>
+            <organization>DivineCooperation</organization>
+            <organizationUrl>https://github.com/divinecooperation</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
 
     <scm> 
-        <developerConnection>scm:git:https://github.com/DivineThreepwood/generic-display.git</developerConnection>
-        <url>https://github.com/DivineThreepwood/generic-display/</url>
+        <developerConnection>scm:git:https://github.com/divinecooperation/generic-display.git</developerConnection>
+        <url>https://github.com/divinecooperation/generic-display/</url>
     </scm>
     
-    <description>A generic display server and remote service based on java fx and rsb.</description>
+    <description>A generic display server and remote based on java fx and the robot service bus.</description>
     
     <packaging>jar</packaging>
 
@@ -190,23 +206,9 @@
     <properties>
         <skipTests>false</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <global.jul.version>0.5-SNAPSHOT</global.jul.version>
+        <dependency.jul.version>[1.0,1.1-SNAPSHOT)</dependency.jul.version>
     </properties>
 
-    <developers>
-        <developer>
-            <id>Divine Threepwood</id>
-            <name>Marian Pohling</name>
-            <email>DivineThreepwood@gmail.com</email>
-            <url />
-            <roles>
-                <role>architect</role>
-                <role>developer</role>
-            </roles>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
-    
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -215,19 +217,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>de.citec</groupId>
+            <groupId>org.dc</groupId>
             <artifactId>jul.extension.rsb.interface</artifactId>
-            <version>${global.jul.version}</version>
+            <version>${dependency.jul.version}</version>
         </dependency>
         <dependency>
-            <groupId>de.citec</groupId>
+            <groupId>org.dc</groupId>
             <artifactId>jul.exception</artifactId>
-            <version>${global.jul.version}</version>
+            <version>${dependency.jul.version}</version>
         </dependency>
         <dependency>
-            <groupId>de.citec</groupId>
+            <groupId>org.dc</groupId>
             <artifactId>jul.extension.rsb.com</artifactId>
-            <version>${global.jul.version}</version>
+            <version>${dependency.jul.version}</version>
         </dependency>
     </dependencies>
 </project>

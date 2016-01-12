@@ -14,15 +14,15 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.display;
+package org.dc.display;
 
 import org.dc.jps.core.JPService;
 import org.dc.jps.exception.JPServiceException;
-import de.citec.jul.exception.CouldNotPerformException;
-import de.citec.jul.exception.InitializationException;
-import de.citec.jul.extension.rsb.com.RPCHelper;
-import de.citec.jul.extension.rsb.com.RSBRemoteService;
-import de.dc.jp.JPGenericDisplayScope;
+import org.dc.jul.exception.CouldNotPerformException;
+import org.dc.jul.exception.InitializationException;
+import org.dc.jul.extension.rsb.com.RPCHelper;
+import org.dc.jul.extension.rsb.com.RSBRemoteService;
+import org.dc.display.jp.JPGenericDisplayScope;
 import java.util.concurrent.Future;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;

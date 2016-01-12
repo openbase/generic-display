@@ -14,30 +14,36 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.jp;
+package org.dc.display.jp;
 
-import de.citec.jul.extension.rsb.scope.jp.JPScope;
-import rsb.Scope;
+import org.dc.jps.preset.AbstractJPEnum;
+import org.dc.display.jp.JPMessageType.MessageType;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPGenericDisplayScope extends JPScope {
-    public final static String[] COMMAND_IDENTIFIERS = {"--display-scope"};
+public class JPMessageType extends AbstractJPEnum<MessageType> {
 
-    
-	public JPGenericDisplayScope() {
-		super(COMMAND_IDENTIFIERS);
-	}
-    
-    @Override
-    protected Scope getPropertyDefaultValue() {
-        return new Scope("/home/display");
+    public enum MessageType {
+
+        UNKNOWN, STANDARD, INFO, ERROR, WARNING
+    };
+
+    public static final String[] COMMANDIDENTIFIER = {"-t", "--message-type"};
+
+    public JPMessageType() {
+        super(COMMANDIDENTIFIER);
     }
 
     @Override
-	public String getDescription() {
-		return "Defines the rsb scope of the generic display server instance.";
+    protected MessageType getPropertyDefaultValue() {
+        return MessageType.STANDARD;
     }
+
+    @Override
+    public String getDescription() {
+        return "Configures the type of a message.";
+    }
+
 }

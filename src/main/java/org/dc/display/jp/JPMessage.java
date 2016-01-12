@@ -14,36 +14,29 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.jp;
+package org.dc.display.jp;
 
-import org.dc.jps.preset.AbstractJPEnum;
-import de.dc.jp.JPMessageType.MessageType;
+import org.dc.jps.preset.AbstractJPString;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessageType extends AbstractJPEnum<MessageType> {
+public class JPMessage extends AbstractJPString {
 
-    public enum MessageType {
-
-        UNKNOWN, STANDARD, INFO, ERROR, WARNING
-    };
-
-    public static final String[] COMMANDIDENTIFIER = {"-t", "--message-type"};
-
-    public JPMessageType() {
+    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
+    
+    public JPMessage() {
         super(COMMANDIDENTIFIER);
     }
-
+    
     @Override
-    protected MessageType getPropertyDefaultValue() {
-        return MessageType.STANDARD;
+    protected String getPropertyDefaultValue() {
+        return "This is a test message!";
     }
 
     @Override
     public String getDescription() {
-        return "Configures the type of a message.";
+        return "Property can be used to specify any message to send.";
     }
-
 }

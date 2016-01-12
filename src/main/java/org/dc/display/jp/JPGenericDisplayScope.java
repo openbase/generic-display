@@ -14,29 +14,30 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.jp;
+package org.dc.display.jp;
 
-import org.dc.jps.preset.AbstractJPString;
+import org.dc.jul.extension.rsb.scope.jp.JPScope;
+import rsb.Scope;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessage extends AbstractJPString {
+public class JPGenericDisplayScope extends JPScope {
+    public final static String[] COMMAND_IDENTIFIERS = {"--display-scope"};
 
-    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
     
-    public JPMessage() {
-        super(COMMANDIDENTIFIER);
-    }
+	public JPGenericDisplayScope() {
+		super(COMMAND_IDENTIFIERS);
+	}
     
     @Override
-    protected String getPropertyDefaultValue() {
-        return "This is a test message!";
+    protected Scope getPropertyDefaultValue() {
+        return super.getPropertyDefaultValue().concat(new Scope("/home/display"));
     }
 
     @Override
-    public String getDescription() {
-        return "Property can be used to specify any message to send.";
+	public String getDescription() {
+		return "Defines the rsb scope of the generic display server instance.";
     }
 }

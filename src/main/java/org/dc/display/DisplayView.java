@@ -14,14 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
  */
-package de.dc.display;
+package org.dc.display;
 
 import org.dc.jps.core.JPService;
 import org.dc.jps.exception.JPServiceException;
-import de.citec.jul.exception.CouldNotPerformException;
-import de.citec.jul.exception.InitializationException;
-import de.citec.jul.exception.printer.ExceptionPrinter;
-import de.dc.jp.JPGenericDisplayScope;
+import org.dc.jul.exception.CouldNotPerformException;
+import org.dc.jul.exception.InitializationException;
+import org.dc.jul.exception.printer.ExceptionPrinter;
+import org.dc.display.jp.JPGenericDisplayScope;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Future;
 import java.util.logging.Level;
@@ -128,7 +128,7 @@ public class DisplayView extends Application implements DisplayInterface {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws de.citec.jul.exception.CouldNotPerformException
+     * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showInfoText(String presetId) throws CouldNotPerformException {
@@ -139,7 +139,7 @@ public class DisplayView extends Application implements DisplayInterface {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws de.citec.jul.exception.CouldNotPerformException
+     * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showWarnText(String presetId) throws CouldNotPerformException {
@@ -150,7 +150,7 @@ public class DisplayView extends Application implements DisplayInterface {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws de.citec.jul.exception.CouldNotPerformException
+     * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showErrorText(String presetId) throws CouldNotPerformException {
@@ -161,7 +161,7 @@ public class DisplayView extends Application implements DisplayInterface {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws de.citec.jul.exception.CouldNotPerformException
+     * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showText(String presetId) throws CouldNotPerformException {
