@@ -19,27 +19,28 @@
  */
 package org.dc.display.jp;
 
-import org.dc.jps.preset.AbstractJPString;
+import org.dc.jul.extension.rsb.scope.jp.JPScope;
+import rsb.Scope;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessage extends AbstractJPString {
+public class JPBroadcastDisplayScope extends JPScope {
 
-    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
+    public final static String[] COMMAND_IDENTIFIERS = {"--broadcast-scope"};
 
-    public JPMessage() {
-        super(COMMANDIDENTIFIER);
+    public JPBroadcastDisplayScope() {
+        super(COMMAND_IDENTIFIERS);
     }
 
     @Override
-    protected String getPropertyDefaultValue() {
-        return "This is a test message!";
+    protected Scope getPropertyDefaultValue() {
+        return super.getPropertyDefaultValue().concat(new Scope("/app/display/broadcast"));
     }
 
     @Override
     public String getDescription() {
-        return "Property can be used to specify any message to display.";
+        return "Defines the rsb scope of the generic display which is used for broadcast communication to reach all displays simultaneously.";
     }
 }

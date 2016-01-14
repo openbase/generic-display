@@ -1,40 +1,32 @@
 /**
+ * =============================================================================
+ *
  * This file is part of GenericDisplay.
  *
- * GenericDisplay is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
+ * org.dc.GenericDisplay is free software: you can redistribute it and modify
+ * it under the terms of the GNU General Public License (Version 3)
+ * as published by the Free Software Foundation.
  *
- * GenericDisplay is distributed in the hope that it will be useful,
+ * org.dc.GenericDisplay is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with GenericDisplay.  If not, see <http://www.gnu.org/licenses/>.
- */
-/**
- * This file is part of GenericDisplay.
+ * along with org.dc.GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
  *
- * GenericDisplay is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- *
- * GenericDisplay is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
- * General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along with GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
+ * =============================================================================
  */
 package org.dc.display;
 
-import org.dc.jul.exception.CouldNotPerformException;
 import java.util.concurrent.Future;
+import org.dc.jul.exception.CouldNotPerformException;
 
 /**
  *
  * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
  */
-public interface DisplayInterface {
+public interface Display {
 
     /**
      * Shows the given URL on the generic display.
@@ -53,15 +45,6 @@ public interface DisplayInterface {
      * @throws CouldNotPerformException
      */
     public Future<Void> showHTMLContent(String content) throws CouldNotPerformException;
-
-    /**
-     * NOT SUPPORTED YET!
-     *
-     * @param presetId
-     * @return
-     * @throws CouldNotPerformException
-     */
-    public Future<Void> showPreset(final String presetId) throws CouldNotPerformException;
 
     /**
      * Shows the given info text on the generic display.
@@ -99,4 +82,21 @@ public interface DisplayInterface {
      */
     public Future<Void> showText(final String text) throws CouldNotPerformException;
 
+    /**
+     * Shows the given image centralized on the generic display.
+     *
+     * @param image the image to display
+     * @return
+     * @throws CouldNotPerformException
+     */
+    public Future<Void> showImage(final String image) throws CouldNotPerformException;
+
+    /**
+     * Displays the server in foreground fullscreen mode or hides the overall window.
+     *
+     * @param visible
+     * @return
+     * @throws CouldNotPerformException
+     */
+    public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException;
 }

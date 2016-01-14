@@ -19,27 +19,28 @@
  */
 package org.dc.display.jp;
 
-import org.dc.jps.preset.AbstractJPString;
+import org.dc.jps.exception.JPNotAvailableException;
+import org.dc.jps.preset.AbstractJPInteger;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessage extends AbstractJPString {
+public class JPTabAmount extends AbstractJPInteger {
 
-    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
+    public static final String[] COMMANDIDENTIFIER = {"--tabs"};
 
-    public JPMessage() {
+    public JPTabAmount() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
-    protected String getPropertyDefaultValue() {
-        return "This is a test message!";
+    protected Integer getPropertyDefaultValue() throws JPNotAvailableException {
+        return 10;
     }
 
-    @Override
+       @Override
     public String getDescription() {
-        return "Property can be used to specify any message to display.";
+        return "Property defines the maximum amount of cached tabs which will created before recycling existing ones.";
     }
 }

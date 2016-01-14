@@ -19,27 +19,30 @@
  */
 package org.dc.display.jp;
 
-import org.dc.jps.preset.AbstractJPString;
+import org.dc.jps.exception.JPNotAvailableException;
+import org.dc.jps.preset.AbstractJPBoolean;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessage extends AbstractJPString {
+public class JPVisible extends AbstractJPBoolean {
 
-    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
+    public static final String[] COMMANDIDENTIFIER = {"--visible"};
 
-    public JPMessage() {
+    public JPVisible() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
-    protected String getPropertyDefaultValue() {
-        return "This is a test message!";
+    protected Boolean getPropertyDefaultValue() throws JPNotAvailableException {
+        return true;
     }
+
+
 
     @Override
     public String getDescription() {
-        return "Property can be used to specify any message to display.";
+        return "Property can be used to make the screen visible in fullscreen mode or hide the overall display.";
     }
 }

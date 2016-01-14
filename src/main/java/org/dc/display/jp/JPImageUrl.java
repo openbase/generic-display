@@ -25,21 +25,21 @@ import org.dc.jps.preset.AbstractJPString;
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessage extends AbstractJPString {
+public class JPImageUrl extends AbstractJPString {
 
-    public static final String[] COMMANDIDENTIFIER = {"-m", "--message"};
+    public static final String[] COMMANDIDENTIFIER = { "--image"};
 
-    public JPMessage() {
+    public JPImageUrl() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
     protected String getPropertyDefaultValue() {
-        return "This is a test message!";
+        return "NoImage";
     }
 
     @Override
     public String getDescription() {
-        return "Property can be used to specify any message to display.";
+        return "Property can be used to specify a image url to display.";
     }
 }
