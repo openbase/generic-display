@@ -1,0 +1,63 @@
+
+<!--
+=============================================================================
+
+This file is part of GenericDisplay.
+
+org.dc.GenericDisplay is free software: you can redistribute it and modify
+it under the terms of the GNU General Public License (Version 3)
+as published by the Free Software Foundation.
+
+org.dc.GenericDisplay is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with org.dc.GenericDisplay. If not, see <http://www.gnu.org/licenses/>.
+
+=============================================================================
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>${APP}</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                display: block;
+                background-color: black;
+                vertical-align: middle;
+                text-align: center;
+                padding: 0px;
+                border: none;
+                margin:  auto;
+            }
+            .global {
+                display: table-cell;
+                width: ${SCREEN_WIDTH}px;
+                height: ${SCREEN_HEIGHT}px;
+                vertical-align: middle;
+                text-align: center;
+            }
+            .image {
+                width: auto;
+                height: auto;
+                max-width: ${SCREEN_WIDTH}px;
+                max-height: ${SCREEN_HEIGHT}px;
+                margin: auto;
+            }
+
+        </style>
+
+    </head>
+    <body>
+        <div class="global">
+            <div>
+                <img src="${IMAGE}" alt="image" class="image">
+            </div>
+        </div>
+    </body>
+</html>

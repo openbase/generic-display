@@ -47,66 +47,64 @@ public class DisplayRemoteExample {
         remote.init();
         remote.activate();
 
-        remote.showURL("http://bvb:8020/dashboard/db/introspection");
-
         // Some example calls in a loop.
-//        while (!Thread.interrupted()) {
-//
-//            // Display URL example
-//            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
-//            Thread.sleep(DELAY);
-//
-//            // Display HTML content example
-//            remote.showHTMLContent("<html lang=\"de\">"
-//                    + "    <head>"
-//                    + "        <title>Datum und Zeit</title>"
-//                    + "        <style>"
-//                    + "        html, body {"
-//                    + "            height: 100%;"
-//                    + "            margin: 0;"
-//                    + "            padding: 0;"
-//                    + "            width: 100%;"
-//                    + "            font-size: 300%;"
-//                    + "            font-family: Helvetica, Arial, sans-serif;"
-//                    + "            line-height: 150%;"
-//                    + "        }"
-//                    + "        body {"
-//                    + "            display: table;"
-//                    + "        }"
-//                    + "        .block {"
-//                    + "            text-align: center;"
-//                    + "            display: table-cell;"
-//                    + "            vertical-align: middle;"
-//                    + "        }"
-//                    + "        </style>"
-//                    + "    </head>"
-//                    + "    <body>"
-//                    + "    <div class=\"block\">"
-//                    + "       <p id=\"dateAndTime\"></p>"
-//                    + "    </div>"
-//                    + "        <script type=\"text/javascript\">"
-//                    + "            var now = new Date();"
-//                    + "            document.getElementById('dateAndTime').innerHTML = now;"
-//                    + "        </script>"
-//                    + "    </body>"
-//                    + "</html>");
-//            Thread.sleep(DELAY);
-//
-//            // Display text example
-//            remote.showText("Text");
-//            Thread.sleep(DELAY);
-//
-//            // Display warn text example
-//            remote.showWarnText("Warn");
-//            Thread.sleep(DELAY);
-//
-//            // Display eroor text example
-//            remote.showErrorText("Error");
-//            Thread.sleep(DELAY);
-//
-//            // Display info text example
-//            remote.showInfoText("Info");
-//            Thread.sleep(DELAY);
-//        }
+        while (!Thread.interrupted()) {
+
+            // Display URL example
+            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
+            Thread.sleep(DELAY);
+
+            // Display HTML content example
+            remote.showHTMLContent("<html lang=\"de\">"
+                    + "    <head>"
+                    + "        <title>Datum und Zeit</title>"
+                    + "        <style>"
+                    + "        html, body {"
+                    + "            height: 100%;"
+                    + "            margin: 0;"
+                    + "            padding: 0;"
+                    + "            width: 100%;"
+                    + "            font-size: 300%;"
+                    + "            font-family: Helvetica, Arial, sans-serif;"
+                    + "            line-height: 150%;"
+                    + "        }"
+                    + "        body {"
+                    + "            display: table;"
+                    + "        }"
+                    + "        .block {"
+                    + "            text-align: center;"
+                    + "            display: table-cell;"
+                    + "            vertical-align: middle;"
+                    + "        }"
+                    + "        </style>"
+                    + "    </head>"
+                    + "    <body>"
+                    + "    <div class=\"block\">"
+                    + "       <p id=\"dateAndTime\"></p>"
+                    + "    </div>"
+                    + "        <script type=\"text/javascript\">"
+                    + "            var now = new Date();"
+                    + "            document.getElementById('dateAndTime').innerHTML = now;"
+                    + "        </script>"
+                    + "    </body>"
+                    + "</html>");
+            Thread.sleep(DELAY);
+
+            // Display text example
+            remote.showText("Text");
+            Thread.sleep(DELAY);
+
+            // Display warn text example
+            remote.showWarnText("Warn");
+            Thread.sleep(DELAY);
+
+            // Display eroor text example
+            remote.showErrorText("Error");
+            Thread.sleep(DELAY);
+
+            // Display info text example
+            remote.showInfoText("Info");
+            Thread.sleep(DELAY);
+        }
     }
 }
