@@ -27,8 +27,13 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -46,6 +51,7 @@ import org.dc.jps.core.JPService;
 import org.dc.jps.exception.JPServiceException;
 import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
+import org.dc.jul.exception.InstantiationException;
 import org.dc.jul.exception.NotAvailableException;
 import org.dc.jul.exception.printer.ExceptionPrinter;
 import org.slf4j.LoggerFactory;
@@ -66,24 +72,31 @@ public class DisplayView extends Application implements Display {
 
     private final HashMap<Integer, WebTab> webTabMap;
     private final ConcurrentLinkedQueue<WebTab> webTabUsageQueue;
+    private final HTMLLoader htmlLoader;
+    private final Pane cardsPane;
 
-    public DisplayView() {
-        this.webTabMap = new HashMap<>();
-        this.webTabUsageQueue = new ConcurrentLinkedQueue<>();
-
-        int tmpMaxTabAmount;
+    public DisplayView() throws InstantiationException {
         try {
-            tmpMaxTabAmount = JPService.getProperty(JPTabAmount.class).getValue();
-        } catch (JPServiceException ex) {
-            tmpMaxTabAmount = AMOUNT_OF_TAB_FALLBACK;
+            this.webTabMap = new HashMap<>();
+            this.webTabUsageQueue = new ConcurrentLinkedQueue<>();
+            this.htmlLoader = new HTMLLoader();
+            this.cardsPane = new StackPane();
+
+            int tmpMaxTabAmount;
+            try {
+                tmpMaxTabAmount = JPService.getProperty(JPTabAmount.class).getValue();
+            } catch (JPServiceException ex) {
+                tmpMaxTabAmount = AMOUNT_OF_TAB_FALLBACK;
+            }
+            this.maxTabAmount = tmpMaxTabAmount;
+        } catch (CouldNotPerformException ex) {
+            throw new InstantiationException(this, ex);
         }
-        this.maxTabAmount = tmpMaxTabAmount;
     }
 
     private void init(final Stage primaryStage) throws InterruptedException, InitializationException {
 
         Runtime.getRuntime().addShutdownHook(new Thread() {
-
             @Override
             public void run() {
                 Platform.exit();
@@ -95,6 +108,15 @@ public class DisplayView extends Application implements Display {
             Platform.setImplicitExit(false);
             primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             this.primaryStage = primaryStage;
+
+            
+            final Group card1 = new Group(new Text(25, 25, "Card 1"));
+            final Group card2 = new Group(new Text(25, 25, "Card 2"));
+
+            cardsPane.getChildren().clear();
+            cardsPane.getChildren().add(card1);
+
+            primaryStage.setScene(new Scene(cardsPane));
 
             try {
                 broadcastServer = new DisplayServer(this);
@@ -111,6 +133,7 @@ public class DisplayView extends Application implements Display {
             } catch (JPServiceException | CouldNotPerformException ex) {
                 throw new CouldNotPerformException("Could not load display server!", ex);
             }
+            this.htmlLoader.init(getScreen());
         } catch (CouldNotPerformException ex) {
             throw new InitializationException(this, ex);
         }
@@ -120,7 +143,7 @@ public class DisplayView extends Application implements Display {
     public void start(final Stage primaryStage) throws Exception {
         try {
             init(primaryStage);
-            showText("");
+            showText(" ");
 
             if (JPService.getProperty(JPVisible.class).getValue()) {
                 setVisible(true);
@@ -170,7 +193,7 @@ public class DisplayView extends Application implements Display {
 
                 webTabMap.put(contextHash, webTab);
             } else {
-                webTabMap.put(contextHash, new WebTab(contextHash, primaryStage));
+                webTabMap.put(contextHash, new WebTab(contextHash, cardsPane));
             }
         }
 
@@ -225,7 +248,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(HTMLGenerator.generateTextBox(presetId, Color.FORESTGREEN.darker()));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()));
     }
 
     /**
@@ -236,7 +259,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(HTMLGenerator.generateTextBox(presetId, Color.ORANGE));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE));
     }
 
     /**
@@ -247,7 +270,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(HTMLGenerator.generateTextBox(presetId, Color.RED.darker()));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()));
     }
 
     /**
@@ -258,7 +281,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(HTMLGenerator.generateTextBox(presetId, Color.BLACK));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK));
     }
 
     /**
@@ -269,7 +292,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showImage(final String image) throws CouldNotPerformException {
-        return displayHTML(HTMLGenerator.generateImageBox(image));
+        return displayHTML(htmlLoader.loadImageView(image));
     }
 
     /**
@@ -315,17 +338,17 @@ public class DisplayView extends Application implements Display {
 
             // select screen
             switch (display) {
-                case PRIMARY:
-                    return Screen.getPrimary();
-                case SECONDARY:
-                    for (Screen screen : Screen.getScreens()) {
-                        if (!screen.equals(Screen.getPrimary())) {
-                            return screen;
-                        }
+            case PRIMARY:
+                return Screen.getPrimary();
+            case SECONDARY:
+                for (Screen screen : Screen.getScreens()) {
+                    if (!screen.equals(Screen.getPrimary())) {
+                        return screen;
                     }
-                    throw new NotAvailableException(Screen.class, JPOutput.Display.SECONDARY.name());
-                default:
-                    return Screen.getScreens().get(display.getId());
+                }
+                throw new NotAvailableException(Screen.class, JPOutput.Display.SECONDARY.name());
+            default:
+                return Screen.getScreens().get(display.getId());
             }
         } catch (Exception ex) {
             ExceptionPrinter.printHistory(new CouldNotPerformException("Could not detect display! Use display 0 instead.", ex), logger);

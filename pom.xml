@@ -139,10 +139,8 @@
                     <excludes>
                         <exclude>**/LICENSE*</exclude>
                         <exclude>**/README*</exclude>
-                        <exclude>**/pom*</exclude>
-                        <exclude>**/nbactions.xml*</exclude>
-                        <!--<exclude>src/test/resources/**</exclude>-->
-                        <exclude>src/main/resources/**</exclude>
+                        <exclude>**/*.xml</exclude>
+                        <exclude>**/*.html</exclude>
                     </excludes>
                 </configuration>
                 <executions>
@@ -207,7 +205,7 @@
     <properties>
         <skipTests>false</skipTests>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dependency.jul.version>[1.0,1.1-SNAPSHOT)</dependency.jul.version>
+        <dependency.jul.version>[1.0,1.1-SNAPSHOT]</dependency.jul.version>
     </properties>
 
     <dependencies>

@@ -25,7 +25,9 @@ import java.net.CookieManager;
 import java.util.UUID;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebEvent;
@@ -35,6 +37,7 @@ import org.apache.commons.io.FileUtils;
 import static org.dc.display.DisplayView.logger;
 import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InvalidStateException;
+import org.dc.jul.exception.NotAvailableException;
 import org.dc.jul.exception.printer.ExceptionPrinter;
 
 /**
@@ -46,15 +49,16 @@ public class WebTab {
     private final WebView webView;
     private String content;
     private int contentHash;
-    private final Scene scene;
-    private final Stage primaryStage;
+    private final Pane mainPane;
+//    private final Group pane;
+//    private final Stage primaryStage;
     private final File userDirectory;
 
-    public WebTab(int contentHash, final Stage primaryStage) {
+    public WebTab(int contentHash, final Pane mainPane) {
         this.contentHash = contentHash;
-        this.primaryStage = primaryStage;
+        this.mainPane = mainPane;
         this.webView = newWebView();
-        this.scene = new Scene(webView);
+//        this.scene = new Scene(webView);
         this.userDirectory = new File(new File(FileUtils.getTempDirectory(), "generic-display"), UUID.randomUUID().toString());
         this.webView.getEngine().setUserDataDirectory(userDirectory);
     }
@@ -75,9 +79,9 @@ public class WebTab {
         return webView.getEngine();
     }
 
-    public Scene getScene() {
-        return scene;
-    }
+//    public Scene getScene() {
+//        return scene;
+//    }
 
     public void shutdown() {
         try {
@@ -108,13 +112,21 @@ public class WebTab {
      * {@link #load(String)}, this method is asynchronous.
      *
      * @param content
+     * @throws org.dc.jul.exception.CouldNotPerformException
      */
-    public void loadContent(final String content) {
-        if (!content.equals(this.content)) {
-            webView.getEngine().loadContent(content);
-            this.content = content;
+    public void loadContent(final String content) throws CouldNotPerformException {
+        try {
+            if (content == null) {
+                throw new NotAvailableException("Content");
+            }
+            if (!content.equals(this.content)) {
+                webView.getEngine().loadContent(content);
+                this.content = content;
+            }
+            displayTab();
+        } catch(CouldNotPerformException ex) {
+            throw new CouldNotPerformException("Could not load web content!", ex);
         }
-        displayTab();
     }
 
     /**
@@ -137,14 +149,16 @@ public class WebTab {
     }
 
     public void displayTab() {
-        if (primaryStage.getScene() != null && primaryStage.getScene().equals(scene)) {
-            return;
-        }
-        if (primaryStage.isFullScreen()) {
-            primaryStage.setScene(scene);
-            primaryStage.setFullScreen(false);
-            primaryStage.setFullScreen(true);
-        }
+//        if (primaryStage.getScene() != null && primaryStage.getScene().equals(scene)) {
+//            return;
+//        }
+//        if (primaryStage.isFullScreen()) {
+//            primaryStage.setScene(scene);
+//            primaryStage.setFullScreen(false);
+//            primaryStage.setFullScreen(true);
+//        }
+        mainPane.getChildren().clear();
+        mainPane.getChildren().add(webView);
     }
 
     private static WebView newWebView() {
