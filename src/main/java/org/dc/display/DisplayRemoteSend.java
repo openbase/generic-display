@@ -37,6 +37,7 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.printer.ExceptionPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import rsb.Scope;
 
 /**
  * This is a simple commandline remote to display text on a configured generic display.
@@ -111,7 +112,7 @@ public class DisplayRemoteSend {
 
         // Configure and parse command line properties
         JPService.setApplicationName("generic-display-send");
-        JPService.registerProperty(JPDisplayScope.class);
+        JPService.registerProperty(JPDisplayScope.class, new Scope("/app/display/broadcast"));
         JPService.registerProperty(JPBroadcastDisplayScope.class);
         JPService.registerProperty(JPMessage.class);
         JPService.registerProperty(JPUrl.class);
