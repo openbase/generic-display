@@ -26,7 +26,6 @@ import javafx.stage.Screen;
 import org.apache.commons.io.FileUtils;
 import org.dc.jps.core.JPService;
 import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InstantiationException;
 import org.dc.jul.exception.NotAvailableException;
 import org.dc.jul.processing.VariableProcessor;
 import org.dc.jul.processing.VariableStore;
@@ -39,8 +38,8 @@ public class HTMLLoader {
 
     public enum Template {
 
-        IMAGE_VIEW("template/html/ImageView.html"),
-        TEXT_VIEW("template/html/TextView.html");
+        IMAGE_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/ImageView.html"),
+        TEXT_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/TextView.html");
 
         private final File file;
 
@@ -64,7 +63,7 @@ public class HTMLLoader {
     public HTMLLoader() throws InstantiationException {
         try {
             this.variableStore = new VariableStore(HTMLLoader.class.getSimpleName());
-            
+
             //verify templates
             for(Template template : Template.values()) {
                 if(!template.getFile().exists()) {
