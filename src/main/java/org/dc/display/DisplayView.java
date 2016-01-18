@@ -27,8 +27,12 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -107,7 +111,25 @@ public class DisplayView extends Application implements Display {
             primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             this.primaryStage = primaryStage;
 
-            primaryStage.setScene(new Scene(cardsPane));
+            Scene scene = new Scene(cardsPane);
+
+            // configure hide key combination
+            final KeyCombination escapeKey = new KeyCodeCombination(KeyCode.ESCAPE);
+            scene.addEventHandler(KeyEvent.KEY_RELEASED, new EventHandler<KeyEvent>() {
+
+                @Override
+                public void handle(KeyEvent event) {
+                    if (escapeKey.match(event)) {
+                        try {
+                            setVisible(false);
+                        } catch (CouldNotPerformException ex) {
+                            ExceptionPrinter.printHistory(new CouldNotPerformException("Could not execute key event!", ex), logger);
+                        }
+                    }
+                }
+            });
+
+            primaryStage.setScene(scene);
 
             try {
                 broadcastServer = new DisplayServer(this);
@@ -329,17 +351,17 @@ public class DisplayView extends Application implements Display {
 
             // select screen
             switch (display) {
-            case PRIMARY:
-                return Screen.getPrimary();
-            case SECONDARY:
-                for (Screen screen : Screen.getScreens()) {
-                    if (!screen.equals(Screen.getPrimary())) {
-                        return screen;
+                case PRIMARY:
+                    return Screen.getPrimary();
+                case SECONDARY:
+                    for (Screen screen : Screen.getScreens()) {
+                        if (!screen.equals(Screen.getPrimary())) {
+                            return screen;
+                        }
                     }
-                }
-                throw new NotAvailableException(Screen.class, JPOutput.Display.SECONDARY.name());
-            default:
-                return Screen.getScreens().get(display.getId());
+                    throw new NotAvailableException(Screen.class, JPOutput.Display.SECONDARY.name());
+                default:
+                    return Screen.getScreens().get(display.getId());
             }
         } catch (Exception ex) {
             ExceptionPrinter.printHistory(new CouldNotPerformException("Could not detect display! Use display 0 instead.", ex), logger);

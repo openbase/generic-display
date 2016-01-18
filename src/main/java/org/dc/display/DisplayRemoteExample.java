@@ -133,6 +133,10 @@ public class DisplayRemoteExample {
             // Show UHD Image
             remote.showImage("http://orig09.deviantart.net/4343/f/2015/211/c/0/the_international_2015_banners_by_goldenhearted-d93eop6.jpg");
             Thread.sleep(DELAY*2);
+            
+            // Show UHD Image
+            remote.showImage("http://architektur.mapolismagazin.com/sites/default/files/null/porta-fira_6.jpg");
+            Thread.sleep(DELAY*2);
         }
 
         // Switch all displays off
