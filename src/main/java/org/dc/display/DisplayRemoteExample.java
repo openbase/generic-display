@@ -20,6 +20,7 @@
 package org.dc.display;
 
 import org.dc.display.jp.JPBroadcastDisplayScope;
+import org.dc.display.jp.JPDisplayScope;
 import org.dc.jps.core.JPService;
 
 /**
@@ -40,6 +41,7 @@ public class DisplayRemoteExample {
         // Configure and parse command line properties
         JPService.setApplicationName("generic-display-test");
         JPService.registerProperty(JPBroadcastDisplayScope.class);
+        JPService.registerProperty(JPDisplayScope.class, JPService.getProperty(JPBroadcastDisplayScope.class).getValue());
         JPService.parseAndExitOnError(args);
 
         // Init remote instance
@@ -47,64 +49,93 @@ public class DisplayRemoteExample {
         remote.init();
         remote.activate();
 
+        // Switch all displays on
+        remote.setVisible(true);
+
         // Some example calls in a loop.
         while (!Thread.interrupted()) {
 
-            // Display URL example
-            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
-            Thread.sleep(DELAY);
+//            // Display URL example
+//            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
+//            Thread.sleep(DELAY);
+//
+//            // Display HTML content example
+//            remote.showHTMLContent("<html lang=\"de\">"
+//                    + "    <head>"
+//                    + "        <title>Datum und Zeit</title>"
+//                    + "        <style>"
+//                    + "        html, body {"
+//                    + "            height: 100%;"
+//                    + "            margin: 0;"
+//                    + "            padding: 0;"
+//                    + "            width: 100%;"
+//                    + "            font-size: 300%;"
+//                    + "            font-family: Helvetica, Arial, sans-serif;"
+//                    + "            line-height: 150%;"
+//                    + "        }"
+//                    + "        body {"
+//                    + "            display: table;"
+//                    + "        }"
+//                    + "        .block {"
+//                    + "            text-align: center;"
+//                    + "            display: table-cell;"
+//                    + "            vertical-align: middle;"
+//                    + "        }"
+//                    + "        </style>"
+//                    + "    </head>"
+//                    + "    <body>"
+//                    + "    <div class=\"block\">"
+//                    + "       <p id=\"dateAndTime\"></p>"
+//                    + "    </div>"
+//                    + "        <script type=\"text/javascript\">"
+//                    + "            var now = new Date();"
+//                    + "            document.getElementById('dateAndTime').innerHTML = now;"
+//                    + "        </script>"
+//                    + "    </body>"
+//                    + "</html>");
+//            Thread.sleep(DELAY);
+//
+//            // Display text example
+//            remote.showText("Text");
+//            Thread.sleep(DELAY);
+//
+//            // Display warn text example
+//            remote.showWarnText("Warn");
+//            Thread.sleep(DELAY);
+//
+//            // Display eroor text example
+//            remote.showErrorText("Error");
+//            Thread.sleep(DELAY);
+//
+//            // Display info text example
+//            remote.showInfoText("Info");
+//            Thread.sleep(DELAY);
+//
+//            // Set visible false example
+//            remote.showWarnText("Disable display...");
+//            Thread.sleep(DELAY/3);
+//            remote.setVisible(false);
+//            Thread.sleep(DELAY);
+//
+//            // Set visible true example
+//            remote.showInfoText("Display enabled!");
+//            remote.setVisible(true);
+//            Thread.sleep(DELAY);
 
-            // Display HTML content example
-            remote.showHTMLContent("<html lang=\"de\">"
-                    + "    <head>"
-                    + "        <title>Datum und Zeit</title>"
-                    + "        <style>"
-                    + "        html, body {"
-                    + "            height: 100%;"
-                    + "            margin: 0;"
-                    + "            padding: 0;"
-                    + "            width: 100%;"
-                    + "            font-size: 300%;"
-                    + "            font-family: Helvetica, Arial, sans-serif;"
-                    + "            line-height: 150%;"
-                    + "        }"
-                    + "        body {"
-                    + "            display: table;"
-                    + "        }"
-                    + "        .block {"
-                    + "            text-align: center;"
-                    + "            display: table-cell;"
-                    + "            vertical-align: middle;"
-                    + "        }"
-                    + "        </style>"
-                    + "    </head>"
-                    + "    <body>"
-                    + "    <div class=\"block\">"
-                    + "       <p id=\"dateAndTime\"></p>"
-                    + "    </div>"
-                    + "        <script type=\"text/javascript\">"
-                    + "            var now = new Date();"
-                    + "            document.getElementById('dateAndTime').innerHTML = now;"
-                    + "        </script>"
-                    + "    </body>"
-                    + "</html>");
-            Thread.sleep(DELAY);
+            // Show UHD Image
+            remote.showImage("http://www.geckohomecinema.co.uk/wp-content/uploads/2014/06/UHD-resolution_201309231.jpg");
+            Thread.sleep(DELAY*2);
 
-            // Display text example
-            remote.showText("Text");
-            Thread.sleep(DELAY);
+            // Show UHD Image
+            remote.showImage("http://previews.123rf.com/images/mazirama/mazirama1408/mazirama140800293/30486102-UHD-User-Help-Desk-text-concept-on-green-digital-world-map-background--Stock-Photo.jpg");
+            Thread.sleep(DELAY*2);
 
-            // Display warn text example
-            remote.showWarnText("Warn");
-            Thread.sleep(DELAY);
-
-            // Display eroor text example
-            remote.showErrorText("Error");
-            Thread.sleep(DELAY);
-
-            // Display info text example
-            remote.showInfoText("Info");
-            Thread.sleep(DELAY);
+            // Show UHD Image
+            remote.showImage("http://orig09.deviantart.net/4343/f/2015/211/c/0/the_international_2015_banners_by_goldenhearted-d93eop6.jpg");
+            Thread.sleep(DELAY*2);
         }
+
+        // Switch all displays off
+        remote.setVisible(false);
     }
 }
