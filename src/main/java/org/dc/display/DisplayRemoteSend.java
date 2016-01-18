@@ -111,8 +111,8 @@ public class DisplayRemoteSend {
 
         // Configure and parse command line properties
         JPService.setApplicationName("generic-display-send");
-        JPService.registerProperty(JPDisplayScope.class);
         JPService.registerProperty(JPBroadcastDisplayScope.class);
+        JPService.registerProperty(JPDisplayScope.class, JPService.getProperty(JPBroadcastDisplayScope.class).getValue());
         JPService.registerProperty(JPMessage.class);
         JPService.registerProperty(JPUrl.class);
         JPService.registerProperty(JPImageUrl.class);

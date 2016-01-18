@@ -27,13 +27,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.FutureTask;
 import javafx.application.Application;
 import javafx.application.Platform;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
@@ -108,13 +106,6 @@ public class DisplayView extends Application implements Display {
             Platform.setImplicitExit(false);
             primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             this.primaryStage = primaryStage;
-
-            
-            final Group card1 = new Group(new Text(25, 25, "Card 1"));
-            final Group card2 = new Group(new Text(25, 25, "Card 2"));
-
-            cardsPane.getChildren().clear();
-            cardsPane.getChildren().add(card1);
 
             primaryStage.setScene(new Scene(cardsPane));
 

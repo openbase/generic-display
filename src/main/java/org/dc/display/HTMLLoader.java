@@ -19,15 +19,14 @@
  */
 package org.dc.display;
 
-import java.io.File;
 import java.io.IOException;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
-import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.dc.jps.core.JPService;
 import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InstantiationException;
-import org.dc.jul.exception.NotAvailableException;
+import org.dc.jul.exception.VerificationFailedException;
 import org.dc.jul.processing.VariableProcessor;
 import org.dc.jul.processing.VariableStore;
 
@@ -41,20 +40,38 @@ public class HTMLLoader {
 
         IMAGE_VIEW("template/html/ImageView.html"),
         TEXT_VIEW("template/html/TextView.html");
+//        IMAGE_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/ImageView.html"),
+//        TEXT_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/TextView.html");
 
-        private final File file;
+        private final String uri;
+        private String template;
 
         private Template(final String uri) {
-            this.file = new File(getClass().getClassLoader().getResource(uri).getFile());
+            this.uri = uri;
         }
 
-        public File getFile() {
-            return file;
+        public String getTemplate() throws CouldNotPerformException {
+            if (template == null) {
+                try {
+                    template = IOUtils.toString(ResourceStreamLoader.loadFileInputStream(uri), "UTF-8");
+                } catch (IOException ex) {
+                    throw new CouldNotPerformException("Could not load " + this + "!");
+                }
+            }
+            return template;
+        }
+
+        private void verify() throws VerificationFailedException {
+            try {
+                getTemplate();
+            } catch (CouldNotPerformException ex) {
+                throw new VerificationFailedException("Could not load " + this + "!");
+            }
         }
 
         @Override
         public String toString() {
-            return this.getClass().getSimpleName() + "[" + file.getAbsolutePath() + "]";
+            return this.getClass().getSimpleName() + "." + name() + "[" + uri + "]";
         }
 
     }
@@ -64,12 +81,10 @@ public class HTMLLoader {
     public HTMLLoader() throws InstantiationException {
         try {
             this.variableStore = new VariableStore(HTMLLoader.class.getSimpleName());
-            
+
             //verify templates
-            for(Template template : Template.values()) {
-                if(!template.getFile().exists()) {
-                    throw new NotAvailableException(Template.class, template.getFile().getAbsolutePath());
-                }
+            for (Template template : Template.values()) {
+                template.verify();
             }
         } catch (CouldNotPerformException ex) {
             throw new InstantiationException(this, ex);
@@ -86,7 +101,7 @@ public class HTMLLoader {
         try {
             variableStore.store("TEXT", text);
             variableStore.store("COLOR", "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + "," + (int) (color.getBlue() * 255) + ")");
-            return loadHTML(Template.TEXT_VIEW);
+            return buildContext(Template.TEXT_VIEW);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load TextView!", ex);
         }
@@ -95,19 +110,18 @@ public class HTMLLoader {
     public String loadImageView(String image) throws CouldNotPerformException {
         try {
             variableStore.store("IMAGE", image);
-            return loadHTML(Template.IMAGE_VIEW);
+            return buildContext(Template.IMAGE_VIEW);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load ImageView!", ex);
         }
 
     }
 
-    public String loadHTML(final Template template) throws CouldNotPerformException {
+    public String buildContext(final Template template) throws CouldNotPerformException {
         try {
-            String context = FileUtils.readFileToString(template.getFile());
-            return VariableProcessor.resolveVariables(context, true, variableStore);
-        } catch (IOException | CouldNotPerformException ex) {
-            throw new CouldNotPerformException("Could not load Template[" + template + "]", ex);
+            return VariableProcessor.resolveVariables(template.getTemplate(), true, variableStore);
+        } catch (CouldNotPerformException ex) {
+            throw new CouldNotPerformException("Could not build context out of Template[" + template + "]!", ex);
         }
     }
 }
