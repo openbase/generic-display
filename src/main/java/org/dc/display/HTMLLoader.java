@@ -26,6 +26,7 @@ import javafx.stage.Screen;
 import org.apache.commons.io.FileUtils;
 import org.dc.jps.core.JPService;
 import org.dc.jul.exception.CouldNotPerformException;
+import org.dc.jul.exception.InstantiationException;
 import org.dc.jul.exception.NotAvailableException;
 import org.dc.jul.processing.VariableProcessor;
 import org.dc.jul.processing.VariableStore;
