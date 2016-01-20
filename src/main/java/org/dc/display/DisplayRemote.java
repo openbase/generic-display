@@ -178,6 +178,76 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
+    public Future setURL(String url) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(url, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future setHTMLContent(String content) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(content, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setInfoText(String text) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(text, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setWarnText(String text) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(text, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setErrorText(String text) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(text, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setText(String text) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(text, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setImage(String image) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(image, this);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
     public Future<Void> setVisible(Boolean visible) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(visible, this);
     }
