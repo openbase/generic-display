@@ -25,14 +25,11 @@ import java.net.CookieManager;
 import java.util.UUID;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
-import javafx.stage.Stage;
 import org.apache.commons.io.FileUtils;
 import static org.dc.display.DisplayView.logger;
 import org.dc.jul.exception.CouldNotPerformException;
@@ -50,15 +47,12 @@ public class WebTab {
     private String content;
     private int contentHash;
     private final Pane mainPane;
-//    private final Group pane;
-//    private final Stage primaryStage;
     private final File userDirectory;
 
     public WebTab(int contentHash, final Pane mainPane) {
         this.contentHash = contentHash;
         this.mainPane = mainPane;
         this.webView = newWebView();
-//        this.scene = new Scene(webView);
         this.userDirectory = new File(new File(FileUtils.getTempDirectory(), "generic-display"), UUID.randomUUID().toString());
         this.webView.getEngine().setUserDataDirectory(userDirectory);
     }
@@ -78,10 +72,6 @@ public class WebTab {
     public WebEngine getEngine() {
         return webView.getEngine();
     }
-
-//    public Scene getScene() {
-//        return scene;
-//    }
 
     public void shutdown() {
         try {
@@ -124,7 +114,7 @@ public class WebTab {
                 this.content = content;
             }
             displayTab();
-        } catch(CouldNotPerformException ex) {
+        } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load web content!", ex);
         }
     }
@@ -149,14 +139,6 @@ public class WebTab {
     }
 
     public void displayTab() {
-//        if (primaryStage.getScene() != null && primaryStage.getScene().equals(scene)) {
-//            return;
-//        }
-//        if (primaryStage.isFullScreen()) {
-//            primaryStage.setScene(scene);
-//            primaryStage.setFullScreen(false);
-//            primaryStage.setFullScreen(true);
-//        }
         mainPane.getChildren().clear();
         mainPane.getChildren().add(webView);
     }
