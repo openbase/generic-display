@@ -10,11 +10,14 @@
     <artifactId>generic-display</artifactId>
     <version>0.4-SNAPSHOT</version>
     <name>GenericDisplay</name>
+    <inceptionYear>2015</inceptionYear>
+    <description>A generic display server and remote based on java fx and the robot service bus.</description>
 
     <organization>
         <name>DivineCooperation</name>
         <url>https://github.com/divinecooperation</url>
     </organization>
+    
     <developers>
         <developer>
             <id>DivineThreepwood</id>
@@ -34,10 +37,8 @@
 
     <scm> 
         <developerConnection>scm:git:https://github.com/divinecooperation/generic-display.git</developerConnection>
-        <url>https://github.com/divinecooperation/generic-display/</url>
+        <url>https://github.com/divinecooperation/generic-display/wiki</url>
     </scm>
-    
-    <description>A generic display server and remote based on java fx and the robot service bus.</description>
     
     <packaging>jar</packaging>
 
@@ -127,26 +128,31 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.mycila</groupId>
+                <groupId>org.codehaus.mojo</groupId>
                 <artifactId>license-maven-plugin</artifactId>
-                <version>2.11</version>
+                <version>1.8</version>
                 <configuration>
-                    <header>src/main/resources/header.txt</header>
-                    <properties>
-                        <owner>Divine Threepwood</owner>
-                        <email>DivineThreepwood@gmail.com</email>
-                    </properties>
-                    <excludes>
-                        <exclude>**/LICENSE*</exclude>
-                        <exclude>**/README*</exclude>
-                        <exclude>**/*.xml</exclude>
-                        <exclude>**/*.html</exclude>
-                    </excludes>
+                    <verbose>false</verbose>
                 </configuration>
                 <executions>
                     <execution>
+                        <id>first</id>
                         <goals>
-                            <goal>check</goal>
+                            <goal>update-file-header</goal>
+                        </goals>
+                        <phase>process-sources</phase>
+                        <configuration>
+                            <licenseName>gpl_v3</licenseName>
+                            <roots>
+                                <root>src/main/java</root>
+                                <root>src/test</root>
+                            </roots>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-licenses</id>
+                        <goals>
+                            <goal>download-licenses</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -203,7 +209,8 @@
     </repositories>
 
     <properties>
-        <skipTests>false</skipTests>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <dependency.jul.version>[1.0,1.1-SNAPSHOT]</dependency.jul.version>
     </properties>
