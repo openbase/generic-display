@@ -10,18 +10,17 @@ package org.dc.display;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 import java.util.concurrent.Future;
 import org.dc.display.jp.JPBroadcastDisplayScope;
 import org.dc.display.jp.JPDisplayScope;
@@ -31,16 +30,19 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
 import org.dc.jul.extension.rsb.com.RPCHelper;
 import org.dc.jul.extension.rsb.com.RSBRemoteService;
+import org.dc.jul.pattern.Remote;
+import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.homeautomation.unit.UnitConfigType.UnitConfig;
+import rst.rsb.ScopeType;
 
 /**
  * A remote to control a generic display server via rsb.
  *
  * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
  */
-public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
+public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display, Remote<ScopeType.Scope> {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
@@ -89,10 +91,20 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * Initializes the remote with the default scope.
      *
      * @throws InitializationException
+     * @throws java.lang.InterruptedException
      */
-    public void init() throws InitializationException {
+    public void init() throws InitializationException, InterruptedException {
         try {
-            super.init(JPService.getProperty(JPDisplayScope.class).getValue());
+            this.init(JPService.getProperty(JPDisplayScope.class).getValue());
+        } catch (JPServiceException ex) {
+            throw new InitializationException(this, ex);
+        }
+    }
+
+    @Override
+    public synchronized void init(final ScopeType.Scope scope, final ParticipantConfig participantConfig) throws InitializationException, InterruptedException {
+        try {
+            super.init(scope, participantConfig);
             if (broadcastDisplayRemote != null) {
                 broadcastDisplayRemote.init(JPService.getProperty(JPBroadcastDisplayScope.class).getValue());
             }
