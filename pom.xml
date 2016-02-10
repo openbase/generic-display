@@ -8,7 +8,7 @@
     
     <groupId>org.dc</groupId>
     <artifactId>generic-display</artifactId>
-    <version>0.3.7-SNAPSHOT</version>
+    <version>0.3.8-SNAPSHOT</version>
     <name>GenericDisplay</name>
     <inceptionYear>2015</inceptionYear>
     <description>A generic display server and remote based on java fx and the robot service bus.</description>
@@ -212,7 +212,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dependency.jul.version>1.1-SNAPSHOT</dependency.jul.version>
+        <dependency.jul.version>[1.0,1.1-SNAPSHOT)</dependency.jul.version>
     </properties>
 
     <dependencies>

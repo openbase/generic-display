@@ -30,8 +30,6 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
 import org.dc.jul.extension.rsb.com.RPCHelper;
 import org.dc.jul.extension.rsb.com.RSBRemoteService;
-import org.dc.jul.pattern.Remote;
-import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.homeautomation.unit.UnitConfigType.UnitConfig;
@@ -42,7 +40,7 @@ import rst.rsb.ScopeType;
  *
  * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
  */
-public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display, Remote<ScopeType.Scope> {
+public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
@@ -102,9 +100,9 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     }
 
     @Override
-    public synchronized void init(final ScopeType.Scope scope, final ParticipantConfig participantConfig) throws InitializationException, InterruptedException {
+    public synchronized void init(final ScopeType.Scope scope) throws InitializationException {
         try {
-            super.init(scope, participantConfig);
+            super.init(JPService.getProperty(JPDisplayScope.class).getValue());
             if (broadcastDisplayRemote != null) {
                 broadcastDisplayRemote.init(JPService.getProperty(JPBroadcastDisplayScope.class).getValue());
             }
