@@ -10,12 +10,12 @@ package org.dc.display;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -52,78 +52,84 @@ public class DisplayRemoteExample {
         remote.init();
         remote.activate();
 
-        // Switch all displays on
+        // Switch displays on
         remote.setVisible(true);
 
         // Some example calls in a loop.
         while (!Thread.interrupted()) {
 
-//            // Display URL example
-//            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
-//            Thread.sleep(DELAY);
-//
-//            // Display HTML content example
-//            remote.showHTMLContent("<html lang=\"de\">"
-//                    + "    <head>"
-//                    + "        <title>Datum und Zeit</title>"
-//                    + "        <style>"
-//                    + "        html, body {"
-//                    + "            height: 100%;"
-//                    + "            margin: 0;"
-//                    + "            padding: 0;"
-//                    + "            width: 100%;"
-//                    + "            font-size: 300%;"
-//                    + "            font-family: Helvetica, Arial, sans-serif;"
-//                    + "            line-height: 150%;"
-//                    + "        }"
-//                    + "        body {"
-//                    + "            display: table;"
-//                    + "        }"
-//                    + "        .block {"
-//                    + "            text-align: center;"
-//                    + "            display: table-cell;"
-//                    + "            vertical-align: middle;"
-//                    + "        }"
-//                    + "        </style>"
-//                    + "    </head>"
-//                    + "    <body>"
-//                    + "    <div class=\"block\">"
-//                    + "       <p id=\"dateAndTime\"></p>"
-//                    + "    </div>"
-//                    + "        <script type=\"text/javascript\">"
-//                    + "            var now = new Date();"
-//                    + "            document.getElementById('dateAndTime').innerHTML = now;"
-//                    + "        </script>"
-//                    + "    </body>"
-//                    + "</html>");
-//            Thread.sleep(DELAY);
-//
-//            // Display text example
-//            remote.showText("Text");
-//            Thread.sleep(DELAY);
-//
-//            // Display warn text example
-//            remote.showWarnText("Warn");
-//            Thread.sleep(DELAY);
-//
-//            // Display eroor text example
-//            remote.showErrorText("Error");
-//            Thread.sleep(DELAY);
-//
-//            // Display info text example
-//            remote.showInfoText("Info");
-//            Thread.sleep(DELAY);
-//
-//            // Set visible false example
-//            remote.showWarnText("Disable display...");
-//            Thread.sleep(DELAY/3);
-//            remote.setVisible(false);
-//            Thread.sleep(DELAY);
-//
-//            // Set visible true example
-//            remote.showInfoText("Display enabled!");
-//            remote.setVisible(true);
-//            Thread.sleep(DELAY);
+            // All following commands can be optinally send in broadcast mode to reach all displays simultaneously.
+            //
+            // e.g. remote.broadcast().setText("send to all instances.");
+
+            remote.broadcast().setText("send to all instances.");
+
+            // Display URL example
+            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
+            Thread.sleep(DELAY);
+
+            // Display HTML content example
+            remote.broadcast().showHTMLContent("<html lang=\"de\">"
+                    + "    <head>"
+                    + "        <title>Datum und Zeit</title>"
+                    + "        <style>"
+                    + "        html, body {"
+                    + "            height: 100%;"
+                    + "            margin: 0;"
+                    + "            padding: 0;"
+                    + "            width: 100%;"
+                    + "            font-size: 300%;"
+                    + "            font-family: Helvetica, Arial, sans-serif;"
+                    + "            line-height: 150%;"
+                    + "        }"
+                    + "        body {"
+                    + "            display: table;"
+                    + "        }"
+                    + "        .block {"
+                    + "            text-align: center;"
+                    + "            display: table-cell;"
+                    + "            vertical-align: middle;"
+                    + "        }"
+                    + "        </style>"
+                    + "    </head>"
+                    + "    <body>"
+                    + "    <div class=\"block\">"
+                    + "       <p id=\"dateAndTime\"></p>"
+                    + "    </div>"
+                    + "        <script type=\"text/javascript\">"
+                    + "            var now = new Date();"
+                    + "            document.getElementById('dateAndTime').innerHTML = now;"
+                    + "        </script>"
+                    + "    </body>"
+                    + "</html>");
+            Thread.sleep(DELAY);
+
+            // Display text example
+            remote.showText("Text");
+            Thread.sleep(DELAY);
+
+            // Display warn text example
+            remote.showWarnText("Warn");
+            Thread.sleep(DELAY);
+
+            // Display eroor text example
+            remote.showErrorText("Error");
+            Thread.sleep(DELAY);
+
+            // Display info text example
+            remote.showInfoText("Info");
+            Thread.sleep(DELAY);
+
+            // Set visible false example
+            remote.showWarnText("Disable display...");
+            Thread.sleep(DELAY/3);
+            remote.setVisible(false);
+            Thread.sleep(DELAY);
+
+            // Set visible true example
+            remote.showInfoText("Display enabled!");
+            remote.setVisible(true);
+            Thread.sleep(DELAY);
 
             // Show UHD Image
             remote.showImage("http://www.geckohomecinema.co.uk/wp-content/uploads/2014/06/UHD-resolution_201309231.jpg");
@@ -142,7 +148,7 @@ public class DisplayRemoteExample {
             Thread.sleep(DELAY*2);
         }
 
-        // Switch all displays off
+        // Switch displays off
         remote.setVisible(false);
     }
 }
