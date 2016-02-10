@@ -222,16 +222,22 @@ public class DisplayView extends Application implements Display {
         return webTab;
     }
 
-    private Future<Void> displayHTML(final String html) throws CouldNotPerformException {
+    private Future<Void> displayHTML(final String html, boolean show) throws CouldNotPerformException {
         return runTask(() -> {
             loadWebEngine(html).loadContent(html);
+            if (show) {
+                setVisible(show);
+            }
             return null;
         });
     }
 
-    private Future<Void> displayURL(final String url) throws CouldNotPerformException {
+    private Future<Void> displayURL(final String url, boolean show) throws CouldNotPerformException {
         return runTask(() -> {
             loadWebEngine(url).load(url);
+            if (show) {
+                setVisible(show);
+            }
             return null;
         });
     }
@@ -243,7 +249,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showURL(final String url) throws CouldNotPerformException {
-        return displayURL(url);
+        return displayURL(url, false);
     }
 
     /**
@@ -253,7 +259,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showHTMLContent(final String content) throws CouldNotPerformException {
-        return displayHTML(content);
+        return displayHTML(content, true);
     }
 
     /**
@@ -264,7 +270,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true);
     }
 
     /**
@@ -275,7 +281,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true);
     }
 
     /**
@@ -286,7 +292,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true);
     }
 
     /**
@@ -297,7 +303,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showText(final String presetId) throws CouldNotPerformException {
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK));
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true);
     }
 
     /**
@@ -308,7 +314,82 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showImage(final String image) throws CouldNotPerformException {
-        return displayHTML(htmlLoader.loadImageView(image));
+        return displayHTML(htmlLoader.loadImageView(image), true);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setURL(final String url) throws CouldNotPerformException {
+        return displayURL(url, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setHTMLContent(final String content) throws CouldNotPerformException {
+        return displayHTML(content, false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param presetId
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setInfoText(final String presetId) throws CouldNotPerformException {
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param presetId
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setWarnText(final String presetId) throws CouldNotPerformException {
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param presetId
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setErrorText(final String presetId) throws CouldNotPerformException {
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param presetId
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setText(final String presetId) throws CouldNotPerformException {
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param image
+     * @throws org.dc.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> setImage(final String image) throws CouldNotPerformException {
+        return displayHTML(htmlLoader.loadImageView(image), false);
     }
 
     /**
