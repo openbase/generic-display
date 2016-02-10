@@ -7,7 +7,7 @@
 ```xml
 <groupId>org.dc</groupId>
 <artifactId>generic-display</artifactId>
-<version>[0.4,0.5-SNAPSHOT)</version>
+<version>[0.3,0.4-SNAPSHOT)</version>
 ```
 
 ### Repository
