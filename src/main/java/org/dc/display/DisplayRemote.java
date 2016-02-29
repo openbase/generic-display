@@ -30,10 +30,11 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
 import org.dc.jul.extension.rsb.com.RPCHelper;
 import org.dc.jul.extension.rsb.com.RSBRemoteService;
+import rsb.Scope;
+import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.homeautomation.unit.UnitConfigType.UnitConfig;
-import rst.rsb.ScopeType;
 
 /**
  * A remote to control a generic display server via rsb.
@@ -100,9 +101,9 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     }
 
     @Override
-    public synchronized void init(final ScopeType.Scope scope) throws InitializationException {
+    public synchronized void init(final Scope scope, final ParticipantConfig participantConfig) throws InitializationException {
         try {
-            super.init(JPService.getProperty(JPDisplayScope.class).getValue());
+            super.init(scope, participantConfig);
             if (broadcastDisplayRemote != null) {
                 broadcastDisplayRemote.init(JPService.getProperty(JPBroadcastDisplayScope.class).getValue());
             }
