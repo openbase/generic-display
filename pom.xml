@@ -8,7 +8,7 @@
     
     <groupId>org.dc</groupId>
     <artifactId>generic-display</artifactId>
-    <version>0.3.9</version>
+    <version>0.3.10-SNAPSHOT</version>
     <name>GenericDisplay</name>
     <inceptionYear>2015</inceptionYear>
     <description>A generic display server and remote based on java fx and the robot service bus.</description>
