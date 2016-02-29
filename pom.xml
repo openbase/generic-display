@@ -13,6 +13,8 @@
     <inceptionYear>2015</inceptionYear>
     <description>A generic display server and remote based on java fx and the robot service bus.</description>
 
+    <url>https://github.com/divinecooperation/generic-display/wiki</url>
+
     <organization>
         <name>DivineCooperation</name>
         <url>https://github.com/divinecooperation</url>
