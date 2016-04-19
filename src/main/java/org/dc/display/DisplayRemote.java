@@ -123,7 +123,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future showURL(String url) throws CouldNotPerformException {
+    public Future<Void> showURL(String url) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(url, this);
     }
 
@@ -133,7 +133,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future showHTMLContent(String content) throws CouldNotPerformException {
+    public Future<Void> showHTMLContent(String content) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(content, this);
     }
 

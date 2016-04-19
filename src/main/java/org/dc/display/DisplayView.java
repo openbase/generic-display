@@ -465,7 +465,7 @@ public class DisplayView extends Application implements Display {
 
             if (Platform.isFxApplicationThread()) {
                 try {
-                    CompletableFuture.completedFuture(callable.call());
+                    return CompletableFuture.completedFuture(callable.call());
                 } catch (Exception ex) {
                     ExceptionPrinter.printHistory(new CouldNotPerformException("Could not perform task!", ex), logger);
                 }
