@@ -212,7 +212,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <dependency.jul.version>[1.1,1.2-SNAPSHOT)</dependency.jul.version>
+        <dependency.jul.version>[1.0,1.2-SNAPSHOT)</dependency.jul.version>
     </properties>
 
     <dependencies>
