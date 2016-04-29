@@ -10,12 +10,12 @@ package org.dc.display;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- *
+ * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * 
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
@@ -30,7 +30,6 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
 import org.dc.jul.extension.rsb.com.RPCHelper;
 import org.dc.jul.extension.rsb.com.RSBRemoteService;
-import org.dc.jul.pattern.Remote;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
@@ -40,9 +39,10 @@ import rst.rsb.ScopeType;
 /**
  * A remote to control a generic display server via rsb.
  *
- * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
+ * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine
+ * Threepwood</a>
  */
-public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display, Remote<ScopeType.Scope> {
+public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
