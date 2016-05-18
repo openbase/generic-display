@@ -203,13 +203,6 @@
         </pluginRepository>
     </pluginRepositories>
     
-    <repositories>
-        <repository>
-            <id>bone</id>
-            <url>http://bone.no-ip.biz:53538/nexus/content/repositories/releases/</url>
-        </repository>
-    </repositories>
-
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
