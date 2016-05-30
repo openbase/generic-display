@@ -30,7 +30,6 @@ import org.dc.jul.exception.CouldNotPerformException;
 import org.dc.jul.exception.InitializationException;
 import org.dc.jul.extension.rsb.com.RPCHelper;
 import org.dc.jul.extension.rsb.com.RSBRemoteService;
-import org.dc.jul.pattern.Remote;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
@@ -40,9 +39,10 @@ import rst.rsb.ScopeType;
 /**
  * A remote to control a generic display server via rsb.
  *
- * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
+ * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine
+ * Threepwood</a>
  */
-public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display, Remote<ScopeType.Scope> {
+public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
@@ -125,7 +125,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future showURL(String url) throws CouldNotPerformException {
+    public Future<Void> showURL(String url) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(url, this);
     }
 
@@ -135,7 +135,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future showHTMLContent(String content) throws CouldNotPerformException {
+    public Future<Void> showHTMLContent(String content) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(content, this);
     }
 

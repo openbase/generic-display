@@ -21,11 +21,11 @@ package org.dc.display;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 import java.io.File;
 import java.io.IOException;
 import java.net.CookieManager;
 import java.util.UUID;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
 import javafx.scene.layout.Pane;
@@ -112,11 +112,24 @@ public class WebTab {
             if (content == null) {
                 throw new NotAvailableException("Content");
             }
+
             if (!content.equals(this.content)) {
+                // load new content and display after loading content.
+                webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newValue) {
+                        if (newValue != Worker.State.SUCCEEDED) {
+                            return;
+                        }
+                        displayTab();
+                    }
+                });
                 webView.getEngine().loadContent(content);
                 this.content = content;
+            } else {
+                displayTab();
             }
-            displayTab();
+
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load web content!", ex);
         }
