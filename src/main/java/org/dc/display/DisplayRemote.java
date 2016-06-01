@@ -84,11 +84,6 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
         }
     }
 
-    @Override
-    public void notifyUpdated(UnitConfig data) throws CouldNotPerformException {
-
-    }
-
     /**
      * Initializes the remote with the default scope.
      *
@@ -126,7 +121,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showURL(String url) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(url, this);
+        return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
 
     /**
@@ -136,7 +131,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showHTMLContent(String content) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(content, this);
+        return RPCHelper.callRemoteMethod(content, this, Void.class);
     }
 
     /**
@@ -146,7 +141,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showInfoText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -156,7 +151,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showWarnText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -166,7 +161,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showErrorText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -176,7 +171,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -186,7 +181,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> showImage(String image) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(image, this);
+        return RPCHelper.callRemoteMethod(image, this, Void.class);
     }
 
     /**
@@ -195,18 +190,18 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future setURL(String url) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(url, this);
+    public Future<Void> setURL(String url) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
-
+    
     /**
      * {@inheritDoc}
      *
      * @throws org.dc.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future setHTMLContent(String content) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(content, this);
+    public Future<Void> setHTMLContent(String content) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(content, this, Void.class);
     }
 
     /**
@@ -216,7 +211,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setInfoText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -226,7 +221,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setWarnText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -236,7 +231,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setErrorText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -246,7 +241,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this);
+        return RPCHelper.callRemoteMethod(text, this, Void.class);
     }
 
     /**
@@ -256,7 +251,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setImage(String image) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(image, this);
+        return RPCHelper.callRemoteMethod(image, this, Void.class);
     }
 
     /**
@@ -266,7 +261,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      */
     @Override
     public Future<Void> setVisible(Boolean visible) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(visible, this);
+        return RPCHelper.callRemoteMethod(visible, this, Void.class);
     }
 
 }
