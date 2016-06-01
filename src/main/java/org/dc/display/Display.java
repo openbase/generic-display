@@ -36,8 +36,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param url the URL to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which represents the execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.on
      */
     public Future<Void> showURL(final String url) throws CouldNotPerformException;
 
@@ -46,8 +46,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param content
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showHTMLContent(String content) throws CouldNotPerformException;
 
@@ -56,8 +56,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showInfoText(final String text) throws CouldNotPerformException;
 
@@ -66,8 +66,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showWarnText(final String text) throws CouldNotPerformException;
 
@@ -76,8 +76,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showErrorText(final String text) throws CouldNotPerformException;
 
@@ -86,8 +86,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showText(final String text) throws CouldNotPerformException;
 
@@ -96,8 +96,8 @@ public interface Display {
      * Display will set to foreground if the panel is hided.
      *
      * @param image the image to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> showImage(final String image) throws CouldNotPerformException;
 
@@ -105,17 +105,17 @@ public interface Display {
      * Set the given URL on the generic display.
      *
      * @param url the URL to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setURL(final String url) throws CouldNotPerformException;
 
     /**
      * Set the given html content on the generic display.
      *
-     * @param content
-     * @return
-     * @throws CouldNotPerformException
+     * @param content the html string which will be displayed.
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setHTMLContent(String content) throws CouldNotPerformException;
 
@@ -123,8 +123,8 @@ public interface Display {
      * Set the given info text on the generic display.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setInfoText(final String text) throws CouldNotPerformException;
 
@@ -132,8 +132,8 @@ public interface Display {
      * Set the given warn text on the generic display.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setWarnText(final String text) throws CouldNotPerformException;
 
@@ -141,8 +141,8 @@ public interface Display {
      * Set the given error text on the generic display.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setErrorText(final String text) throws CouldNotPerformException;
 
@@ -150,8 +150,8 @@ public interface Display {
      * Set the given text on the generic display.
      *
      * @param text the text to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setText(final String text) throws CouldNotPerformException;
 
@@ -159,17 +159,17 @@ public interface Display {
      * Set the given image centralized on the generic display.
      *
      * @param image the image to display
-     * @return
-     * @throws CouldNotPerformException
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setImage(final String image) throws CouldNotPerformException;
 
     /**
      * Displays the server in foreground fullscreen mode or hides the overall window.
      *
-     * @param visible
-     * @return
-     * @throws CouldNotPerformException
+     * @param visible this flag defines the visibility. True means the display will be set visible and false hides the display.
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException;
 }
