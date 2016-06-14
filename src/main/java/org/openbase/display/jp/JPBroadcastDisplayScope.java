@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,49 +22,28 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.jps.preset.AbstractJPEnum;
+import org.openbase.jul.extension.rsb.scope.jp.JPScope;
+import rsb.Scope;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPOutput extends AbstractJPEnum<JPOutput.Display> {
+public class JPBroadcastDisplayScope extends JPScope {
 
-    public enum Display {
-        PRIMARY,
-        SECONDARY,
-        D0 (0),
-        D1 (1),
-        D2 (2),
-        D3 (3);
+    public final static String[] COMMAND_IDENTIFIERS = {"--broadcast-scope"};
 
-        private final int id;
-
-        private Display() {
-            this(-1);
-        }
-        private Display(final int id) {
-            this.id = id;
-        }
-
-        public int getId() {
-            return id;
-        }
-    }
-
-    public static final String[] COMMANDIDENTIFIER = { "--out"};
-
-    public JPOutput() {
-        super(COMMANDIDENTIFIER);
+    public JPBroadcastDisplayScope() {
+        super(COMMAND_IDENTIFIERS);
     }
 
     @Override
-    protected Display getPropertyDefaultValue() {
-        return Display.PRIMARY;
+    protected Scope getPropertyDefaultValue() {
+        return super.getPropertyDefaultValue().concat(new Scope("/app/display/broadcast"));
     }
 
     @Override
     public String getDescription() {
-        return "Property can be used to specify the output display with is used for fullscreen mode.";
+        return "Defines the rsb scope of the generic display which is used for broadcast communication to reach all displays simultaneously.";
     }
 }

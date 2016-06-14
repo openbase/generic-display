@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,11 +22,11 @@ package org.dc.display;
  * #L%
  */
 
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InstantiationException;
-import org.dc.jul.extension.rsb.com.RPCHelper;
-import org.dc.jul.extension.rsb.com.RSBCommunicationService;
-import org.dc.jul.extension.rsb.iface.RSBLocalServerInterface;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.InstantiationException;
+import org.openbase.jul.extension.rsb.com.RPCHelper;
+import org.openbase.jul.extension.rsb.com.RSBCommunicationService;
+import org.openbase.jul.extension.rsb.iface.RSBLocalServerInterface;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.homeautomation.unit.UnitConfigType;
@@ -53,7 +53,7 @@ public class DisplayServer extends RSBCommunicationService<UnitConfigType.UnitCo
      * {@inheritDoc}
      *
      * @param server
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public void registerMethods(final RSBLocalServerInterface server) throws CouldNotPerformException {

@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,34 +22,49 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.display.jp.JPMessageType.MessageType;
-import org.dc.jps.preset.AbstractJPEnum;
+import org.openbase.jps.preset.AbstractJPEnum;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPMessageType extends AbstractJPEnum<MessageType> {
+public class JPOutput extends AbstractJPEnum<JPOutput.Display> {
 
-    public enum MessageType {
+    public enum Display {
+        PRIMARY,
+        SECONDARY,
+        D0 (0),
+        D1 (1),
+        D2 (2),
+        D3 (3);
 
-        UNKNOWN, STANDARD, INFO, ERROR, WARNING
-    };
+        private final int id;
 
-    public static final String[] COMMANDIDENTIFIER = {"-t", "--message-type"};
+        private Display() {
+            this(-1);
+        }
+        private Display(final int id) {
+            this.id = id;
+        }
 
-    public JPMessageType() {
+        public int getId() {
+            return id;
+        }
+    }
+
+    public static final String[] COMMANDIDENTIFIER = { "--out"};
+
+    public JPOutput() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
-    protected MessageType getPropertyDefaultValue() {
-        return MessageType.STANDARD;
+    protected Display getPropertyDefaultValue() {
+        return Display.PRIMARY;
     }
 
     @Override
     public String getDescription() {
-        return "Configures the type of a message.";
+        return "Property can be used to specify the output display with is used for fullscreen mode.";
     }
-
 }

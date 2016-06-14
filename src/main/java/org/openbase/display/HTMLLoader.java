@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -26,12 +26,12 @@ import java.io.IOException;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import org.apache.commons.io.IOUtils;
-import org.dc.jps.core.JPService;
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InstantiationException;
-import org.dc.jul.exception.VerificationFailedException;
-import org.dc.jul.processing.VariableProcessor;
-import org.dc.jul.processing.VariableStore;
+import org.openbase.jps.core.JPService;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.InstantiationException;
+import org.openbase.jul.exception.VerificationFailedException;
+import org.openbase.jul.processing.VariableProcessor;
+import org.openbase.jul.processing.VariableStore;
 
 /**
  *

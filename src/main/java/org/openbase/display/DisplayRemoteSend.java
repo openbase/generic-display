@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -25,19 +25,19 @@ package org.dc.display;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import org.dc.display.jp.JPBroadcastDisplayScope;
-import org.dc.display.jp.JPDisplayScope;
-import org.dc.display.jp.JPImageUrl;
-import org.dc.display.jp.JPMessage;
-import org.dc.display.jp.JPMessageType;
-import org.dc.display.jp.JPOutput;
-import org.dc.display.jp.JPUrl;
-import org.dc.display.jp.JPVisible;
-import org.dc.jps.core.JPService;
-import org.dc.jps.exception.JPServiceException;
-import org.dc.jps.preset.JPHelp;
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.printer.ExceptionPrinter;
+import org.openbase.display.jp.JPBroadcastDisplayScope;
+import org.openbase.display.jp.JPDisplayScope;
+import org.openbase.display.jp.JPImageUrl;
+import org.openbase.display.jp.JPMessage;
+import org.openbase.display.jp.JPMessageType;
+import org.openbase.display.jp.JPOutput;
+import org.openbase.display.jp.JPUrl;
+import org.openbase.display.jp.JPVisible;
+import org.openbase.jps.core.JPService;
+import org.openbase.jps.exception.JPServiceException;
+import org.openbase.jps.preset.JPHelp;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.printer.ExceptionPrinter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

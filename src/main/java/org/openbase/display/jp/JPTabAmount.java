@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,28 +22,28 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.jul.extension.rsb.scope.jp.JPScope;
-import rsb.Scope;
+import org.openbase.jps.exception.JPNotAvailableException;
+import org.openbase.jps.preset.AbstractJPInteger;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPBroadcastDisplayScope extends JPScope {
+public class JPTabAmount extends AbstractJPInteger {
 
-    public final static String[] COMMAND_IDENTIFIERS = {"--broadcast-scope"};
+    public static final String[] COMMANDIDENTIFIER = {"--tabs"};
 
-    public JPBroadcastDisplayScope() {
-        super(COMMAND_IDENTIFIERS);
+    public JPTabAmount() {
+        super(COMMANDIDENTIFIER);
     }
 
     @Override
-    protected Scope getPropertyDefaultValue() {
-        return super.getPropertyDefaultValue().concat(new Scope("/app/display/broadcast"));
+    protected Integer getPropertyDefaultValue() throws JPNotAvailableException {
+        return 10;
     }
 
-    @Override
+       @Override
     public String getDescription() {
-        return "Defines the rsb scope of the generic display which is used for broadcast communication to reach all displays simultaneously.";
+        return "Property defines the maximum amount of cached tabs which will created before recycling existing ones.";
     }
 }

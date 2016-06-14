@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,9 +22,9 @@ package org.dc.display;
  * #L%
  */
 
-import org.dc.display.jp.JPBroadcastDisplayScope;
-import org.dc.display.jp.JPDisplayScope;
-import org.dc.jps.core.JPService;
+import org.openbase.display.jp.JPBroadcastDisplayScope;
+import org.openbase.display.jp.JPDisplayScope;
+import org.openbase.jps.core.JPService;
 
 /**
  * This is a example class which shows how to use the generic display remote.

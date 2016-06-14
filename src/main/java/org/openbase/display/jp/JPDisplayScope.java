@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,7 +22,7 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.jul.extension.rsb.scope.jp.JPScope;
+import org.openbase.jul.extension.rsb.scope.jp.JPScope;
 import rsb.Scope;
 
 /**

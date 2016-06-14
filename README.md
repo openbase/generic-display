@@ -5,7 +5,7 @@
 ### Artifact
 
 ```xml
-<groupId>org.dc</groupId>
+<groupId>org.openbase</groupId>
 <artifactId>generic-display</artifactId>
 <version>[0.3,0.4-SNAPSHOT)</version>
 ```
@@ -24,7 +24,7 @@
 
 Download source from github
 
-`git clone https://github.com/divinecooperation/generic-display.git`
+`git clone https://github.com/openbase/generic-display.git`
 
 and build the source via maven
 
@@ -49,7 +49,7 @@ Start the server and open the view by executing
 // Display text example
         remote.showText("Hello World");
 ```
-For a more detail java example have a look at the [DisplayRemoteExample](https://github.com/divinecooperation/generic-display/tree/master/src/main/java/org/dc/display/DisplayRemoteExample.java) class.
+For a more detail java example have a look at the [DisplayRemoteExample](https://github.com/openbase/generic-display/tree/master/src/main/java/org/dc/display/DisplayRemoteExample.java) class.
 
 
 The example code can executed with the following command

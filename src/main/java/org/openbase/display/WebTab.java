@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -34,11 +34,11 @@ import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
-import static org.dc.display.DisplayView.logger;
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InvalidStateException;
-import org.dc.jul.exception.NotAvailableException;
-import org.dc.jul.exception.printer.ExceptionPrinter;
+import static org.openbase.display.DisplayView.logger;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.InvalidStateException;
+import org.openbase.jul.exception.NotAvailableException;
+import org.openbase.jul.exception.printer.ExceptionPrinter;
 
 /**
  *
@@ -105,7 +105,7 @@ public class WebTab {
      * {@link #load(String)}, this method is asynchronous.
      *
      * @param content
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     public void loadContent(final String content) throws CouldNotPerformException {
         try {

@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,14 +22,14 @@ package org.dc.display;
  * #L%
  */
 import java.util.concurrent.Future;
-import org.dc.display.jp.JPBroadcastDisplayScope;
-import org.dc.display.jp.JPDisplayScope;
-import org.dc.jps.core.JPService;
-import org.dc.jps.exception.JPServiceException;
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InitializationException;
-import org.dc.jul.extension.rsb.com.RPCHelper;
-import org.dc.jul.extension.rsb.com.RSBRemoteService;
+import org.openbase.display.jp.JPBroadcastDisplayScope;
+import org.openbase.display.jp.JPDisplayScope;
+import org.openbase.jps.core.JPService;
+import org.openbase.jps.exception.JPServiceException;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.InitializationException;
+import org.openbase.jul.extension.rsb.com.RPCHelper;
+import org.openbase.jul.extension.rsb.com.RSBRemoteService;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
@@ -117,7 +117,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showURL(String url) throws CouldNotPerformException {
@@ -127,7 +127,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showHTMLContent(String content) throws CouldNotPerformException {
@@ -137,7 +137,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showInfoText(String text) throws CouldNotPerformException {
@@ -147,7 +147,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showWarnText(String text) throws CouldNotPerformException {
@@ -157,7 +157,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showErrorText(String text) throws CouldNotPerformException {
@@ -167,7 +167,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showText(String text) throws CouldNotPerformException {
@@ -177,7 +177,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showImage(String image) throws CouldNotPerformException {
@@ -187,7 +187,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setURL(String url) throws CouldNotPerformException {
@@ -197,7 +197,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setHTMLContent(String content) throws CouldNotPerformException {
@@ -207,7 +207,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setInfoText(String text) throws CouldNotPerformException {
@@ -217,7 +217,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setWarnText(String text) throws CouldNotPerformException {
@@ -227,7 +227,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setErrorText(String text) throws CouldNotPerformException {
@@ -237,7 +237,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setText(String text) throws CouldNotPerformException {
@@ -247,7 +247,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setImage(String image) throws CouldNotPerformException {
@@ -257,7 +257,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setVisible(Boolean visible) throws CouldNotPerformException {

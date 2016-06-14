@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,28 +22,34 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.jps.exception.JPNotAvailableException;
-import org.dc.jps.preset.AbstractJPInteger;
+import org.openbase.display.jp.JPMessageType.MessageType;
+import org.openbase.jps.preset.AbstractJPEnum;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPTabAmount extends AbstractJPInteger {
+public class JPMessageType extends AbstractJPEnum<MessageType> {
 
-    public static final String[] COMMANDIDENTIFIER = {"--tabs"};
+    public enum MessageType {
 
-    public JPTabAmount() {
+        UNKNOWN, STANDARD, INFO, ERROR, WARNING
+    };
+
+    public static final String[] COMMANDIDENTIFIER = {"-t", "--message-type"};
+
+    public JPMessageType() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
-    protected Integer getPropertyDefaultValue() throws JPNotAvailableException {
-        return 10;
+    protected MessageType getPropertyDefaultValue() {
+        return MessageType.STANDARD;
     }
 
-       @Override
+    @Override
     public String getDescription() {
-        return "Property defines the maximum amount of cached tabs which will created before recycling existing ones.";
+        return "Configures the type of a message.";
     }
+
 }

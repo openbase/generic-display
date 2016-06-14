@@ -1,10 +1,10 @@
-package org.dc.display.jp;
+package org.openbase.display.jp;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -22,27 +22,27 @@ package org.dc.display.jp;
  * #L%
  */
 
-import org.dc.jps.preset.AbstractJPString;
+import org.openbase.jps.preset.AbstractJPString;
 
 /**
  *
  * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
  */
-public class JPUrl extends AbstractJPString {
+public class JPImageUrl extends AbstractJPString {
 
-    public static final String[] COMMANDIDENTIFIER = { "--url"};
+    public static final String[] COMMANDIDENTIFIER = { "--image"};
 
-    public JPUrl() {
+    public JPImageUrl() {
         super(COMMANDIDENTIFIER);
     }
 
     @Override
     protected String getPropertyDefaultValue() {
-        return "www.google.de";
+        return "NoImage";
     }
 
     @Override
     public String getDescription() {
-        return "Property can be used to specify url to display.";
+        return "Property can be used to specify a image url to display.";
     }
 }

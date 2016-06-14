@@ -1,10 +1,10 @@
-package org.dc.display;
+package org.openbase.display;
 
 /*
  * #%L
  * GenericDisplay
  * %%
- * Copyright (C) 2015 - 2016 DivineCooperation
+ * Copyright (C) 2015 - 2016 openbase.org
  * %%
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as
@@ -42,23 +42,23 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import static org.dc.display.DisplayRemoteSend.handleProperties;
-import org.dc.display.jp.JPBroadcastDisplayScope;
-import org.dc.display.jp.JPDisplayScope;
-import org.dc.display.jp.JPImageUrl;
-import org.dc.display.jp.JPMessage;
-import org.dc.display.jp.JPMessageType;
-import org.dc.display.jp.JPOutput;
-import org.dc.display.jp.JPTabAmount;
-import org.dc.display.jp.JPUrl;
-import org.dc.display.jp.JPVisible;
-import org.dc.jps.core.JPService;
-import org.dc.jps.exception.JPServiceException;
-import org.dc.jul.exception.CouldNotPerformException;
-import org.dc.jul.exception.InitializationException;
-import org.dc.jul.exception.InstantiationException;
-import org.dc.jul.exception.NotAvailableException;
-import org.dc.jul.exception.printer.ExceptionPrinter;
+import static org.openbase.display.DisplayRemoteSend.handleProperties;
+import org.openbase.display.jp.JPBroadcastDisplayScope;
+import org.openbase.display.jp.JPDisplayScope;
+import org.openbase.display.jp.JPImageUrl;
+import org.openbase.display.jp.JPMessage;
+import org.openbase.display.jp.JPMessageType;
+import org.openbase.display.jp.JPOutput;
+import org.openbase.display.jp.JPTabAmount;
+import org.openbase.display.jp.JPUrl;
+import org.openbase.display.jp.JPVisible;
+import org.openbase.jps.core.JPService;
+import org.openbase.jps.exception.JPServiceException;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.exception.InitializationException;
+import org.openbase.jul.exception.InstantiationException;
+import org.openbase.jul.exception.NotAvailableException;
+import org.openbase.jul.exception.printer.ExceptionPrinter;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -245,7 +245,7 @@ public class DisplayView extends Application implements Display {
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showURL(final String url) throws CouldNotPerformException {
@@ -255,7 +255,7 @@ public class DisplayView extends Application implements Display {
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showHTMLContent(final String content) throws CouldNotPerformException {
@@ -266,7 +266,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
@@ -277,7 +277,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
@@ -288,7 +288,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
@@ -299,7 +299,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showText(final String presetId) throws CouldNotPerformException {
@@ -310,7 +310,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param image
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> showImage(final String image) throws CouldNotPerformException {
@@ -320,7 +320,7 @@ public class DisplayView extends Application implements Display {
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setURL(final String url) throws CouldNotPerformException {
@@ -330,7 +330,7 @@ public class DisplayView extends Application implements Display {
     /**
      * {@inheritDoc}
      *
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setHTMLContent(final String content) throws CouldNotPerformException {
@@ -341,7 +341,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setInfoText(final String presetId) throws CouldNotPerformException {
@@ -352,7 +352,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setWarnText(final String presetId) throws CouldNotPerformException {
@@ -363,7 +363,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setErrorText(final String presetId) throws CouldNotPerformException {
@@ -374,7 +374,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param presetId
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setText(final String presetId) throws CouldNotPerformException {
@@ -385,7 +385,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param image
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setImage(final String image) throws CouldNotPerformException {
@@ -396,7 +396,7 @@ public class DisplayView extends Application implements Display {
      * {@inheritDoc}
      *
      * @param visible
-     * @throws org.dc.jul.exception.CouldNotPerformException
+     * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
     public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException {
