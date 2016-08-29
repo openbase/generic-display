@@ -1,5 +1,10 @@
 language: java
 
+branches:
+  only:
+  - master
+  - latest-stable
+
 jdk:
   - oraclejdk8
 
@@ -11,7 +16,7 @@ before_install:
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 
 notifications:
-    slack: openbase-org:$SLACK_ACCESS_TOCKEN
+    slack: openbase-org:vGz7LO4CvGoGMneYkEm3ON7E
     on_failure: change
     on_success: change	
 
