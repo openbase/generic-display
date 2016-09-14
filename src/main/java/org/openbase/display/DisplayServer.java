@@ -26,11 +26,11 @@ import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.extension.rsb.com.RPCHelper;
 import org.openbase.jul.extension.rsb.com.RSBCommunicationService;
-import org.openbase.jul.extension.rsb.iface.RSBLocalServerInterface;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.homeautomation.unit.UnitConfigType;
 import rst.homeautomation.unit.UnitConfigType.UnitConfig;
+import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
 
 /**
  *
@@ -56,7 +56,7 @@ public class DisplayServer extends RSBCommunicationService<UnitConfigType.UnitCo
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public void registerMethods(final RSBLocalServerInterface server) throws CouldNotPerformException {
+    public void registerMethods(final RSBLocalServer server) throws CouldNotPerformException {
         RPCHelper.registerInterface(Display.class, display, server);
     }
 }
