@@ -27,7 +27,7 @@ import org.openbase.jps.preset.AbstractJPEnum;
 
 /**
  *
- * @author <a href="mailto:mpohling@cit-ec.uni-bielefeld.de">Divine Threepwood</a>
+ * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
 public class JPMessageType extends AbstractJPEnum<MessageType> {
 

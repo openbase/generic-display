@@ -29,7 +29,7 @@ import org.openbase.jps.core.JPService;
 /**
  * This is a example class which shows how to use the generic display remote.
  *
- * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
+ * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
 public class DisplayRemoteExample {
 

@@ -34,7 +34,7 @@ import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
 
 /**
  *
- * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine Threepwood</a>
+ * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
 public class DisplayServer extends RSBCommunicationService<UnitConfigType.UnitConfig, UnitConfigType.UnitConfig.Builder> {
 
