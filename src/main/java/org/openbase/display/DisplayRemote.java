@@ -39,8 +39,8 @@ import rst.rsb.ScopeType;
 /**
  * A remote to control a generic display server via rsb.
  *
- * @author * @author <a href="mailto:DivineThreepwood@gmail.com">Divine
- * Threepwood</a>
+ * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
+ *
  */
 public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
 
