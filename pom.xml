@@ -44,9 +44,9 @@
     <packaging>jar</packaging>
 
     <scm>
-        <connection>scm:git:git@github.com/openbase/generic-display.git</connection>
-        <developerConnection>scm:git:git@github.com/openbase/generic-display.git</developerConnection>
-        <url>git@github.com/openbase/generic-display.git</url>
+        <connection>scm:git:https://github.com/openbase/generic-display.git</connection>
+        <developerConnection>scm:git:https://github.com/openbase/generic-display.git</developerConnection>
+        <url>https://github.com/openbase/generic-display.git</url>
     </scm>
 
     <build>
