@@ -1,9 +1,9 @@
 language: java
 
 branches:
-  only:
-  - master
-  - latest-stable
+  except:
+  - /^(?i:feature)-.*$/
+  - /^(?i:release)-.*$/
 
 jdk:
   - oraclejdk8
