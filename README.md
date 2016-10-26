@@ -10,16 +10,6 @@
 <version>[0.3,0.4-SNAPSHOT)</version>
 ```
 
-### Repository
-```xml
-<repositories>
-    <repository>
-        <id>bone</id>
-        <url>http://bone.no-ip.biz:53538/nexus/content/repositories/releases/</url>
-    </repository>
-</repositories>
-```
-
 ## How to install
 
 Download source from github
@@ -45,11 +35,12 @@ Start the server and open the view by executing
         DisplayRemote remote = new DisplayRemote();
         remote.init();
         remote.activate();
+        remote.waitForData();
 
 // Display text example
         remote.showText("Hello World");
 ```
-For a more detail java example have a look at the [DisplayRemoteExample](https://github.com/openbase/generic-display/tree/master/src/main/java/org/dc/display/DisplayRemoteExample.java) class.
+For a more detail java example have a look at the [DisplayRemoteExample](https://github.com/openbase/generic-display/tree/master/src/main/java/org/openbase/display/DisplayRemoteExample.java) class.
 
 
 The example code can executed with the following command
