@@ -132,7 +132,7 @@
                 <artifactId>license-maven-plugin</artifactId>
                 <version>1.10</version>
                 <configuration>
-                    <verbose>true</verbose>
+                    <verbose>false</verbose>
                     <licenseName>gpl_v3</licenseName>
                     <failOnMissingHeader>true</failOnMissingHeader>
                     <failOnNotUptodateHeader>true</failOnNotUptodateHeader>
