@@ -21,9 +21,9 @@ package org.openbase.display;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 import java.util.concurrent.Future;
 import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.iface.annotations.RPCMethod;
 
 /**
  *
@@ -39,6 +39,7 @@ public interface Display {
      * @return the future which represents the execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.on
      */
+    @RPCMethod
     public Future<Void> showURL(final String url) throws CouldNotPerformException;
 
     /**
@@ -49,6 +50,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showHTMLContent(String content) throws CouldNotPerformException;
 
     /**
@@ -59,6 +61,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showInfoText(final String text) throws CouldNotPerformException;
 
     /**
@@ -69,6 +72,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showWarnText(final String text) throws CouldNotPerformException;
 
     /**
@@ -79,6 +83,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showErrorText(final String text) throws CouldNotPerformException;
 
     /**
@@ -89,6 +94,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showText(final String text) throws CouldNotPerformException;
 
     /**
@@ -99,6 +105,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> showImage(final String image) throws CouldNotPerformException;
 
     /**
@@ -108,6 +115,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setURL(final String url) throws CouldNotPerformException;
 
     /**
@@ -117,6 +125,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setHTMLContent(String content) throws CouldNotPerformException;
 
     /**
@@ -126,6 +135,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setInfoText(final String text) throws CouldNotPerformException;
 
     /**
@@ -135,6 +145,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setWarnText(final String text) throws CouldNotPerformException;
 
     /**
@@ -144,6 +155,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setErrorText(final String text) throws CouldNotPerformException;
 
     /**
@@ -153,6 +165,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setText(final String text) throws CouldNotPerformException;
 
     /**
@@ -162,6 +175,7 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setImage(final String image) throws CouldNotPerformException;
 
     /**
@@ -171,5 +185,6 @@ public interface Display {
      * @return the future which gives feedback about the asynchronous execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
+    @RPCMethod
     public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException;
 }
