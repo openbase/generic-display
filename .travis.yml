@@ -2,8 +2,8 @@ language: java
 
 branches:
   except:
-  - /^(?i:feature)-.*$/
-  - /^(?i:release)-.*$/
+      #- /^(?i:feature)-.*$/
+      #- /^(?i:release)-.*$/
 
 jdk:
   - oraclejdk8
@@ -16,9 +16,14 @@ before_install:
   - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
 
 notifications:
-    slack: openbase-org:vGz7LO4CvGoGMneYkEm3ON7E
-    on_failure: change
-    on_success: change	
+    email:
+        on_success: never
+        on_failure: change
+    slack:
+        on_failure: change
+        on_success: change
+        rooms:
+            - openbase-org:vGz7LO4CvGoGMneYkEm3ON7E#build
 
 deploy:
   - provider: script
