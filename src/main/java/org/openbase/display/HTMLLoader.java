@@ -43,8 +43,6 @@ public class HTMLLoader {
 
         IMAGE_VIEW("template/html/ImageView.html"),
         TEXT_VIEW("template/html/TextView.html");
-//        IMAGE_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/ImageView.html"),
-//        TEXT_VIEW("/vol/csra/releases/trusty/lsp-csra-nightly/share/generic-display/template/html/TextView.html");
 
         private final String uri;
         private String template;
@@ -58,7 +56,7 @@ public class HTMLLoader {
                 try {
                     template = IOUtils.toString(ResourceStreamLoader.loadFileInputStream(uri), "UTF-8");
                 } catch (IOException ex) {
-                    throw new CouldNotPerformException("Could not load " + this + "!");
+                    throw new CouldNotPerformException("Could not load " + this + "!", ex);
                 }
             }
             return template;
@@ -68,7 +66,7 @@ public class HTMLLoader {
             try {
                 getTemplate();
             } catch (CouldNotPerformException ex) {
-                throw new VerificationFailedException("Could not load " + this + "!");
+                throw new VerificationFailedException("Could not load " + this + "!", ex);
             }
         }
 
