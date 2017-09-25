@@ -21,7 +21,6 @@ package org.openbase.display;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-
 import java.util.HashMap;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
@@ -59,6 +58,7 @@ import org.openbase.jul.exception.InitializationException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
+import org.openbase.jul.schedule.GlobalCachedExecutorService;
 import org.slf4j.LoggerFactory;
 
 /**
@@ -168,16 +168,13 @@ public class DisplayView extends Application implements Display {
         } catch (CouldNotPerformException ex) {
             throw ExceptionPrinter.printHistoryAndReturnThrowable(new CouldNotPerformException("Could not start gui!", ex), logger);
         }
-        new Thread() {
-            @Override
-            public void run() {
-                try {
-                    handleProperties(false);
-                } catch (CouldNotPerformException | InterruptedException ex) {
-                    ExceptionPrinter.printHistory(ex, logger);
-                }
+        GlobalCachedExecutorService.submit(() -> {
+            try {
+                handleProperties(false);
+            } catch (CouldNotPerformException | InterruptedException ex) {
+                ExceptionPrinter.printHistory(ex, logger);
             }
-        }.start();
+        });
     }
 
     @Override
