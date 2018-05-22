@@ -26,6 +26,8 @@ import org.openbase.display.jp.JPBroadcastDisplayScope;
 import org.openbase.display.jp.JPDisplayScope;
 import org.openbase.jps.core.JPService;
 
+import java.util.concurrent.Future;
+
 /**
  * This is a example class which shows how to use the generic display remote.
  *
@@ -58,18 +60,13 @@ public class DisplayRemoteExample {
         // Some example calls in a loop.
         while (!Thread.interrupted()) {
 
-            // All following commands can be optinally send in broadcast mode to reach all displays simultaneously.
-            //
-            // e.g. remote.broadcast().setText("send to all instances.");
+            // Display URL example and wait until done
+            remote.showURL("http://basecubeone.org").get();;
 
-            remote.broadcast().setText("send to all instances.");
-
-            // Display URL example
-            remote.showURL("http://www.wunderground.com/cgi-bin/findweather/getForecast?query=bielefeld");
             Thread.sleep(DELAY);
 
             // Display HTML content example
-            remote.broadcast().showHTMLContent("<html lang=\"de\">"
+            remote.showHTMLContent("<html lang=\"de\">"
                     + "    <head>"
                     + "        <title>Datum und Zeit</title>"
                     + "        <style>"
@@ -101,51 +98,55 @@ public class DisplayRemoteExample {
                     + "            document.getElementById('dateAndTime').innerHTML = now;"
                     + "        </script>"
                     + "    </body>"
-                    + "</html>");
+                    + "</html>").get();;
             Thread.sleep(DELAY);
 
             // Display text example
-            remote.showText("Text");
+            remote.showText("Text").get();;
             Thread.sleep(DELAY);
 
             // Display warn text example
-            remote.showWarnText("Warn");
+            remote.showWarnText("Warn").get();;
             Thread.sleep(DELAY);
 
             // Display eroor text example
-            remote.showErrorText("Error");
+            remote.showErrorText("Error").get();;
             Thread.sleep(DELAY);
 
             // Display info text example
-            remote.showInfoText("Info");
+            remote.showInfoText("Info").get();;
             Thread.sleep(DELAY);
 
             // Set visible false example
-            remote.showWarnText("Disable display...");
+            remote.showWarnText("Disable display...").get();;
             Thread.sleep(DELAY/3);
             remote.setVisible(false);
             Thread.sleep(DELAY);
 
             // Set visible true example
-            remote.showInfoText("Display enabled!");
+            remote.showInfoText("Display enabled!").get();;
             remote.setVisible(true);
             Thread.sleep(DELAY);
 
             // Show UHD Image
-            remote.showImage("http://www.geckohomecinema.co.uk/wp-content/uploads/2014/06/UHD-resolution_201309231.jpg");
+            remote.showImage("http://previews.123rf.com/images/mazirama/mazirama1408/mazirama140800293/30486102-UHD-User-Help-Desk-text-concept-on-green-digital-world-map-background--Stock-Photo.jpg").get();;
             Thread.sleep(DELAY*2);
 
             // Show UHD Image
-            remote.showImage("http://previews.123rf.com/images/mazirama/mazirama1408/mazirama140800293/30486102-UHD-User-Help-Desk-text-concept-on-green-digital-world-map-background--Stock-Photo.jpg");
+            remote.showImage("http://orig09.deviantart.net/4343/f/2015/211/c/0/the_international_2015_banners_by_goldenhearted-d93eop6.jpg").get();;
             Thread.sleep(DELAY*2);
 
             // Show UHD Image
-            remote.showImage("http://orig09.deviantart.net/4343/f/2015/211/c/0/the_international_2015_banners_by_goldenhearted-d93eop6.jpg");
+            remote.showImage("http://uhd-wallpapers.net/images/venice-grand-canal_542.jpeg").get();;
             Thread.sleep(DELAY*2);
 
-            // Show UHD Image
-            remote.showImage("http://architektur.mapolismagazin.com/sites/default/files/null/porta-fira_6.jpg");
-            Thread.sleep(DELAY*2);
+            // All commands can be optionally send in broadcast mode to reach all displays simultaneously.
+            //
+            // e.g. remote.broadcast().setText("send to all instances.");
+            remote.broadcast().setText("Press ESC to exit the fullscreen mode :)").get();
+            Thread.sleep(DELAY);
+
+            // Just remove the ".get()" suffix if you don't want to wait for a server confirmation.
         }
 
         // Switch displays off
