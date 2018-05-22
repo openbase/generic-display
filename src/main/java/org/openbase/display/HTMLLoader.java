@@ -23,6 +23,8 @@ package org.openbase.display;
  */
 
 import java.io.IOException;
+import java.net.URL;
+
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import org.apache.commons.io.IOUtils;
@@ -108,14 +110,14 @@ public class HTMLLoader {
         }
     }
 
-    public String loadImageView(String image) throws CouldNotPerformException {
+    public String loadImageView(final String image) throws CouldNotPerformException {
         try {
+            validateURI(image);
             variableStore.store("IMAGE", image);
             return buildContext(Template.IMAGE_VIEW);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load ImageView!", ex);
         }
-
     }
 
     public String buildContext(final Template template) throws CouldNotPerformException {
@@ -123,6 +125,14 @@ public class HTMLLoader {
             return VariableProcessor.resolveVariables(template.getTemplate(), true, variableStore);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not build context out of Template[" + template + "]!", ex);
+        }
+    }
+
+    private static void validateURI(final String uri) throws VerificationFailedException {
+        try {
+            new URL(uri).openStream().close();
+        } catch (Exception ex) {
+            throw new VerificationFailedException("URI["+uri+"] is not valid!", ex);
         }
     }
 }

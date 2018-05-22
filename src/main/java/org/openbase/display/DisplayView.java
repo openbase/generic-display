@@ -58,6 +58,8 @@ import org.openbase.jul.exception.InitializationException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
+import org.openbase.jul.processing.StringProcessor;
+import org.openbase.jul.schedule.FutureProcessor;
 import org.openbase.jul.schedule.GlobalCachedExecutorService;
 import org.slf4j.LoggerFactory;
 
@@ -246,6 +248,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showURL(final String url) throws CouldNotPerformException {
+        logger.info("show url: "+ url);
         return displayURL(url, false);
     }
 
@@ -256,6 +259,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showHTMLContent(final String content) throws CouldNotPerformException {
+        logger.info("show html content: "+ toSingleLine(content));
         return displayHTML(content, true);
     }
 
@@ -267,6 +271,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
+        logger.info("show info text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true);
     }
 
@@ -278,6 +283,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
+        logger.info("show warning text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true);
     }
 
@@ -289,6 +295,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
+        logger.info("show error text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true);
     }
 
@@ -300,6 +307,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showText(final String presetId) throws CouldNotPerformException {
+        logger.info("show text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true);
     }
 
@@ -311,6 +319,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> showImage(final String image) throws CouldNotPerformException {
+        logger.info("show image: " +image);
         return displayHTML(htmlLoader.loadImageView(image), true);
     }
 
@@ -321,6 +330,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setURL(final String url) throws CouldNotPerformException {
+        logger.info("set url: " +url);
         return displayURL(url, false);
     }
 
@@ -331,6 +341,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setHTMLContent(final String content) throws CouldNotPerformException {
+        logger.info("set html content: " +toSingleLine(content));
         return displayHTML(content, false);
     }
 
@@ -342,6 +353,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setInfoText(final String presetId) throws CouldNotPerformException {
+        logger.info("set info text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false);
     }
 
@@ -353,6 +365,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setWarnText(final String presetId) throws CouldNotPerformException {
+        logger.info("set warning text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false);
     }
 
@@ -364,6 +377,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setErrorText(final String presetId) throws CouldNotPerformException {
+        logger.info("set error text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false);
     }
 
@@ -375,6 +389,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setText(final String presetId) throws CouldNotPerformException {
+        logger.info("set text: " +presetId);
         return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false);
     }
 
@@ -386,6 +401,7 @@ public class DisplayView extends Application implements Display {
      */
     @Override
     public Future<Void> setImage(final String image) throws CouldNotPerformException {
+        logger.info("set image:" +image);
         return displayHTML(htmlLoader.loadImageView(image), false);
     }
 
@@ -399,6 +415,7 @@ public class DisplayView extends Application implements Display {
     public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException {
         return runTask(() -> {
             if (visible) {
+                logger.info("show display");
                 Screen screen = getScreen();
                 Stage stage = getStage();
                 stage.setX(screen.getVisualBounds().getMinX());
@@ -411,6 +428,7 @@ public class DisplayView extends Application implements Display {
                 getStage().show();
 
             } else {
+                logger.info("hide display");
                 getStage().hide();
                 getStage().setFullScreen(false);
             }
@@ -480,6 +498,10 @@ public class DisplayView extends Application implements Display {
         } catch (Exception ex) {
             throw new CouldNotPerformException("Could not perform task!", ex);
         }
+    }
+
+    private String toSingleLine(String input) {
+        return StringProcessor.removeDoubleWhiteSpaces(input.replace("\n", " "));
     }
 
     public static void main(String[] args) {

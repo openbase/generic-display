@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="generic-display" />
+        <module name="jul.audio" />
+        <module name="jul.exception" />
+        <module name="jul.extension.openhab" />
+        <module name="jul.extension.protobuf" />
+        <module name="jul.extension.rct" />
+        <module name="jul.extension.rsb.com" />
+        <module name="jul.extension.rsb.container" />
+        <module name="jul.extension.rsb.interface" />
+        <module name="jul.extension.rsb.processing" />
+        <module name="jul.extension.rsb.scope" />
+        <module name="jul.extension.rsb.util" />
+        <module name="jul.extension.rst.container" />
+        <module name="jul.extension.rst.interface" />
+        <module name="jul.extension.rst.processing" />
+        <module name="jul.extension.rst.storage" />
+        <module name="jul.extension.rst.transform" />
+        <module name="jul.extension.rst.util" />
+        <module name="jul.extension.tcp" />
+        <module name="jul.extension.xml" />
+        <module name="jul.interface" />
+        <module name="jul.pattern" />
+        <module name="jul.pattern.launch" />
+        <module name="jul.pattern.trigger" />
+        <module name="jul.processing" />
+        <module name="jul.schedule" />
+        <module name="jul.storage" />
+        <module name="jul.visual.javafx" />
+        <module name="jul.visual.swing" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="generic-display" target="1.8" />
+      <module name="jul" target="1.8" />
+      <module name="jul.audio" target="1.8" />
+      <module name="jul.exception" target="1.8" />
+      <module name="jul.extension" target="1.8" />
+      <module name="jul.extension.openhab" target="1.8" />
+      <module name="jul.extension.protobuf" target="1.8" />
+      <module name="jul.extension.rct" target="1.8" />
+      <module name="jul.extension.rsb" target="1.8" />
+      <module name="jul.extension.rsb.com" target="1.8" />
+      <module name="jul.extension.rsb.container" target="1.8" />
+      <module name="jul.extension.rsb.interface" target="1.8" />
+      <module name="jul.extension.rsb.processing" target="1.8" />
+      <module name="jul.extension.rsb.scope" target="1.8" />
+      <module name="jul.extension.rsb.util" target="1.8" />
+      <module name="jul.extension.rst" target="1.8" />
+      <module name="jul.extension.rst.container" target="1.8" />
+      <module name="jul.extension.rst.interface" target="1.8" />
+      <module name="jul.extension.rst.processing" target="1.8" />
+      <module name="jul.extension.rst.storage" target="1.8" />
+      <module name="jul.extension.rst.transform" target="1.8" />
+      <module name="jul.extension.rst.util" target="1.8" />
+      <module name="jul.extension.tcp" target="1.8" />
+      <module name="jul.extension.xml" target="1.8" />
+      <module name="jul.interface" target="1.8" />
+      <module name="jul.pattern" target="1.8" />
+      <module name="jul.pattern.launch" target="1.8" />
+      <module name="jul.pattern.module" target="1.8" />
+      <module name="jul.pattern.trigger" target="1.8" />
+      <module name="jul.processing" target="1.8" />
+      <module name="jul.schedule" target="1.8" />
+      <module name="jul.storage" target="1.8" />
+      <module name="jul.visual" target="1.8" />
+      <module name="jul.visual.javafx" target="1.8" />
+      <module name="jul.visual.swing" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
