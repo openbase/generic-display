@@ -4,7 +4,7 @@
     
     <groupId>org.openbase</groupId>
     <artifactId>generic-display</artifactId>
-    <version>0.6.8-SNAPSHOT</version>
+    <version>0.6.9-SNAPSHOT</version>
 
     <name>GenericDisplay</name>
     <inceptionYear>2015</inceptionYear>
@@ -47,7 +47,8 @@
         <connection>scm:git:https://github.com/openbase/generic-display.git</connection>
         <developerConnection>scm:git:https://github.com/openbase/generic-display.git</developerConnection>
         <url>https://github.com/openbase/generic-display.git</url>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
 
     <build>
         <plugins>
