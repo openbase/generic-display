@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/generic-display.iml" filepath="$PROJECT_DIR$/generic-display.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generic-display.iml" filepath="$PROJECT_DIR$/generic-display.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/jul.iml" filepath="$PROJECT_DIR$/../jul/jul.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/annotation/jul.annotation.iml" filepath="$PROJECT_DIR$/../jul/annotation/jul.annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/audio/jul.audio.iml" filepath="$PROJECT_DIR$/../jul/audio/jul.audio.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/exception/jul.exception.iml" filepath="$PROJECT_DIR$/../jul/exception/jul.exception.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/extension/jul.extension.iml" filepath="$PROJECT_DIR$/../jul/extension/jul.extension.iml" />

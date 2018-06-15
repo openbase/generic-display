@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/annotation" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/audio" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/exception" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension" charset="UTF-8" />
