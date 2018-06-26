@@ -4,7 +4,7 @@
     
     <groupId>org.openbase</groupId>
     <artifactId>generic-display</artifactId>
-    <version>0.6.11-SNAPSHOT</version>
+    <version>0.6.11</version>
 
     <name>GenericDisplay</name>
     <inceptionYear>2015</inceptionYear>
