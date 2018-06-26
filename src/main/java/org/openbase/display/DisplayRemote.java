@@ -120,7 +120,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> showURL(String url) throws CouldNotPerformException {
+    public Future<Void> showUrlAndReload(final String url) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
 
@@ -130,7 +130,27 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> showHTMLContent(String content) throws CouldNotPerformException {
+    public Future<Void> showHtmlContentAndReload(final String content) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(content, this, Void.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.openbase.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> showUrl(String url) throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(url, this, Void.class);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.openbase.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> showHtmlContent(String content) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(content, this, Void.class);
     }
 
@@ -190,7 +210,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> setURL(String url) throws CouldNotPerformException {
+    public Future<Void> setUrl(String url) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
     
@@ -200,7 +220,7 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> setHTMLContent(String content) throws CouldNotPerformException {
+    public Future<Void> setHtmlContent(String content) throws CouldNotPerformException {
         return RPCHelper.callRemoteMethod(content, this, Void.class);
     }
 

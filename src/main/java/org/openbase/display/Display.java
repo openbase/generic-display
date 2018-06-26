@@ -35,13 +35,50 @@ public interface Display {
     /**
      * Shows the given URL on the generic display.
      * Display will set to foreground if the panel is hided.
+     * The content is reloaded even if currently displayed.
      *
      * @param url the URL to display
      * @return the future which represents the execution process.
      * @throws CouldNotPerformException is thrown if the execution could not be performed.on
      */
     @RPCMethod
-    public Future<Void> showURL(final String url) throws CouldNotPerformException;
+    public Future<Void> showUrlAndReload(final String url) throws CouldNotPerformException;
+
+    /**
+     * Shows the given html content on the generic display.
+     * Display will set to foreground if the panel is hided.
+     * The content is reloaded even if currently displayed.
+     *
+     * @param content
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
+     */
+    @RPCMethod
+    public Future<Void> showHtmlContentAndReload(String content) throws CouldNotPerformException;
+
+    /**
+     * Shows the given URL on the generic display.
+     * Display will set to foreground if the panel is hided.
+     *
+     * @param url the URL to display
+     * @return the future which represents the execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.on
+     */
+    @RPCMethod
+    public Future<Void> showUrl(final String url) throws CouldNotPerformException;
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws CouldNotPerformException
+     * @deprecated please use showUrl(url) instead.
+     */
+    @RPCMethod
+    @Deprecated
+    default Future<Void> showURL(final String url) throws CouldNotPerformException {
+        return showUrl(url);
+    }
 
     /**
      * Shows the given html content on the generic display.
@@ -52,7 +89,20 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showHTMLContent(String content) throws CouldNotPerformException;
+    public Future<Void> showHtmlContent(String content) throws CouldNotPerformException;
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws CouldNotPerformException
+     * @deprecated please use showHtmlContent(url) instead.
+     */
+    @RPCMethod
+    @Deprecated
+    default Future<Void> showHTMLContent(final String url) throws CouldNotPerformException {
+        return showHtmlContent(url);
+    }
 
     /**
      * Shows the given info text on the generic display.
@@ -117,7 +167,20 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setURL(final String url) throws CouldNotPerformException;
+    public Future<Void> setUrl(final String url) throws CouldNotPerformException;
+
+    /**
+     *
+     * @param url
+     * @return
+     * @throws CouldNotPerformException
+     * @deprecated please use setUrl(url) instead.
+     */
+    @RPCMethod
+    @Deprecated
+    default Future<Void> setURL(final String url) throws CouldNotPerformException {
+        return setUrl(url);
+    }
 
     /**
      * Set the given html content on the generic display.
@@ -127,7 +190,20 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setHTMLContent(String content) throws CouldNotPerformException;
+    public Future<Void> setHtmlContent(String content) throws CouldNotPerformException;
+
+    /**
+     *
+     * @param content
+     * @return
+     * @throws CouldNotPerformException
+     * @deprecated please use setHtmlContent(content) instead
+     */
+    @RPCMethod
+    @Deprecated
+    default Future<Void> setHTMLContent(final String content) throws CouldNotPerformException {
+        return setHtmlContent(content);
+    }
 
     /**
      * Set the given info text on the generic display.

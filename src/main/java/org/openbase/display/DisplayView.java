@@ -197,22 +197,27 @@ public class DisplayView extends Application implements Display {
         int contextHash = getHash(context);
         WebTab webTab;
 
+        // create new tab or load existing one if content is not already displayed.
         if (!webTabMap.containsKey(contextHash)) {
-            if (webTabMap.size() >= maxTabAmount) {
 
+            // check if all tabs are in use.
+            if (webTabMap.size() >= maxTabAmount) { // recover outdated tab
+                // get outdated tab
                 webTab = webTabUsageQueue.poll();
                 // update context hash
                 webTabMap.remove(webTab.getContentHash());
                 webTab.updateContextHash(contextHash);
 
                 webTabMap.put(contextHash, webTab);
-            } else {
+            } else { // create new tab
                 webTabMap.put(contextHash, new WebTab(contextHash, cardsPane));
             }
         }
 
-        // add tab to queue tail and return web engine.
+        // restore tab
         webTab = webTabMap.get(contextHash);
+
+        // add tab to queue tail so it will not be reused
         if (webTabUsageQueue.contains(webTab)) {
             webTabUsageQueue.remove(webTab);
         }
@@ -220,9 +225,9 @@ public class DisplayView extends Application implements Display {
         return webTab;
     }
 
-    private Future<Void> displayHTML(final String html, boolean show) throws CouldNotPerformException {
+    private Future<Void> displayHTML(final String html, boolean show, final boolean reload) throws CouldNotPerformException {
         return runTask(() -> {
-            loadWebEngine(html).loadContent(html);
+            loadWebEngine(html).loadContent(html, reload);
             if (show) {
                 setVisible(show);
             }
@@ -230,9 +235,9 @@ public class DisplayView extends Application implements Display {
         });
     }
 
-    private Future<Void> displayURL(final String url, boolean show) throws CouldNotPerformException {
+    private Future<Void> displayURL(final String url, boolean show, final boolean reload) throws CouldNotPerformException {
         return runTask(() -> {
-            loadWebEngine(url).load(url);
+            loadWebEngine(url).load(url, reload);
             if (show) {
                 setVisible(show);
             }
@@ -246,9 +251,31 @@ public class DisplayView extends Application implements Display {
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> showURL(final String url) throws CouldNotPerformException {
+    public Future<Void> showUrlAndReload(String url) throws CouldNotPerformException {
+        logger.info("show url and reload: "+ url);
+        return displayURL(url, true, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.openbase.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> showHtmlContentAndReload(String content) throws CouldNotPerformException {
+        logger.info("show html content and reload: "+ toSingleLine(content));
+        return displayHTML(content, true, true);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.openbase.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> showUrl(final String url) throws CouldNotPerformException {
         logger.info("show url: "+ url);
-        return displayURL(url, true);
+        return displayURL(url, true, false);
     }
 
     /**
@@ -257,9 +284,9 @@ public class DisplayView extends Application implements Display {
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> showHTMLContent(final String content) throws CouldNotPerformException {
+    public Future<Void> showHtmlContent(final String content) throws CouldNotPerformException {
         logger.info("show html content: "+ toSingleLine(content));
-        return displayHTML(content, true);
+        return displayHTML(content, true, false);
     }
 
     /**
@@ -271,7 +298,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
         logger.info("show info text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true, false);
     }
 
     /**
@@ -283,7 +310,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
         logger.info("show warning text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true, false);
     }
 
     /**
@@ -295,7 +322,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
         logger.info("show error text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true, false);
     }
 
     /**
@@ -307,7 +334,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showText(final String presetId) throws CouldNotPerformException {
         logger.info("show text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true, false);
     }
 
     /**
@@ -319,7 +346,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showImage(final String image) throws CouldNotPerformException {
         logger.info("show image: " +image);
-        return displayHTML(htmlLoader.loadImageView(image), true);
+        return displayHTML(htmlLoader.loadImageView(image), true, false);
     }
 
     /**
@@ -328,9 +355,9 @@ public class DisplayView extends Application implements Display {
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> setURL(final String url) throws CouldNotPerformException {
+    public Future<Void> setUrl(final String url) throws CouldNotPerformException {
         logger.info("set url: " +url);
-        return displayURL(url, false);
+        return displayURL(url, false, false);
     }
 
     /**
@@ -339,9 +366,9 @@ public class DisplayView extends Application implements Display {
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     @Override
-    public Future<Void> setHTMLContent(final String content) throws CouldNotPerformException {
+    public Future<Void> setHtmlContent(final String content) throws CouldNotPerformException {
         logger.info("set html content: " +toSingleLine(content));
-        return displayHTML(content, false);
+        return displayHTML(content, false, false);
     }
 
     /**
@@ -353,7 +380,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> setInfoText(final String presetId) throws CouldNotPerformException {
         logger.info("set info text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false, false);
     }
 
     /**
@@ -365,7 +392,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> setWarnText(final String presetId) throws CouldNotPerformException {
         logger.info("set warning text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false, false);
     }
 
     /**
@@ -377,7 +404,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> setErrorText(final String presetId) throws CouldNotPerformException {
         logger.info("set error text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false, false);
     }
 
     /**
@@ -389,7 +416,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> setText(final String presetId) throws CouldNotPerformException {
         logger.info("set text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false);
+        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false, false);
     }
 
     /**
@@ -401,7 +428,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> setImage(final String image) throws CouldNotPerformException {
         logger.info("set image:" +image);
-        return displayHTML(htmlLoader.loadImageView(image), false);
+        return displayHTML(htmlLoader.loadImageView(image), false, false);
     }
 
     /**

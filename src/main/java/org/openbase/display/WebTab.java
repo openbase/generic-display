@@ -89,9 +89,10 @@ public class WebTab {
      * loading and returns immediately.
      *
      * @param url URL of the web page to load
+     * @param reload forces to reload the tab
      */
-    public void load(final String url) {
-        if (!url.equals(this.content)) {
+    public void load(final String url, final boolean reload) {
+        if (reload || !url.equals(this.content)) {
             webView.getEngine().load(url);
             this.content = url;
         }
@@ -102,18 +103,19 @@ public class WebTab {
      * Loads the given HTML content directly. This method is useful when you have an HTML
      * String composed in memory, or loaded from some system which cannot be reached via
      * a URL (for example, the HTML text may have come from a database). As with
-     * {@link #load(String)}, this method is asynchronous.
+     * {@link #load(String, boolean)}, this method is asynchronous.
      *
-     * @param content
+     * @param content the html content to display
+     * @param reload forces to reload the tab
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
-    public void loadContent(final String content) throws CouldNotPerformException {
+    public void loadContent(final String content, final boolean reload) throws CouldNotPerformException {
         try {
             if (content == null) {
                 throw new NotAvailableException("Content");
             }
 
-            if (!content.equals(this.content)) {
+            if (reload || !content.equals(this.content)) {
                 // load new content and display after loading content.
                 webView.getEngine().getLoadWorker().stateProperty().addListener(new ChangeListener<Worker.State>() {
                     @Override
@@ -139,15 +141,16 @@ public class WebTab {
      * Loads the given content directly. This method is useful when you have content
      * composed in memory, or loaded from some system which cannot be reached via
      * a URL (for example, the SVG text may have come from a database). As with
-     * {@link #load(String)}, this method is asynchronous. This method also allows you to
+     * {@link #load(String, boolean)}, this method is asynchronous. This method also allows you to
      * specify the content type of the string being loaded, and so may optionally support
      * other types besides just HTML.
      *
-     * @param content
+     * @param content the html content to display
      * @param contentType
+     * @param reload forces to reload the tab
      */
-    public void loadContent(final String content, final String contentType) {
-        if (!content.equals(this.content)) {
+    public void loadContent(final String content, final String contentType, final boolean reload) {
+        if (reload || !content.equals(this.content)) {
             webView.getEngine().loadContent(content, contentType);
             this.content = content;
         }
