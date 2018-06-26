@@ -41,7 +41,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
-import static org.openbase.display.DisplayRemoteSend.handleProperties;
+import static org.openbase.display.DisplayRemoteSend.handleAction;
 import org.openbase.display.jp.JPBroadcastDisplayScope;
 import org.openbase.display.jp.JPDisplayScope;
 import org.openbase.display.jp.JPImageUrl;
@@ -59,7 +59,6 @@ import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
 import org.openbase.jul.processing.StringProcessor;
-import org.openbase.jul.schedule.FutureProcessor;
 import org.openbase.jul.schedule.GlobalCachedExecutorService;
 import org.slf4j.LoggerFactory;
 
@@ -172,7 +171,7 @@ public class DisplayView extends Application implements Display {
         }
         GlobalCachedExecutorService.submit(() -> {
             try {
-                handleProperties(false);
+                handleAction(false);
             } catch (CouldNotPerformException | InterruptedException ex) {
                 ExceptionPrinter.printHistory(ex, logger);
             }
@@ -249,7 +248,7 @@ public class DisplayView extends Application implements Display {
     @Override
     public Future<Void> showURL(final String url) throws CouldNotPerformException {
         logger.info("show url: "+ url);
-        return displayURL(url, false);
+        return displayURL(url, true);
     }
 
     /**

@@ -38,6 +38,7 @@ import org.openbase.jps.exception.JPServiceException;
 import org.openbase.jps.preset.JPHelp;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
+import org.openbase.jul.pattern.Remote.ConnectionState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,18 +60,19 @@ public class DisplayRemoteSend {
     public static final long TIMEOUT = 30;
 
     /**
-     * Method handles parsed jps properties.
+     * Method handles the action defined by the parsed jps properties.
      *
      * @param printWarning if the an error will be printed if no properties are parsed.
      * @throws CouldNotPerformException
      * @throws InterruptedException
      */
-    public static void handleProperties(final boolean printWarning) throws CouldNotPerformException, InterruptedException {
+    public static void handleAction(final boolean printWarning) throws CouldNotPerformException, InterruptedException {
         try {
             // Init remote instance
             DisplayRemote remote = new DisplayRemote();
             remote.init();
             remote.activate();
+            remote.waitForConnectionState(ConnectionState.CONNECTED, 5000);
 
             if (JPService.getProperty(JPMessage.class).isParsed()) {
 
@@ -102,7 +104,7 @@ public class DisplayRemoteSend {
                 logger.info("Please type \"" + JPService.getApplicationName() + " " + JPHelp.COMMAND_IDENTIFIERS[0] + "\" to get more informations.");
             }
         } catch (CouldNotPerformException | JPServiceException | ExecutionException | TimeoutException ex) {
-            throw new CouldNotPerformException("Could not handle properties!", ex);
+            throw new CouldNotPerformException("Could not handle action!", ex);
         }
     }
 
@@ -125,7 +127,7 @@ public class DisplayRemoteSend {
         JPService.parseAndExitOnError(args);
 
         try {
-            handleProperties(true);
+            handleAction(true);
         } catch (CouldNotPerformException ex) {
             ExceptionPrinter.printHistory(ex, logger);
             System.exit(1);
