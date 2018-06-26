@@ -7,7 +7,7 @@
 ```xml
 <groupId>org.openbase</groupId>
 <artifactId>generic-display</artifactId>
-<version>[0.3,0.4-SNAPSHOT)</version>
+<version>[0.6,0.7-SNAPSHOT)</version>
 ```
 
 ## How to install
