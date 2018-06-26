@@ -21,43 +21,90 @@ package org.openbase.display;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-import java.io.File;
-import java.io.IOException;
-import java.net.CookieManager;
-import java.util.UUID;
+
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Worker;
-import javafx.scene.layout.Pane;
+import javafx.concurrent.Worker.State;
+import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebErrorEvent;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
 import org.apache.commons.io.FileUtils;
-import static org.openbase.display.DisplayView.logger;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InvalidStateException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
+import org.openbase.jul.schedule.GlobalCachedExecutorService;
+import org.openbase.jul.schedule.SyncObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.net.CookieManager;
+import java.util.ArrayList;
+import java.util.UUID;
+import java.util.concurrent.Future;
+
+import static org.openbase.display.DisplayView.logger;
 
 /**
- *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
 public class WebTab {
 
+    private final static SyncObject displayTaskLock = new SyncObject("displayTaskLock");
+    private static Future<Void> displayTask;
     private final WebView webView;
+    private final StackPane mainStackPane;
+    private final File userDirectory;
+    private final SyncObject contentLoaderLock = new SyncObject("ContentLoaderLock");
+    private Worker.State contentLoadersState = State.READY;
     private String content;
     private int contentHash;
-    private final Pane mainPane;
-    private final File userDirectory;
 
-    public WebTab(int contentHash, final Pane mainPane) {
+    public WebTab(int contentHash, final StackPane mainStackPane) {
         this.contentHash = contentHash;
-        this.mainPane = mainPane;
+        this.mainStackPane = mainStackPane;
         this.webView = newWebView();
         this.userDirectory = new File(new File(FileUtils.getTempDirectory(), "generic-display"), UUID.randomUUID().toString());
         this.webView.getEngine().setUserDataDirectory(userDirectory);
+        webView.getEngine().getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            synchronized (contentLoaderLock) {
+                contentLoadersState = newValue;
+                switch (newValue) {
+                    case SUCCEEDED:
+                    case READY:
+                        contentLoaderLock.notifyAll();
+                    default:
+                        // do nothing
+                }
+            }
+        });
+    }
+
+    private static WebView newWebView() {
+        logger.info("init new WebView...");
+        WebView webView = new WebView();
+        WebEngine webEngine = webView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.setOnAlert((WebEvent<String> event) -> {
+            ExceptionPrinter.printHistory(new InvalidStateException("Webengine alert detected!", new CouldNotPerformException(event.toString())), logger);
+        });
+        webEngine.setOnError((WebErrorEvent event) -> {
+            ExceptionPrinter.printHistory(new InvalidStateException("Webengine error detected!", new CouldNotPerformException(event.toString())), logger);
+        });
+        webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newState) -> {
+            Throwable exception = webEngine.getLoadWorker().getException();
+            if (exception != null && newState == Worker.State.FAILED) {
+                ExceptionPrinter.printHistory(new InvalidStateException("Webengine exception detected!", exception), logger);
+            }
+        });
+
+        CookieManager.getDefault();
+        return webView;
     }
 
     public WebView getWebView() {
@@ -88,7 +135,7 @@ public class WebTab {
      * Loads a Web page into this engine. This method starts asynchronous
      * loading and returns immediately.
      *
-     * @param url URL of the web page to load
+     * @param url    URL of the web page to load
      * @param reload forces to reload the tab
      */
     public void load(final String url, final boolean reload) {
@@ -106,7 +153,8 @@ public class WebTab {
      * {@link #load(String, boolean)}, this method is asynchronous.
      *
      * @param content the html content to display
-     * @param reload forces to reload the tab
+     * @param reload  forces to reload the tab
+     *
      * @throws org.openbase.jul.exception.CouldNotPerformException
      */
     public void loadContent(final String content, final boolean reload) throws CouldNotPerformException {
@@ -145,9 +193,9 @@ public class WebTab {
      * specify the content type of the string being loaded, and so may optionally support
      * other types besides just HTML.
      *
-     * @param content the html content to display
+     * @param content     the html content to display
      * @param contentType
-     * @param reload forces to reload the tab
+     * @param reload      forces to reload the tab
      */
     public void loadContent(final String content, final String contentType, final boolean reload) {
         if (reload || !content.equals(this.content)) {
@@ -158,29 +206,52 @@ public class WebTab {
     }
 
     public void displayTab() {
-        mainPane.getChildren().clear();
-        mainPane.getChildren().add(webView);
+        synchronized (displayTaskLock) {
+            // cancel loading tabs
+            if (displayTask != null && !displayTask.isDone()) {
+                displayTask.cancel(true);
+            }
+
+            displayTask = GlobalCachedExecutorService.submit(() -> {
+                try {
+                    waitForContent();
+                    Platform.runLater(() -> {
+
+                        // skip if already shown
+                        if (mainStackPane.getChildren().contains(webView)) {
+                            return;
+                        }
+
+                        // display
+                        mainStackPane.getChildren().add(webView);
+                        webView.toFront();
+
+                        // remove other background views to increase performance
+                        for (final Node node : new ArrayList<>(mainStackPane.getChildren())) {
+                            if (node == webView) {
+                                continue;
+                            }
+                            mainStackPane.getChildren().remove(node);
+                        }
+                    });
+                    return null;
+                } catch (CouldNotPerformException ex) {
+                    throw new CouldNotPerformException("Could not display content!", ex);
+                }
+            });
+        }
     }
 
-    private static WebView newWebView() {
-        logger.info("init new WebView...");
-        WebView webView = new WebView();
-        WebEngine webEngine = webView.getEngine();
-        webEngine.setJavaScriptEnabled(true);
-        webEngine.setOnAlert((WebEvent<String> event) -> {
-            ExceptionPrinter.printHistory(new InvalidStateException("Webengine alert detected!", new CouldNotPerformException(event.toString())), logger);
-        });
-        webEngine.setOnError((WebErrorEvent event) -> {
-            ExceptionPrinter.printHistory(new InvalidStateException("Webengine error detected!", new CouldNotPerformException(event.toString())), logger);
-        });
-        webEngine.getLoadWorker().stateProperty().addListener((ObservableValue<? extends Worker.State> observable, Worker.State oldValue, Worker.State newState) -> {
-            Throwable exception = webEngine.getLoadWorker().getException();
-            if (exception != null && newState == Worker.State.FAILED) {
-                ExceptionPrinter.printHistory(new InvalidStateException("Webengine exception detected!", exception), logger);
+    private void waitForContent() throws CouldNotPerformException {
+        synchronized (contentLoaderLock) {
+            if (contentLoadersState == State.READY || contentLoadersState == State.SUCCEEDED) {
+                return;
             }
-        });
-
-        CookieManager.getDefault();
-        return webView;
+            try {
+                contentLoaderLock.wait(10000);
+            } catch (InterruptedException ex) {
+                throw new CouldNotPerformException("Could not wait for content!", ex);
+            }
+        }
     }
 }
