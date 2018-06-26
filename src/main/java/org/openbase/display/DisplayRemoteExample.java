@@ -26,8 +26,6 @@ import org.openbase.display.jp.JPBroadcastDisplayScope;
 import org.openbase.display.jp.JPDisplayScope;
 import org.openbase.jps.core.JPService;
 
-import java.util.concurrent.Future;
-
 /**
  * This is a example class which shows how to use the generic display remote.
  *
@@ -61,12 +59,15 @@ public class DisplayRemoteExample {
         while (!Thread.interrupted()) {
 
             // Display URL example and wait until done
-            remote.showURL("http://basecubeone.org").get();;
+            remote.showUrl("http://basecubeone.org").get();;
 
             Thread.sleep(DELAY);
 
+            // Display URL example, force reload the content and wait until done
+            remote.showUrlAndReload("http://openbase.org").get();;
+
             // Display HTML content example
-            remote.showHTMLContent("<html lang=\"de\">"
+            remote.showHtmlContent("<html lang=\"de\">"
                     + "    <head>"
                     + "        <title>Datum und Zeit</title>"
                     + "        <style>"

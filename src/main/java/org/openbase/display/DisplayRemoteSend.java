@@ -25,14 +25,8 @@ package org.openbase.display;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import org.openbase.display.jp.JPBroadcastDisplayScope;
-import org.openbase.display.jp.JPDisplayScope;
-import org.openbase.display.jp.JPImageUrl;
-import org.openbase.display.jp.JPMessage;
-import org.openbase.display.jp.JPMessageType;
-import org.openbase.display.jp.JPOutput;
-import org.openbase.display.jp.JPUrl;
-import org.openbase.display.jp.JPVisible;
+
+import org.openbase.display.jp.*;
 import org.openbase.jps.core.JPService;
 import org.openbase.jps.exception.JPServiceException;
 import org.openbase.jps.preset.JPHelp;
@@ -94,7 +88,11 @@ public class DisplayRemoteSend {
                         break;
                 }
             } else if (JPService.getProperty(JPUrl.class).isParsed()) {
-                remote.showURL(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
+                if(JPService.getProperty(JPReload.class).getValue()) {
+                    remote.showUrlAndReload(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
+                } else {
+                    remote.showUrl(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
+                }
             } else if (JPService.getProperty(JPVisible.class).isParsed()) {
                 remote.setVisible(JPService.getProperty(JPVisible.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
             } else if (JPService.getProperty(JPImageUrl.class).isParsed()) {
@@ -122,6 +120,7 @@ public class DisplayRemoteSend {
         JPService.registerProperty(JPUrl.class);
         JPService.registerProperty(JPImageUrl.class);
         JPService.registerProperty(JPVisible.class);
+        JPService.registerProperty(JPReload.class);
         JPService.registerProperty(JPMessageType.class);
         JPService.registerProperty(JPOutput.class);
         JPService.parseAndExitOnError(args);
