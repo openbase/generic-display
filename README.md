@@ -45,5 +45,5 @@ For a more detail java example have a look at the [DisplayRemoteExample](https:/
 
 The example code can executed with the following command
 ```
-./target/appassembler/bin/display-test
+./target/appassembler/bin/generic-display-test
 ```
