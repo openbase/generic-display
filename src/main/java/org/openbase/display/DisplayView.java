@@ -35,7 +35,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Screen;
@@ -79,14 +78,14 @@ public class DisplayView extends Application implements Display {
     private final HashMap<Integer, WebTab> webTabMap;
     private final ConcurrentLinkedQueue<WebTab> webTabUsageQueue;
     private final HTMLLoader htmlLoader;
-    private final Pane cardsPane;
+    private final StackPane stackPane;
 
     public DisplayView() throws InstantiationException {
         try {
             this.webTabMap = new HashMap<>();
             this.webTabUsageQueue = new ConcurrentLinkedQueue<>();
             this.htmlLoader = new HTMLLoader();
-            this.cardsPane = new StackPane();
+            this.stackPane = new StackPane();
 
             int tmpMaxTabAmount;
             try {
@@ -115,7 +114,7 @@ public class DisplayView extends Application implements Display {
             primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             this.primaryStage = primaryStage;
 
-            Scene scene = new Scene(cardsPane);
+            Scene scene = new Scene(stackPane);
 
             // configure hide key combination
             final KeyCombination escapeKey = new KeyCodeCombination(KeyCode.ESCAPE);
@@ -210,7 +209,7 @@ public class DisplayView extends Application implements Display {
 
                 webTabMap.put(contextHash, webTab);
             } else { // create new tab
-                webTabMap.put(contextHash, new WebTab(contextHash, cardsPane));
+                webTabMap.put(contextHash, new WebTab(contextHash, stackPane));
             }
         }
 
@@ -448,11 +447,14 @@ public class DisplayView extends Application implements Display {
                 stage.setY(screen.getVisualBounds().getMinY());
                 stage.setHeight(screen.getVisualBounds().getHeight());
                 stage.setWidth(screen.getVisualBounds().getWidth());
-                getStage().setFullScreen(false);
-                getStage().setAlwaysOnTop(true);
-                getStage().setFullScreen(true);
-                getStage().show();
-
+                if(!getStage().isFocused() || !getStage().isShowing()) {
+                    getStage().setFullScreen(false);
+                    if (!getStage().isAlwaysOnTop()) {
+                        getStage().setAlwaysOnTop(true);
+                    }
+                    getStage().setFullScreen(true);
+                    getStage().show();
+                }
             } else {
                 logger.info("hide display");
                 getStage().hide();
