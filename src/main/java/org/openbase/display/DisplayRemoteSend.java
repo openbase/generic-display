@@ -61,13 +61,31 @@ public class DisplayRemoteSend {
      * @throws InterruptedException
      */
     public static void handleAction(final boolean printWarning) throws CouldNotPerformException, InterruptedException {
+        // Init remote instance
+        DisplayRemote remote = new DisplayRemote();
+
         try {
-            // Init remote instance
-            DisplayRemote remote = new DisplayRemote();
             remote.init();
             remote.activate();
             remote.waitForConnectionState(ConnectionState.CONNECTED, 5000);
+            handleAction(remote, printWarning);
+        } catch (CouldNotPerformException ex) {
+            throw new CouldNotPerformException("Could not handle action!", ex);
+        } finally {
+            remote.shutdown();
+        }
+    }
 
+    /**
+     * Method handles the action defined by the parsed jps properties.
+     *
+     * @param display display is used to perform the changes.
+     * @param printWarning if the an error will be printed if no properties are parsed.
+     * @throws CouldNotPerformException
+     * @throws InterruptedException
+     */
+    public static void handleAction(final Display display, final boolean printWarning) throws CouldNotPerformException, InterruptedException {
+        try {
             if (JPService.getProperty(JPMessage.class).isParsed()) {
 
                 // Display given Message
@@ -75,28 +93,28 @@ public class DisplayRemoteSend {
 
                 switch (JPService.getProperty(JPMessageType.class).getValue()) {
                     case ERROR:
-                        remote.showErrorText(message).get(TIMEOUT, TimeUnit.SECONDS);
+                        display.showErrorText(message).get(TIMEOUT, TimeUnit.SECONDS);
                         break;
                     case WARNING:
-                        remote.showWarnText(message).get(TIMEOUT, TimeUnit.SECONDS);
+                        display.showWarnText(message).get(TIMEOUT, TimeUnit.SECONDS);
                         break;
                     case INFO:
-                        remote.showInfoText(message).get(TIMEOUT, TimeUnit.SECONDS);
+                        display.showInfoText(message).get(TIMEOUT, TimeUnit.SECONDS);
                         break;
                     default:
-                        remote.showText(message).get(TIMEOUT, TimeUnit.SECONDS);
+                        display.showText(message).get(TIMEOUT, TimeUnit.SECONDS);
                         break;
                 }
             } else if (JPService.getProperty(JPUrl.class).isParsed()) {
                 if(JPService.getProperty(JPReload.class).getValue()) {
-                    remote.showUrlAndReload(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
+                    display.showUrlAndReload(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
                 } else {
-                    remote.showUrl(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
+                    display.showUrl(JPService.getProperty(JPUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);
                 }
             } else if (JPService.getProperty(JPVisible.class).isParsed()) {
-                remote.setVisible(JPService.getProperty(JPVisible.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
+                display.setVisible(JPService.getProperty(JPVisible.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
             } else if (JPService.getProperty(JPImageUrl.class).isParsed()) {
-                remote.showImage(JPService.getProperty(JPImageUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
+                display.showImage(JPService.getProperty(JPImageUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
             } else if (printWarning) {
                 logger.warn("No arguments given!");
                 logger.info("Please type \"" + JPService.getApplicationName() + " " + JPHelp.COMMAND_IDENTIFIERS[0] + "\" to get more informations.");

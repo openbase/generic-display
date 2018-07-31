@@ -170,7 +170,7 @@ public class DisplayView extends Application implements Display {
         }
         GlobalCachedExecutorService.submit(() -> {
             try {
-                handleAction(false);
+                handleAction(this, false);
             } catch (CouldNotPerformException | InterruptedException ex) {
                 ExceptionPrinter.printHistory(ex, logger);
             }
