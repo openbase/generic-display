@@ -284,4 +284,14 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
         return RPCHelper.callRemoteMethod(visible, this, Void.class);
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @throws org.openbase.jul.exception.CouldNotPerformException
+     */
+    @Override
+    public Future<Void> closeAll() throws CouldNotPerformException {
+        return RPCHelper.callRemoteMethod(this, Void.class);
+    }
+
 }

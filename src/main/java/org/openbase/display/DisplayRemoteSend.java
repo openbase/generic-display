@@ -86,6 +86,11 @@ public class DisplayRemoteSend {
      */
     public static void handleAction(final Display display, final boolean printWarning) throws CouldNotPerformException, InterruptedException {
         try {
+
+            if (JPService.getProperty(JPCloseAll.class).getValue()) {
+                display.closeAll().get(TIMEOUT, TimeUnit.SECONDS);
+            }
+
             if (JPService.getProperty(JPMessage.class).isParsed()) {
 
                 // Display given Message
@@ -115,7 +120,7 @@ public class DisplayRemoteSend {
                 display.setVisible(JPService.getProperty(JPVisible.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
             } else if (JPService.getProperty(JPImageUrl.class).isParsed()) {
                 display.showImage(JPService.getProperty(JPImageUrl.class).getValue()).get(TIMEOUT, TimeUnit.SECONDS);;
-            } else if (printWarning) {
+            } else if (!JPService.getProperty(JPCloseAll.class).getValue() && printWarning) {
                 logger.warn("No arguments given!");
                 logger.info("Please type \"" + JPService.getApplicationName() + " " + JPHelp.COMMAND_IDENTIFIERS[0] + "\" to get more informations.");
             }
@@ -141,6 +146,7 @@ public class DisplayRemoteSend {
         JPService.registerProperty(JPReload.class);
         JPService.registerProperty(JPMessageType.class);
         JPService.registerProperty(JPOutput.class);
+        JPService.registerProperty(JPCloseAll.class);
         JPService.parseAndExitOnError(args);
 
         try {
