@@ -42,7 +42,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.on
      */
     @RPCMethod
-    public Future<Void> showUrlAndReload(final String url) throws CouldNotPerformException;
+    Future<Void> showUrlAndReload(final String url) throws CouldNotPerformException;
 
     /**
      * Shows the given html content on the generic display.
@@ -54,7 +54,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showHtmlContentAndReload(String content) throws CouldNotPerformException;
+    Future<Void> showHtmlContentAndReload(String content) throws CouldNotPerformException;
 
     /**
      * Shows the given URL on the generic display.
@@ -65,7 +65,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.on
      */
     @RPCMethod
-    public Future<Void> showUrl(final String url) throws CouldNotPerformException;
+    Future<Void> showUrl(final String url) throws CouldNotPerformException;
 
     /**
      *
@@ -89,7 +89,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showHtmlContent(String content) throws CouldNotPerformException;
+    Future<Void> showHtmlContent(String content) throws CouldNotPerformException;
 
     /**
      *
@@ -113,7 +113,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showInfoText(final String text) throws CouldNotPerformException;
+    Future<Void> showInfoText(final String text) throws CouldNotPerformException;
 
     /**
      * Shows the given warn text on the generic display.
@@ -124,7 +124,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showWarnText(final String text) throws CouldNotPerformException;
+    Future<Void> showWarnText(final String text) throws CouldNotPerformException;
 
     /**
      * Shows the given error text on the generic display.
@@ -135,7 +135,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showErrorText(final String text) throws CouldNotPerformException;
+    Future<Void> showErrorText(final String text) throws CouldNotPerformException;
 
     /**
      * Shows the given text on the generic display.
@@ -146,7 +146,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showText(final String text) throws CouldNotPerformException;
+    Future<Void> showText(final String text) throws CouldNotPerformException;
 
     /**
      * Shows the given image centralized on the generic display.
@@ -157,7 +157,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> showImage(final String image) throws CouldNotPerformException;
+    Future<Void> showImage(final String image) throws CouldNotPerformException;
 
     /**
      * Set the given URL on the generic display.
@@ -167,7 +167,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setUrl(final String url) throws CouldNotPerformException;
+    Future<Void> setUrl(final String url) throws CouldNotPerformException;
 
     /**
      *
@@ -190,7 +190,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setHtmlContent(String content) throws CouldNotPerformException;
+    Future<Void> setHtmlContent(String content) throws CouldNotPerformException;
 
     /**
      *
@@ -213,7 +213,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setInfoText(final String text) throws CouldNotPerformException;
+    Future<Void> setInfoText(final String text) throws CouldNotPerformException;
 
     /**
      * Set the given warn text on the generic display.
@@ -223,7 +223,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setWarnText(final String text) throws CouldNotPerformException;
+    Future<Void> setWarnText(final String text) throws CouldNotPerformException;
 
     /**
      * Set the given error text on the generic display.
@@ -233,7 +233,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setErrorText(final String text) throws CouldNotPerformException;
+    Future<Void> setErrorText(final String text) throws CouldNotPerformException;
 
     /**
      * Set the given text on the generic display.
@@ -243,7 +243,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setText(final String text) throws CouldNotPerformException;
+    Future<Void> setText(final String text) throws CouldNotPerformException;
 
     /**
      * Set the given image centralized on the generic display.
@@ -253,7 +253,7 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setImage(final String image) throws CouldNotPerformException;
+    Future<Void> setImage(final String image) throws CouldNotPerformException;
 
     /**
      * Displays the server in foreground fullscreen mode or hides the overall window.
@@ -263,5 +263,14 @@ public interface Display {
      * @throws CouldNotPerformException is thrown if the execution could not be performed.
      */
     @RPCMethod
-    public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException;
+    Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException;
+
+    /**
+     * Closes all visible or background tabs .
+     *
+     * @return the future which gives feedback about the asynchronous execution process.
+     * @throws CouldNotPerformException is thrown if the execution could not be performed.
+     */
+    @RPCMethod
+    Future<Void> closeAll() throws CouldNotPerformException;
 }

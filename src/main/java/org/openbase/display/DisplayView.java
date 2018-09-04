@@ -21,7 +21,10 @@ package org.openbase.display;
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentLinkedQueue;
@@ -41,15 +44,8 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import static org.openbase.display.DisplayRemoteSend.handleAction;
-import org.openbase.display.jp.JPBroadcastDisplayScope;
-import org.openbase.display.jp.JPDisplayScope;
-import org.openbase.display.jp.JPImageUrl;
-import org.openbase.display.jp.JPMessage;
-import org.openbase.display.jp.JPMessageType;
-import org.openbase.display.jp.JPOutput;
-import org.openbase.display.jp.JPTabAmount;
-import org.openbase.display.jp.JPUrl;
-import org.openbase.display.jp.JPVisible;
+
+import org.openbase.display.jp.*;
 import org.openbase.jps.core.JPService;
 import org.openbase.jps.exception.JPServiceException;
 import org.openbase.jul.exception.CouldNotPerformException;
@@ -70,6 +66,8 @@ public class DisplayView extends Application implements Display {
     protected static final org.slf4j.Logger logger = LoggerFactory.getLogger(DisplayView.class);
 
     public static final int AMOUNT_OF_TAB_FALLBACK = 10;
+
+    private final Object TAB_LOCK = new Object();
 
     private DisplayServer broadcastServer, displayServer;
     private Stage primaryStage;
@@ -182,9 +180,11 @@ public class DisplayView extends Application implements Display {
         super.stop();
         displayServer.shutdown();
         broadcastServer.shutdown();
-        webTabMap.values().forEach(tab -> {
-            tab.shutdown();
-        });
+        synchronized (TAB_LOCK) {
+            webTabMap.values().forEach(tab -> {
+                tab.shutdown();
+            });
+        }
     }
 
     private int getHash(final String context) {
@@ -192,36 +192,38 @@ public class DisplayView extends Application implements Display {
     }
 
     private WebTab loadWebEngine(final String context) {
-        assert getHash(context) == getHash(context);
-        int contextHash = getHash(context);
-        WebTab webTab;
+        synchronized (TAB_LOCK) {
+            assert getHash(context) == getHash(context);
+            int contextHash = getHash(context);
+            WebTab webTab;
 
-        // create new tab or load existing one if content is not already displayed.
-        if (!webTabMap.containsKey(contextHash)) {
+            // create new tab or load existing one if content is not already displayed.
+            if (!webTabMap.containsKey(contextHash)) {
 
-            // check if all tabs are in use.
-            if (webTabMap.size() >= maxTabAmount) { // recover outdated tab
-                // get outdated tab
-                webTab = webTabUsageQueue.poll();
-                // update context hash
-                webTabMap.remove(webTab.getContentHash());
-                webTab.updateContextHash(contextHash);
+                // check if all tabs are in use.
+                if (webTabMap.size() >= maxTabAmount) { // recover outdated tab
+                    // get outdated tab
+                    webTab = webTabUsageQueue.poll();
+                    // update context hash
+                    webTabMap.remove(webTab.getContentHash());
+                    webTab.updateContextHash(contextHash);
 
-                webTabMap.put(contextHash, webTab);
-            } else { // create new tab
-                webTabMap.put(contextHash, new WebTab(contextHash, stackPane));
+                    webTabMap.put(contextHash, webTab);
+                } else { // create new tab
+                    webTabMap.put(contextHash, new WebTab(contextHash, stackPane));
+                }
             }
-        }
 
-        // restore tab
-        webTab = webTabMap.get(contextHash);
+            // restore tab
+            webTab = webTabMap.get(contextHash);
 
-        // add tab to queue tail so it will not be reused
-        if (webTabUsageQueue.contains(webTab)) {
-            webTabUsageQueue.remove(webTab);
+            // add tab to queue tail so it will not be reused
+            if (webTabUsageQueue.contains(webTab)) {
+                webTabUsageQueue.remove(webTab);
+            }
+            webTabUsageQueue.offer(webTab);
+            return webTab;
         }
-        webTabUsageQueue.offer(webTab);
-        return webTab;
     }
 
     private Future<Void> displayHTML(final String html, boolean show, final boolean reload) throws CouldNotPerformException {
@@ -459,6 +461,23 @@ public class DisplayView extends Application implements Display {
                 logger.info("hide display");
                 getStage().hide();
                 getStage().setFullScreen(false);
+            }
+            return null;
+        });
+    }
+
+    @Override
+    public Future<Void> closeAll() throws CouldNotPerformException {
+        setVisible(false);
+        return runTask(() -> {
+            logger.info("close all");
+            synchronized (TAB_LOCK) {
+                for (WebTab webTab : new ArrayList<>(webTabMap.values())) {
+                    webTab.getEngine().getLoadWorker().cancel();
+                    webTab.getEngine().load(null);
+                    webTabMap.remove(webTab.getContentHash());
+                    webTab.updateContextHash(0);
+                }
             }
             return null;
         });
