@@ -34,6 +34,7 @@ import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import rst.domotic.unit.UnitConfigType.UnitConfig;
+import rst.domotic.unit.dal.DisplayDataType.DisplayData;
 import rst.rsb.ScopeType;
 
 /**
@@ -42,7 +43,7 @@ import rst.rsb.ScopeType;
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  *
  */
-public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Display {
+public class DisplayRemote extends RSBRemoteService<DisplayData> implements Display {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
@@ -51,12 +52,12 @@ public class DisplayRemote extends RSBRemoteService<UnitConfig> implements Displ
     private final DisplayRemote broadcastDisplayRemote;
 
     public DisplayRemote() {
-        super(UnitConfig.class);
+        super(DisplayData.class);
         this.broadcastDisplayRemote = new DisplayRemote(null);
     }
 
     public DisplayRemote(final DisplayRemote broadcastDisplayRemote) {
-        super(UnitConfig.class);
+        super(DisplayData.class);
         this.broadcastDisplayRemote = broadcastDisplayRemote;
     }
 

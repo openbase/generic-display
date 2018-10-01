@@ -31,21 +31,22 @@ import rsb.converter.ProtocolBufferConverter;
 import rst.domotic.unit.UnitConfigType;
 import rst.domotic.unit.UnitConfigType.UnitConfig;
 import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
+import rst.domotic.unit.dal.DisplayDataType.DisplayData;
 
 /**
  *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
-public class DisplayServer extends RSBCommunicationService<UnitConfigType.UnitConfig, UnitConfigType.UnitConfig.Builder> {
+public class DisplayServer extends RSBCommunicationService<DisplayData, DisplayData.Builder> {
 
     static {
-        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
+        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(DisplayData.getDefaultInstance()));
     }
 
     private final Display display;
 
     public DisplayServer(final Display display) throws InstantiationException, CouldNotPerformException {
-        super(UnitConfig.newBuilder());
+        super(DisplayData.newBuilder());
         this.display = display;
     }
 
