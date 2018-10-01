@@ -28,6 +28,7 @@ import org.openbase.jul.extension.rsb.com.RPCHelper;
 import org.openbase.jul.extension.rsb.com.RSBCommunicationService;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
+import rst.configuration.MetaConfigType.MetaConfig;
 import rst.domotic.unit.UnitConfigType;
 import rst.domotic.unit.UnitConfigType.UnitConfig;
 import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
@@ -40,6 +41,7 @@ import rst.domotic.unit.dal.DisplayDataType.DisplayData;
 public class DisplayServer extends RSBCommunicationService<DisplayData, DisplayData.Builder> {
 
     static {
+        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(MetaConfig.getDefaultInstance()));
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(DisplayData.getDefaultInstance()));
     }
 

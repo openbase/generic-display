@@ -32,8 +32,12 @@ import org.openbase.jps.core.JPService;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.VerificationFailedException;
+import org.openbase.jul.extension.rst.processing.MetaConfigVariableProvider;
 import org.openbase.jul.processing.VariableProcessor;
+import org.openbase.jul.processing.VariableProvider;
 import org.openbase.jul.processing.VariableStore;
+import rst.configuration.EntryType.Entry;
+import rst.configuration.MetaConfigType.MetaConfig;
 
 /**
  *
@@ -43,13 +47,15 @@ public class HTMLLoader {
 
     public enum Template {
 
+        IMAGE_TEXT_TEXT_VIEW("template/html/ImageTextTextView.html"),
         IMAGE_VIEW("template/html/ImageView.html"),
         TEXT_VIEW("template/html/TextView.html");
 
+        public static final String KEY_TEMPLATE = "TEMPLATE";
         private final String uri;
         private String template;
 
-        private Template(final String uri) {
+        Template(final String uri) {
             this.uri = uri;
         }
 
@@ -79,11 +85,11 @@ public class HTMLLoader {
 
     }
 
-    private final VariableStore variableStore;
+    private final VariableStore globalVariableStore;
 
     public HTMLLoader() throws InstantiationException {
         try {
-            this.variableStore = new VariableStore(HTMLLoader.class.getSimpleName());
+            this.globalVariableStore = new VariableStore(HTMLLoader.class.getSimpleName());
 
             //verify templates
             for (Template template : Template.values()) {
@@ -95,16 +101,16 @@ public class HTMLLoader {
     }
 
     public void init(final Screen screen) {
-        variableStore.store("SCREEN_WIDTH", Double.toString(screen.getBounds().getWidth()));
-        variableStore.store("SCREEN_HEIGHT", Double.toString(screen.getBounds().getHeight()));
-        variableStore.store("APP", JPService.getApplicationName());
+        globalVariableStore.store("SCREEN_WIDTH", Double.toString(screen.getBounds().getWidth()));
+        globalVariableStore.store("SCREEN_HEIGHT", Double.toString(screen.getBounds().getHeight()));
+        globalVariableStore.store("APP", JPService.getApplicationName());
     }
 
     public String loadTextView(final String text, final Color color) throws CouldNotPerformException {
         try {
-            variableStore.store("TEXT", text);
-            variableStore.store("COLOR", "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + "," + (int) (color.getBlue() * 255) + ")");
-            return buildContext(Template.TEXT_VIEW);
+            globalVariableStore.store("TEXT", text);
+            globalVariableStore.store("COLOR", "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + "," + (int) (color.getBlue() * 255) + ")");
+            return buildContext(Template.TEXT_VIEW, globalVariableStore);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load TextView!", ex);
         }
@@ -113,16 +119,29 @@ public class HTMLLoader {
     public String loadImageView(final String image) throws CouldNotPerformException {
         try {
             validateURI(image);
-            variableStore.store("IMAGE", image);
-            return buildContext(Template.IMAGE_VIEW);
+            globalVariableStore.store("IMAGE", image);
+            return buildContext(Template.IMAGE_VIEW, globalVariableStore);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load ImageView!", ex);
         }
     }
 
-    public String buildContext(final Template template) throws CouldNotPerformException {
+    public String loadTemplateView(final Template template, final MetaConfig metaConfig) throws CouldNotPerformException {
         try {
-            return VariableProcessor.resolveVariables(template.getTemplate(), true, variableStore);
+            for (Entry entry : metaConfig.getEntryList()) {
+                if (entry.getKey().contains("URL")) {
+                    validateURI(entry.getValue());
+                }
+            }
+            return buildContext(template, new MetaConfigVariableProvider("passed parameters", metaConfig));
+        } catch (CouldNotPerformException ex) {
+            throw new CouldNotPerformException("Could not load ImageView!", ex);
+        }
+    }
+
+    static String buildContext(final Template template, final VariableProvider variableProvider) throws CouldNotPerformException {
+        try {
+            return VariableProcessor.resolveVariables(template.getTemplate(), true, variableProvider);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not build context out of Template[" + template + "]!", ex);
         }

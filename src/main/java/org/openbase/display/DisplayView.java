@@ -10,26 +10,22 @@ package org.openbase.display;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
-import java.util.ArrayDeque;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
-import java.util.concurrent.Callable;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ConcurrentLinkedQueue;
-import java.util.concurrent.Future;
-import java.util.concurrent.FutureTask;
+import java.util.concurrent.*;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -43,8 +39,10 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.apache.commons.lang.builder.HashCodeBuilder;
+
 import static org.openbase.display.DisplayRemoteSend.handleAction;
 
+import org.openbase.display.HTMLLoader.Template;
 import org.openbase.display.jp.*;
 import org.openbase.jps.core.JPService;
 import org.openbase.jps.exception.JPServiceException;
@@ -53,12 +51,14 @@ import org.openbase.jul.exception.InitializationException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
+import org.openbase.jul.extension.rst.processing.MetaConfigVariableProvider;
 import org.openbase.jul.processing.StringProcessor;
+import org.openbase.jul.schedule.FutureProcessor;
 import org.openbase.jul.schedule.GlobalCachedExecutorService;
 import org.slf4j.LoggerFactory;
+import rst.configuration.MetaConfigType.MetaConfig;
 
 /**
- *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
 public class DisplayView extends Application implements Display {
@@ -122,8 +122,10 @@ public class DisplayView extends Application implements Display {
                 public void handle(KeyEvent event) {
                     if (escapeKey.match(event)) {
                         try {
-                            setVisible(false);
-                        } catch (CouldNotPerformException ex) {
+                            setVisible(false).get();
+                        } catch (InterruptedException ex) {
+                            return;
+                        } catch (ExecutionException ex) {
                             ExceptionPrinter.printHistory(new CouldNotPerformException("Could not execute key event!", ex), logger);
                         }
                     }
@@ -226,7 +228,7 @@ public class DisplayView extends Application implements Display {
         }
     }
 
-    private Future<Void> displayHTML(final String html, boolean show, final boolean reload) throws CouldNotPerformException {
+    private Future<Void> displayHTML(final String html, boolean show, final boolean reload) {
         return runTask(() -> {
             loadWebEngine(html).loadContent(html, reload);
             if (show) {
@@ -236,7 +238,7 @@ public class DisplayView extends Application implements Display {
         });
     }
 
-    private Future<Void> displayURL(final String url, boolean show, final boolean reload) throws CouldNotPerformException {
+    private Future<Void> displayURL(final String url, boolean show, final boolean reload) {
         return runTask(() -> {
             loadWebEngine(url).load(url, reload);
             if (show) {
@@ -249,197 +251,260 @@ public class DisplayView extends Application implements Display {
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param url {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showUrlAndReload(String url) throws CouldNotPerformException {
-        logger.info("show url and reload: "+ url);
+    public Future<Void> showUrlAndReload(String url) {
+        logger.info("show url and reload: " + url);
         return displayURL(url, true, true);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showHtmlContentAndReload(String content) throws CouldNotPerformException {
-        logger.info("show html content and reload: "+ toSingleLine(content));
+    public Future<Void> showHtmlContentAndReload(String content) {
+        logger.info("show html content and reload: " + toSingleLine(content));
         return displayHTML(content, true, true);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param url {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showUrl(final String url) throws CouldNotPerformException {
-        logger.info("show url: "+ url);
+    public Future<Void> showUrl(final String url) {
+        logger.info("show url: " + url);
         return displayURL(url, true, false);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showHtmlContent(final String content) throws CouldNotPerformException {
-        logger.info("show html content: "+ toSingleLine(content));
+    public Future<Void> showHtmlContent(final String content) {
+        logger.info("show html content: " + toSingleLine(content));
         return displayHTML(content, true, false);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showInfoText(final String presetId) throws CouldNotPerformException {
-        logger.info("show info text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true, false);
+    public Future<Void> showInfoText(final String presetId) {
+        logger.info("show info text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showWarnText(final String presetId) throws CouldNotPerformException {
-        logger.info("show warning text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true, false);
+    public Future<Void> showWarnText(final String presetId) {
+        logger.info("show warning text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showErrorText(final String presetId) throws CouldNotPerformException {
-        logger.info("show error text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true, false);
+    public Future<Void> showErrorText(final String presetId) {
+        logger.info("show error text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showText(final String presetId) throws CouldNotPerformException {
-        logger.info("show text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true, false);
+    public Future<Void> showText(final String presetId) {
+        logger.info("show text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param image
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param image {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showImage(final String image) throws CouldNotPerformException {
-        logger.info("show image: " +image);
-        return displayHTML(htmlLoader.loadImageView(image), true, false);
+    public Future<Void> showImage(final String image) {
+        logger.info("show image: " + image);
+        try {
+            return displayHTML(htmlLoader.loadImageView(image), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param url {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setUrl(final String url) throws CouldNotPerformException {
-        logger.info("set url: " +url);
+    public Future<Void> setUrl(final String url) {
+        logger.info("set url: " + url);
         return displayURL(url, false, false);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setHtmlContent(final String content) throws CouldNotPerformException {
-        logger.info("set html content: " +toSingleLine(content));
+    public Future<Void> setHtmlContent(final String content) {
+        logger.info("set html content: " + toSingleLine(content));
         return displayHTML(content, false, false);
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setInfoText(final String presetId) throws CouldNotPerformException {
-        logger.info("set info text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false, false);
+    public Future<Void> setInfoText(final String presetId) {
+        logger.info("set info text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.FORESTGREEN.darker()), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setWarnText(final String presetId) throws CouldNotPerformException {
-        logger.info("set warning text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false, false);
+    public Future<Void> setWarnText(final String presetId) {
+        logger.info("set warning text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.ORANGE), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setErrorText(final String presetId) throws CouldNotPerformException {
-        logger.info("set error text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false, false);
+    public Future<Void> setErrorText(final String presetId) {
+        logger.info("set error text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.RED.darker()), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param presetId
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param presetId {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setText(final String presetId) throws CouldNotPerformException {
-        logger.info("set text: " +presetId);
-        return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false, false);
+    public Future<Void> setText(final String presetId) {
+        logger.info("set text: " + presetId);
+        try {
+            return displayHTML(htmlLoader.loadTextView(presetId, Color.BLACK), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param image
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param image {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setImage(final String image) throws CouldNotPerformException {
-        logger.info("set image:" +image);
-        return displayHTML(htmlLoader.loadImageView(image), false, false);
+    public Future<Void> setImage(final String image) {
+        logger.info("set image:" + image);
+        try {
+            return displayHTML(htmlLoader.loadImageView(image), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @param visible
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param visible {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setVisible(final Boolean visible) throws CouldNotPerformException {
+    public Future<Void> setVisible(final Boolean visible) {
         return runTask(() -> {
             if (visible) {
                 logger.info("show display");
@@ -449,7 +514,7 @@ public class DisplayView extends Application implements Display {
                 stage.setY(screen.getVisualBounds().getMinY());
                 stage.setHeight(screen.getVisualBounds().getHeight());
                 stage.setWidth(screen.getVisualBounds().getWidth());
-                if(!getStage().isFocused() || !getStage().isShowing()) {
+                if (!getStage().isFocused() || !getStage().isShowing()) {
                     getStage().setFullScreen(false);
                     if (!getStage().isAlwaysOnTop()) {
                         getStage().setAlwaysOnTop(true);
@@ -467,10 +532,47 @@ public class DisplayView extends Application implements Display {
     }
 
     @Override
-    public Future<Void> closeAll() throws CouldNotPerformException {
-        setVisible(false);
+    public Future<Void> setTemplate(MetaConfig metaConfig) {
+        try {
+            final Template template;
+            try {
+                template = Template.valueOf(new MetaConfigVariableProvider("passed parameters", metaConfig).getValue(Template.KEY_TEMPLATE));
+            } catch (IllegalArgumentException | CouldNotPerformException ex) {
+                throw new CouldNotPerformException("Could not resolve template!", ex);
+            }
+            logger.info("set template:" + template.name());
+            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig), false, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
+    }
+
+    @Override
+    public Future<Void> showTemplate(MetaConfig metaConfig) {
+        try {
+            final Template template;
+            try {
+                template = Template.valueOf(new MetaConfigVariableProvider("passed parameters", metaConfig).getValue(Template.KEY_TEMPLATE));
+            } catch (IllegalArgumentException | CouldNotPerformException ex) {
+                throw new CouldNotPerformException("Could not resolve template!", ex);
+            }
+            logger.info("set template:" + template.name());
+            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig), true, false);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public Future<Void> closeAll() {
         return runTask(() -> {
             logger.info("close all");
+            setVisible(false).get();
             synchronized (TAB_LOCK) {
                 for (WebTab webTab : new ArrayList<>(webTabMap.values())) {
                     webTab.getEngine().getLoadWorker().cancel();
@@ -522,7 +624,7 @@ public class DisplayView extends Application implements Display {
         return primaryStage;
     }
 
-    private <V> Future<V> runTask(final Callable<V> callable) throws CouldNotPerformException {
+    private <V> Future<V> runTask(final Callable<V> callable) {
         try {
 
             if (Platform.isFxApplicationThread()) {
@@ -543,7 +645,7 @@ public class DisplayView extends Application implements Display {
             Platform.runLater(future);
             return future;
         } catch (Exception ex) {
-            throw new CouldNotPerformException("Could not perform task!", ex);
+            return FutureProcessor.canceledFuture(new CouldNotPerformException("Could not perform task!", ex));
         }
     }
 

@@ -10,18 +10,20 @@ package org.openbase.display;
  * it under the terms of the GNU General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public
  * License along with this program.  If not, see
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+
 import java.util.concurrent.Future;
+
 import org.openbase.display.jp.JPBroadcastDisplayScope;
 import org.openbase.display.jp.JPDisplayScope;
 import org.openbase.jps.core.JPService;
@@ -30,10 +32,11 @@ import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InitializationException;
 import org.openbase.jul.extension.rsb.com.RPCHelper;
 import org.openbase.jul.extension.rsb.com.RSBRemoteService;
+import org.openbase.jul.schedule.FutureProcessor;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
-import rst.domotic.unit.UnitConfigType.UnitConfig;
+import rst.configuration.MetaConfigType.MetaConfig;
 import rst.domotic.unit.dal.DisplayDataType.DisplayData;
 import rst.rsb.ScopeType;
 
@@ -41,12 +44,12 @@ import rst.rsb.ScopeType;
  * A remote to control a generic display server via rsb.
  *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
- *
  */
 public class DisplayRemote extends RSBRemoteService<DisplayData> implements Display {
 
     static {
-        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(UnitConfig.getDefaultInstance()));
+        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(MetaConfig.getDefaultInstance()));
+        DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(DisplayData.getDefaultInstance()));
     }
 
     private final DisplayRemote broadcastDisplayRemote;
@@ -118,181 +121,318 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param url {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showUrlAndReload(final String url) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(url, this, Void.class);
+    public Future<Void> showUrlAndReload(final String url) {
+        try {
+            return RPCHelper.callRemoteMethod(url, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showHtmlContentAndReload(final String content) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(content, this, Void.class);
+    public Future<Void> showHtmlContentAndReload(final String content) {
+        try {
+            return RPCHelper.callRemoteMethod(content, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param url the URL to display {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showUrl(String url) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(url, this, Void.class);
+    public Future<Void> showUrl(String url) {
+        try {
+            return RPCHelper.callRemoteMethod(url, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showHtmlContent(String content) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(content, this, Void.class);
+    public Future<Void> showHtmlContent(String content) {
+        try {
+            return RPCHelper.callRemoteMethod(content, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showInfoText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> showInfoText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showWarnText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> showWarnText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showErrorText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> showErrorText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> showText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param image {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> showImage(String image) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(image, this, Void.class);
+    public Future<Void> showImage(String image) {
+        try {
+            return RPCHelper.callRemoteMethod(image, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
-     */
-    @Override
-    public Future<Void> setUrl(String url) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(url, this, Void.class);
-    }
-    
-    /**
-     * {@inheritDoc}
+     * @param url {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setHtmlContent(String content) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(content, this, Void.class);
+    public Future<Void> setUrl(String url) {
+        try {
+            return RPCHelper.callRemoteMethod(url, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param content {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setInfoText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> setHtmlContent(String content) {
+        try {
+            return RPCHelper.callRemoteMethod(content, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setWarnText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> setInfoText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setErrorText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> setWarnText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setText(String text) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(text, this, Void.class);
+    public Future<Void> setErrorText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param text {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setImage(String image) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(image, this, Void.class);
+    public Future<Void> setText(String text) {
+        try {
+            return RPCHelper.callRemoteMethod(text, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param image {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> setVisible(Boolean visible) throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(visible, this, Void.class);
+    public Future<Void> setImage(String image) {
+        try {
+            return RPCHelper.callRemoteMethod(image, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
     /**
      * {@inheritDoc}
      *
-     * @throws org.openbase.jul.exception.CouldNotPerformException
+     * @param visible {@inheritDoc}
+     *
+     * @return {@inheritDoc}
      */
     @Override
-    public Future<Void> closeAll() throws CouldNotPerformException {
-        return RPCHelper.callRemoteMethod(this, Void.class);
+    public Future<Void> setVisible(Boolean visible) {
+        try {
+            return RPCHelper.callRemoteMethod(visible, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @param metaConfig {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public Future<Void> setTemplate(MetaConfig metaConfig) {
+        try {
+            return RPCHelper.callRemoteMethod(metaConfig, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @param metaConfig {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public Future<Void> showTemplate(MetaConfig metaConfig) {
+        try {
+            return RPCHelper.callRemoteMethod(metaConfig, this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return {@inheritDoc}
+     */
+    @Override
+    public Future<Void> closeAll() {
+        try {
+            return RPCHelper.callRemoteMethod(this, Void.class);
+        } catch (CouldNotPerformException ex) {
+            return FutureProcessor.canceledFuture(Void.class, ex);
+        }
+    }
 }
