@@ -541,7 +541,7 @@ public class DisplayView extends Application implements Display {
                 throw new CouldNotPerformException("Could not resolve template!", ex);
             }
             logger.info("set template:" + template.name());
-            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig), false, false);
+            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig, false), false, false);
         } catch (CouldNotPerformException ex) {
             return FutureProcessor.canceledFuture(Void.class, ex);
         }
@@ -557,7 +557,7 @@ public class DisplayView extends Application implements Display {
                 throw new CouldNotPerformException("Could not resolve template!", ex);
             }
             logger.info("set template:" + template.name());
-            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig), true, false);
+            return displayHTML(htmlLoader.loadTemplateView(template, metaConfig, false), true, false);
         } catch (CouldNotPerformException ex) {
             return FutureProcessor.canceledFuture(Void.class, ex);
         }

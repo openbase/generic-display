@@ -110,7 +110,7 @@ public class HTMLLoader {
         try {
             globalVariableStore.store("TEXT", text);
             globalVariableStore.store("COLOR", "rgb(" + (int) (color.getRed() * 255) + "," + (int) (color.getGreen() * 255) + "," + (int) (color.getBlue() * 255) + ")");
-            return buildContext(Template.TEXT_VIEW, globalVariableStore);
+            return buildContext(Template.TEXT_VIEW, globalVariableStore, true);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load TextView!", ex);
         }
@@ -120,28 +120,28 @@ public class HTMLLoader {
         try {
             validateURI(image);
             globalVariableStore.store("IMAGE", image);
-            return buildContext(Template.IMAGE_VIEW, globalVariableStore);
+            return buildContext(Template.IMAGE_VIEW, globalVariableStore, true);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load ImageView!", ex);
         }
     }
 
-    public String loadTemplateView(final Template template, final MetaConfig metaConfig) throws CouldNotPerformException {
+    public String loadTemplateView(final Template template, final MetaConfig metaConfig, boolean failOnMissingVariables) throws CouldNotPerformException {
         try {
             for (Entry entry : metaConfig.getEntryList()) {
                 if (entry.getKey().contains("URL")) {
                     validateURI(entry.getValue());
                 }
             }
-            return buildContext(template, new MetaConfigVariableProvider("passed parameters", metaConfig));
+            return buildContext(template, new MetaConfigVariableProvider("passed parameters", metaConfig), failOnMissingVariables);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not load ImageView!", ex);
         }
     }
 
-    static String buildContext(final Template template, final VariableProvider variableProvider) throws CouldNotPerformException {
+    static String buildContext(final Template template, final VariableProvider variableProvider, boolean failOnMissingVariables) throws CouldNotPerformException {
         try {
-            return VariableProcessor.resolveVariables(template.getTemplate(), true, variableProvider);
+            return VariableProcessor.resolveVariables(template.getTemplate(), failOnMissingVariables, variableProvider);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not build context out of Template[" + template + "]!", ex);
         }
