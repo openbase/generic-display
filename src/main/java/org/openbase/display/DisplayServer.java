@@ -28,11 +28,11 @@ import org.openbase.jul.extension.rsb.com.RPCHelper;
 import org.openbase.jul.extension.rsb.com.RSBCommunicationService;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
-import rst.configuration.MetaConfigType.MetaConfig;
-import rst.domotic.unit.UnitConfigType;
-import rst.domotic.unit.UnitConfigType.UnitConfig;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.domotic.unit.UnitConfigType;
+import org.openbase.type.domotic.unit.UnitConfigType.UnitConfig;
 import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
-import rst.domotic.unit.dal.DisplayDataType.DisplayData;
+import org.openbase.type.domotic.unit.dal.DisplayDataType.DisplayData;
 
 /**
  *

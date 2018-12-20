@@ -29,9 +29,9 @@ import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
 import org.openbase.jul.pattern.Remote.ConnectionState;
 import org.slf4j.LoggerFactory;
-import rst.configuration.EntryType.Entry;
-import rst.configuration.MetaConfigType.MetaConfig;
-import rst.configuration.MetaConfigType.MetaConfig.Builder;
+import org.openbase.type.configuration.EntryType.Entry;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig.Builder;
 
 import java.util.concurrent.ExecutionException;
 

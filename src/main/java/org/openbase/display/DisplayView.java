@@ -51,12 +51,12 @@ import org.openbase.jul.exception.InitializationException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.NotAvailableException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
-import org.openbase.jul.extension.rst.processing.MetaConfigVariableProvider;
+import org.openbase.jul.extension.type.processing.MetaConfigVariableProvider;
 import org.openbase.jul.processing.StringProcessor;
 import org.openbase.jul.schedule.FutureProcessor;
 import org.openbase.jul.schedule.GlobalCachedExecutorService;
 import org.slf4j.LoggerFactory;
-import rst.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
 
 /**
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>

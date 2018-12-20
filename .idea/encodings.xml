@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/annotation" charset="UTF-8" />
@@ -9,7 +9,6 @@
     <file url="file://$PROJECT_DIR$/../jul/extension" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/openhab" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/protobuf" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rct" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/com" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/container" charset="UTF-8" />
@@ -17,14 +16,13 @@
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/processing" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/scope" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/util" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/container" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/interface" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/processing" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/storage" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/transform" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/rst/util" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/tcp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/processing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/storage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/transform" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/util" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern" charset="UTF-8" />

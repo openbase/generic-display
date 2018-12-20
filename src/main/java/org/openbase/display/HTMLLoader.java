@@ -32,12 +32,12 @@ import org.openbase.jps.core.JPService;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InstantiationException;
 import org.openbase.jul.exception.VerificationFailedException;
-import org.openbase.jul.extension.rst.processing.MetaConfigVariableProvider;
+import org.openbase.jul.extension.type.processing.MetaConfigVariableProvider;
 import org.openbase.jul.processing.VariableProcessor;
 import org.openbase.jul.processing.VariableProvider;
 import org.openbase.jul.processing.VariableStore;
-import rst.configuration.EntryType.Entry;
-import rst.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.configuration.EntryType.Entry;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
 
 /**
  *

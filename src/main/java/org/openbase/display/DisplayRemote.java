@@ -36,9 +36,9 @@ import org.openbase.jul.schedule.FutureProcessor;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
-import rst.configuration.MetaConfigType.MetaConfig;
-import rst.domotic.unit.dal.DisplayDataType.DisplayData;
-import rst.rsb.ScopeType;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.domotic.unit.dal.DisplayDataType.DisplayData;
+import org.openbase.type.com.ScopeType;
 
 /**
  * A remote to control a generic display server via rsb.

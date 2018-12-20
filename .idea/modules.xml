@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/generic-display.iml" filepath="$PROJECT_DIR$/generic-display.iml" />
+      <module fileurl="file://$PROJECT_DIR$/generic-display.iml" filepath="$PROJECT_DIR$/generic-display.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/jul.iml" filepath="$PROJECT_DIR$/../jul/jul.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/jul.iml" filepath="$PROJECT_DIR$/../jul/jul.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/annotation/jul.annotation.iml" filepath="$PROJECT_DIR$/../jul/annotation/jul.annotation.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/audio/jul.audio.iml" filepath="$PROJECT_DIR$/../jul/audio/jul.audio.iml" />
@@ -26,6 +28,12 @@
       <module fileurl="file://$PROJECT_DIR$/../jul/extension/rst/transform/jul.extension.rst.transform.iml" filepath="$PROJECT_DIR$/../jul/extension/rst/transform/jul.extension.rst.transform.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/extension/rst/util/jul.extension.rst.util.iml" filepath="$PROJECT_DIR$/../jul/extension/rst/util/jul.extension.rst.util.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/extension/tcp/jul.extension.tcp.iml" filepath="$PROJECT_DIR$/../jul/extension/tcp/jul.extension.tcp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/jul.extension.type.iml" filepath="$PROJECT_DIR$/../jul/extension/type/jul.extension.type.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/interface/jul.extension.type.interface.iml" filepath="$PROJECT_DIR$/../jul/extension/type/interface/jul.extension.type.interface.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/processing/jul.extension.type.processing.iml" filepath="$PROJECT_DIR$/../jul/extension/type/processing/jul.extension.type.processing.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/storage/jul.extension.type.storage.iml" filepath="$PROJECT_DIR$/../jul/extension/type/storage/jul.extension.type.storage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/transform/jul.extension.type.transform.iml" filepath="$PROJECT_DIR$/../jul/extension/type/transform/jul.extension.type.transform.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../jul/extension/type/util/jul.extension.type.util.iml" filepath="$PROJECT_DIR$/../jul/extension/type/util/jul.extension.type.util.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/extension/xml/jul.extension.xml.iml" filepath="$PROJECT_DIR$/../jul/extension/xml/jul.extension.xml.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/interface/jul.interface.iml" filepath="$PROJECT_DIR$/../jul/interface/jul.interface.iml" />
       <module fileurl="file://$PROJECT_DIR$/../jul/pattern/default/jul.pattern.iml" filepath="$PROJECT_DIR$/../jul/pattern/default/jul.pattern.iml" />

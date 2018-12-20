@@ -26,7 +26,7 @@ import java.util.concurrent.Future;
 
 import org.openbase.jul.annotation.RPCMethod;
 import org.openbase.jul.exception.CouldNotPerformException;
-import rst.configuration.MetaConfigType.MetaConfig;
+import org.openbase.type.configuration.MetaConfigType.MetaConfig;
 
 /**
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
