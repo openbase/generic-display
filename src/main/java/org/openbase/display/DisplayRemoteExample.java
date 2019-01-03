@@ -27,11 +27,10 @@ import org.openbase.display.jp.JPDisplayScope;
 import org.openbase.jps.core.JPService;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
-import org.openbase.jul.pattern.Remote.ConnectionState;
+import org.openbase.type.domotic.state.ConnectionStateType.ConnectionState;
 import org.slf4j.LoggerFactory;
 import org.openbase.type.configuration.EntryType.Entry;
 import org.openbase.type.configuration.MetaConfigType.MetaConfig;
-import org.openbase.type.configuration.MetaConfigType.MetaConfig.Builder;
 
 import java.util.concurrent.ExecutionException;
 
@@ -64,7 +63,7 @@ public class DisplayRemoteExample {
             DisplayRemote remote = new DisplayRemote();
             remote.init();
             remote.activate();
-            remote.waitForConnectionState(ConnectionState.CONNECTED);
+            remote.waitForConnectionState(ConnectionState.State.CONNECTED);
 
             // Switch displays on
             remote.setVisible(true);

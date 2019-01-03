@@ -26,6 +26,7 @@
     <file url="file://$PROJECT_DIR$/../jul/extension/xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/interface" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/pattern/controller" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/default" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/launch" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/trigger" charset="UTF-8" />

@@ -34,6 +34,7 @@
         <module name="jul.extension.xml" />
         <module name="jul.interface" />
         <module name="jul.pattern" />
+        <module name="jul.pattern.controller" />
         <module name="jul.pattern.launch" />
         <module name="jul.pattern.trigger" />
         <module name="jul.processing" />
@@ -77,6 +78,7 @@
       <module name="jul.extension.xml" target="1.8" />
       <module name="jul.interface" target="1.8" />
       <module name="jul.pattern" target="1.8" />
+      <module name="jul.pattern.controller" target="1.8" />
       <module name="jul.pattern.launch" target="1.8" />
       <module name="jul.pattern.module" target="1.8" />
       <module name="jul.pattern.trigger" target="1.8" />

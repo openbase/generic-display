@@ -32,7 +32,7 @@ import org.openbase.jps.exception.JPServiceException;
 import org.openbase.jps.preset.JPHelp;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.printer.ExceptionPrinter;
-import org.openbase.jul.pattern.Remote.ConnectionState;
+import org.openbase.type.domotic.state.ConnectionStateType.ConnectionState;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,7 +67,7 @@ public class DisplayRemoteSend {
         try {
             remote.init();
             remote.activate();
-            remote.waitForConnectionState(ConnectionState.CONNECTED, 5000);
+            remote.waitForConnectionState(ConnectionState.State.CONNECTED, 5000);
             handleAction(remote, printWarning);
         } catch (CouldNotPerformException ex) {
             throw new CouldNotPerformException("Could not handle action!", ex);
