@@ -30,8 +30,8 @@ import org.openbase.jps.core.JPService;
 import org.openbase.jps.exception.JPServiceException;
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InitializationException;
+import org.openbase.jul.extension.rsb.com.AbstractRemoteClient;
 import org.openbase.jul.extension.rsb.com.RPCHelper;
-import org.openbase.jul.extension.rsb.com.RSBRemoteService;
 import org.openbase.jul.schedule.FutureProcessor;
 import rsb.config.ParticipantConfig;
 import rsb.converter.DefaultConverterRepository;
@@ -45,7 +45,7 @@ import org.openbase.type.com.ScopeType;
  *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
-public class DisplayRemote extends RSBRemoteService<DisplayData> implements Display {
+public class DisplayRemote extends AbstractRemoteClient<DisplayData> implements Display {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(MetaConfig.getDefaultInstance()));
@@ -127,11 +127,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showUrlAndReload(final String url) {
-        try {
-            return RPCHelper.callRemoteMethod(url, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
+        return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
 
     /**
@@ -143,11 +139,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showHtmlContentAndReload(final String content) {
-        try {
-            return RPCHelper.callRemoteMethod(content, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
+        return RPCHelper.callRemoteMethod(content, this, Void.class);
     }
 
     /**
@@ -159,11 +151,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showUrl(String url) {
-        try {
-            return RPCHelper.callRemoteMethod(url, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
+    return RPCHelper.callRemoteMethod(url, this, Void.class);
     }
 
     /**
@@ -175,11 +163,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showHtmlContent(String content) {
-        try {
             return RPCHelper.callRemoteMethod(content, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -191,11 +175,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showInfoText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -207,11 +187,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showWarnText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -223,11 +199,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showErrorText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -239,11 +211,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -255,11 +223,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showImage(String image) {
-        try {
             return RPCHelper.callRemoteMethod(image, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -271,11 +235,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setUrl(String url) {
-        try {
             return RPCHelper.callRemoteMethod(url, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -287,11 +247,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setHtmlContent(String content) {
-        try {
             return RPCHelper.callRemoteMethod(content, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -303,11 +259,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setInfoText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -319,11 +271,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setWarnText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -335,11 +283,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setErrorText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -351,11 +295,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setText(String text) {
-        try {
             return RPCHelper.callRemoteMethod(text, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -367,11 +307,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setImage(String image) {
-        try {
             return RPCHelper.callRemoteMethod(image, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -383,11 +319,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setVisible(Boolean visible) {
-        try {
             return RPCHelper.callRemoteMethod(visible, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -399,11 +331,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> setTemplate(MetaConfig metaConfig) {
-        try {
             return RPCHelper.callRemoteMethod(metaConfig, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -415,11 +343,7 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> showTemplate(MetaConfig metaConfig) {
-        try {
             return RPCHelper.callRemoteMethod(metaConfig, this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 
     /**
@@ -429,10 +353,6 @@ public class DisplayRemote extends RSBRemoteService<DisplayData> implements Disp
      */
     @Override
     public Future<Void> closeAll() {
-        try {
             return RPCHelper.callRemoteMethod(this, Void.class);
-        } catch (CouldNotPerformException ex) {
-            return FutureProcessor.canceledFuture(Void.class, ex);
-        }
     }
 }

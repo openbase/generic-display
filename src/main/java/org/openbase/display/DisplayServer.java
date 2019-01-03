@@ -24,13 +24,11 @@ package org.openbase.display;
 
 import org.openbase.jul.exception.CouldNotPerformException;
 import org.openbase.jul.exception.InstantiationException;
+import org.openbase.jul.extension.rsb.com.AbstractControllerServer;
 import org.openbase.jul.extension.rsb.com.RPCHelper;
-import org.openbase.jul.extension.rsb.com.RSBCommunicationService;
 import rsb.converter.DefaultConverterRepository;
 import rsb.converter.ProtocolBufferConverter;
 import org.openbase.type.configuration.MetaConfigType.MetaConfig;
-import org.openbase.type.domotic.unit.UnitConfigType;
-import org.openbase.type.domotic.unit.UnitConfigType.UnitConfig;
 import org.openbase.jul.extension.rsb.iface.RSBLocalServer;
 import org.openbase.type.domotic.unit.dal.DisplayDataType.DisplayData;
 
@@ -38,7 +36,7 @@ import org.openbase.type.domotic.unit.dal.DisplayDataType.DisplayData;
  *
  * @author <a href="mailto:divine@openbase.org">Divine Threepwood</a>
  */
-public class DisplayServer extends RSBCommunicationService<DisplayData, DisplayData.Builder> {
+public class DisplayServer extends AbstractControllerServer<DisplayData, DisplayData.Builder> {
 
     static {
         DefaultConverterRepository.getDefaultConverterRepository().addConverter(new ProtocolBufferConverter<>(MetaConfig.getDefaultInstance()));
