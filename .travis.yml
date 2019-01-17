@@ -1,12 +1,15 @@
 language: java
 
+dist: xenial
+
 branches:
   except:
       #- /^(?i:feature)-.*$/
       #- /^(?i:release)-.*$/
 
 jdk:
-  - oraclejdk8
+  - openjdk11
+  - openjdk-ea
 
 install:
   - mvn --settings .travis/settings.xml install -DskipTests=true -Dmaven.javadoc.skip=true -B -U -V -q
@@ -31,10 +34,10 @@ deploy:
     on:
         repo: openbase/generic-display
         branch: master
-        jdk: oraclejdk8
+        jdk: openjdk11
   - provider: script
     script: .travis/deploy.sh
     on:
         repo: openbase/generic-display
         tags: true
-        jdk: oraclejdk8
+        jdk: openjdk11
