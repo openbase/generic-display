@@ -9,6 +9,9 @@
         <module name="generic-display" />
         <module name="jul.annotation" />
         <module name="jul.audio" />
+        <module name="jul.communication" />
+        <module name="jul.communication.controller" />
+        <module name="jul.communication.tcp" />
         <module name="jul.exception" />
         <module name="jul.extension.openhab" />
         <module name="jul.extension.protobuf" />
@@ -38,6 +41,8 @@
         <module name="jul.pattern.launch" />
         <module name="jul.pattern.trigger" />
         <module name="jul.processing" />
+        <module name="jul.processing.json" />
+        <module name="jul.processing.xml" />
         <module name="jul.schedule" />
         <module name="jul.storage" />
         <module name="jul.visual.javafx" />
@@ -49,6 +54,10 @@
       <module name="jul" target="1.8" />
       <module name="jul.annotation" target="1.8" />
       <module name="jul.audio" target="1.8" />
+      <module name="jul.communication" target="1.8" />
+      <module name="jul.communication.controller" target="1.8" />
+      <module name="jul.communication.module" target="1.8" />
+      <module name="jul.communication.tcp" target="1.8" />
       <module name="jul.exception" target="1.8" />
       <module name="jul.extension" target="1.8" />
       <module name="jul.extension.openhab" target="1.8" />
@@ -83,6 +92,9 @@
       <module name="jul.pattern.module" target="1.8" />
       <module name="jul.pattern.trigger" target="1.8" />
       <module name="jul.processing" target="1.8" />
+      <module name="jul.processing.json" target="1.8" />
+      <module name="jul.processing.module" target="1.8" />
+      <module name="jul.processing.xml" target="1.8" />
       <module name="jul.schedule" target="1.8" />
       <module name="jul.storage" target="1.8" />
       <module name="jul.visual" target="1.8" />

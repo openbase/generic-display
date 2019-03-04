@@ -22,8 +22,11 @@ package org.openbase.display.jp;
  * #L%
  */
 
-import org.openbase.jul.extension.rsb.scope.jp.JPScope;
-import rsb.Scope;
+import org.openbase.jps.exception.JPNotAvailableException;
+import org.openbase.jul.communication.controller.jp.JPScope;
+import org.openbase.jul.exception.CouldNotPerformException;
+import org.openbase.jul.extension.type.processing.ScopeProcessor;
+import org.openbase.type.communication.ScopeType;
 
 /**
  *
@@ -38,8 +41,12 @@ public class JPDisplayScope extends JPScope {
     }
 
     @Override
-    protected Scope getPropertyDefaultValue() {
-        return super.getPropertyDefaultValue().concat(new Scope("/home/display"));
+    protected ScopeType.Scope getPropertyDefaultValue() throws JPNotAvailableException {
+        try {
+            return ScopeProcessor.generateScope("/home/display");
+        } catch (CouldNotPerformException ex) {
+            throw new JPNotAvailableException(JPScope.class, ex);
+        }
     }
 
     @Override

@@ -5,9 +5,12 @@
     <file url="file://$PROJECT_DIR$/../jul" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/annotation" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/audio" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication/controller" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication/default" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication/tcp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/exception" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/openhab" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/protobuf" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/com" charset="UTF-8" />
@@ -31,6 +34,9 @@
     <file url="file://$PROJECT_DIR$/../jul/pattern/launch" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/trigger" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/processing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/default" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/xml" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/schedule" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/storage" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/visual" charset="UTF-8" />

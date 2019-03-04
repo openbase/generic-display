@@ -285,12 +285,6 @@
             <version>11</version>
         </dependency>
 
-
-        <dependency>
-            <groupId>org.openbase</groupId>
-            <artifactId>jul.extension.rsb.interface</artifactId>
-            <version>${dependency.jul.version}</version>
-        </dependency>
         <dependency>
             <groupId>org.openbase</groupId>
             <artifactId>jul.exception</artifactId>
@@ -298,7 +292,7 @@
         </dependency>
         <dependency>
             <groupId>org.openbase</groupId>
-            <artifactId>jul.extension.rsb.com</artifactId>
+            <artifactId>jul.communication.controller</artifactId>
             <version>${dependency.jul.version}</version>
         </dependency>
     </dependencies>
