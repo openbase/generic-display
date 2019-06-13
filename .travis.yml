@@ -12,9 +12,10 @@ matrix:
   - jdk: openjdk8
   - jdk: openjdk-ea
 
-cache:
-  directories:
-  - $HOME/.m2
+# cache disabled since it cause many issues where artifacts are not correctly updated.
+#cache:
+#  directories:
+#  - $HOME/.m2
 
 install:
   - mvn --settings .travis/settings.xml install -DskipTests=true -Dmaven.javadoc.skip=true --batch-mode --update-snapshots --show-version --quiet
