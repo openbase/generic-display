@@ -1,46 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+  <component name="Encoding">
     <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/annotation" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/annotation/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/audio" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/audio/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/communication" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/communication/controller" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication/controller/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/communication/default" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/communication/tcp" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/communication/tcp/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/exception" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/exception/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/protobuf" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/protobuf/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/com" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/rsb/com/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/container" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/rsb/interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/processing" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/scope" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/rsb/scope/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/rsb/util" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/tcp" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type/interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type/processing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/processing/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type/storage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/storage/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type/transform" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/transform/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/extension/type/util" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/../jul/extension/xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/extension/type/util/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/interface" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/interface/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/controller" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/pattern/controller/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/default" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/pattern/default/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/launch" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/pattern/launch/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/pattern/trigger" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/pattern/trigger/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/processing" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/processing/default" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/default/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/processing/json" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/json/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/processing/xml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/processing/xml/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/schedule" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/schedule/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/storage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/storage/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/visual" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/visual/javafx" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/visual/javafx/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/visual/javafx/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/../jul/visual/swing" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/../jul/visual/swing/src/main/java" charset="UTF-8" />
   </component>
 </project>

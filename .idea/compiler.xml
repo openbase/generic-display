@@ -6,52 +6,52 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="generic-display" />
-        <module name="jul.annotation" />
-        <module name="jul.audio" />
-        <module name="jul.communication" />
-        <module name="jul.communication.controller" />
-        <module name="jul.communication.tcp" />
-        <module name="jul.exception" />
-        <module name="jul.extension.openhab" />
-        <module name="jul.extension.protobuf" />
-        <module name="jul.extension.rct" />
-        <module name="jul.extension.rsb.com" />
-        <module name="jul.extension.rsb.container" />
-        <module name="jul.extension.rsb.interface" />
-        <module name="jul.extension.rsb.processing" />
-        <module name="jul.extension.rsb.scope" />
-        <module name="jul.extension.rsb.util" />
-        <module name="jul.extension.rst.container" />
-        <module name="jul.extension.rst.interface" />
-        <module name="jul.extension.rst.processing" />
+        <module name="jul.visual.javafx" />
         <module name="jul.extension.rst.storage" />
+        <module name="jul.audio" />
+        <module name="jul.extension.rsb.scope" />
+        <module name="jul.storage" />
+        <module name="jul.processing" />
+        <module name="jul.exception" />
         <module name="jul.extension.rst.transform" />
-        <module name="jul.extension.rst.util" />
         <module name="jul.extension.tcp" />
-        <module name="jul.extension.type.interface" />
-        <module name="jul.extension.type.processing" />
-        <module name="jul.extension.type.storage" />
-        <module name="jul.extension.type.transform" />
+        <module name="jul.extension.rct" />
         <module name="jul.extension.type.util" />
-        <module name="jul.extension.xml" />
-        <module name="jul.interface" />
+        <module name="jul.communication.tcp" />
+        <module name="jul.extension.rsb.util" />
         <module name="jul.pattern" />
+        <module name="jul.processing.xml" />
+        <module name="jul.extension.type.transform" />
+        <module name="jul.interface" />
+        <module name="jul.extension.type.interface" />
+        <module name="generic-display" />
+        <module name="jul.communication" />
+        <module name="jul.extension.rsb.container" />
         <module name="jul.pattern.controller" />
         <module name="jul.pattern.launch" />
-        <module name="jul.pattern.trigger" />
-        <module name="jul.processing" />
-        <module name="jul.processing.json" />
-        <module name="jul.processing.xml" />
         <module name="jul.schedule" />
-        <module name="jul.storage" />
-        <module name="jul.visual.javafx" />
         <module name="jul.visual.swing" />
+        <module name="jul.extension.rsb.processing" />
+        <module name="jul.extension.rst.util" />
+        <module name="jul.extension.rsb.com" />
+        <module name="jul.extension.openhab" />
+        <module name="jul.extension.rsb.interface" />
+        <module name="jul.annotation" />
+        <module name="jul.processing.json" />
+        <module name="jul.extension.protobuf" />
+        <module name="jul.extension.rst.interface" />
+        <module name="jul.extension.type.storage" />
+        <module name="jul.extension.xml" />
+        <module name="jul.pattern.trigger" />
+        <module name="jul.extension.rst.container" />
+        <module name="jul.communication.controller" />
+        <module name="jul.extension.type.processing" />
+        <module name="jul.extension.rst.processing" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="generic-display" target="1.8" />
-      <module name="jul" target="1.8" />
+      <module name="generic-display" target="11" />
+      <module name="jul" target="1.5" />
       <module name="jul.annotation" target="1.8" />
       <module name="jul.audio" target="1.8" />
       <module name="jul.communication" target="1.8" />
