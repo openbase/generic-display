@@ -1,5 +1,7 @@
 # Welcome to the Generic Display Wiki
 
+**Project no longer supported by openbase**
+
 ## Maven 
 
 ### Artifact
